@@ -1,0 +1,16 @@
+---
+# Veeam migration playbook
+# Organization: Infinite Improbability Corp (IIC)
+# Configures the Hyper-V staging host and triggers Veeam replica cutover.
+
+- name: Veeam migration — configure Hyper-V staging
+  hosts: hyperv_staging
+  gather_facts: true
+  tags: [veeam]
+
+  vars_files:
+    - "{{ playbook_dir }}/../../config/variables/variables.yml"
+
+  roles:
+    - migration-preflight
+    - migration-veeam

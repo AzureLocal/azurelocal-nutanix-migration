@@ -1,0 +1,16 @@
+# Example Terraform variable values — Infinite Improbability Corp (IIC)
+# Copy to terraform.tfvars and fill in real values before running.
+
+location              = "eastus"
+subscription_id       = "00000000-0000-0000-0000-000000000000"
+environment           = "iic"
+resource_group_suffix = "01"
+key_vault_name        = "kv-iic-migration"
+migrate_project_name  = "migrate-iic-nutanix-01"
+azlocal_cluster_name  = "azlocal-iic-01"
+
+tags = {
+  environment = "iic"
+  project     = "nutanix-migration"
+  owner       = "migration-team@improbability.cloud"
+}

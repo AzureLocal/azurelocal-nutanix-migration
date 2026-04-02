@@ -6,7 +6,7 @@
 
 ## IIC Naming Convention
 
-All Azure and Azure Local resources in this project follow the Contoso IIC naming standard:
+All Azure and Azure Local resources in this project follow the IIC (Infinite Improbability Corp) naming standard:
 
 ### Resource Groups
 
@@ -55,8 +55,8 @@ nsg-iic-<purpose>-<##>
 
 | Item | Value |
 |------|-------|
-| Active Directory domain | `contoso.local` |
-| Public/cloud domain | `contoso.cloud` |
+| Active Directory domain | `iic.local` |
+| Public/cloud domain | `improbability.cloud` |
 | DNS servers | `10.0.0.10`, `10.0.0.11` |
 
 ---
@@ -65,8 +65,8 @@ nsg-iic-<purpose>-<##>
 
 All documentation in this repository follows these conventions:
 
-1. **No real company names**: All customer-specific names are replaced with `Contoso` (the IIC environment)
-2. **No real datacenters**: Referred to as `Contoso datacenter`
+1. **No real company names**: All customer-specific names are replaced with `IIC` / `Infinite Improbability Corp`
+2. **No real datacenters**: Referred to as `IIC datacenter`
 3. **Tabs for platform variants**: AHV vs. ESXi and Option A vs. Option B use the `=== "..."` tab syntax
 4. **Admonitions for warnings**: `!!! warning` for destructive operations, `!!! tip` for shortcuts, `!!! note` for informational asides
 5. **Tables over prose**: Configuration requirements are always in tables when there are 3+ items

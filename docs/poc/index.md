@@ -24,7 +24,7 @@ See the [Test Matrix](test-matrix.md) for the full breakdown of what is tested i
 | Item | Value |
 |------|-------|
 | Total VMs | 10 representative VMs (5 per tool, some shared) |
-| Environments | Nutanix AHV cluster in Contoso datacenter |
+| Environments | Nutanix AHV cluster in IIC datacenter |
 | Tools tested | Veeam Backup & Replication + HYCU Backup & Recovery |
 | Staging options | Standalone Hyper-V (Option A) + Azure Local direct (Option B) |
 | Duration | 4 weeks (see [Timeline](timeline.md)) |

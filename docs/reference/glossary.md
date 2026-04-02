@@ -51,8 +51,8 @@ Microsoft's Type-1 hypervisor. Used as the staging platform in all two-hop migra
 
 ## I
 
-**IIC** (Intelligent Infrastructure Contoso)  
-The Contoso IIC environment naming/resource convention used throughout this repository for lab and reference scenarios.
+**IIC** (Infinite Improbability Corp)  
+The IIC environment naming/resource convention used throughout this repository for lab and reference scenarios. Domain: `iic.local`, NetBIOS: `IMPROBABLE`.
 
 ---
 

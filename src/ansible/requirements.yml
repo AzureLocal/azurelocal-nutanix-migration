@@ -1,0 +1,14 @@
+---
+# Ansible Galaxy requirements for Nutanix to Azure Local migration automation
+# Organization: Infinite Improbability Corp (IIC)
+#
+# Install:
+#   ansible-galaxy collection install -r requirements.yml
+
+collections:
+  - name: azure.azcollection
+    version: ">=2.0.0"
+  - name: community.windows
+    version: ">=2.0.0"
+  - name: ansible.windows
+    version: ">=2.0.0"

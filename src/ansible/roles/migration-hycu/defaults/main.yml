@@ -1,0 +1,7 @@
+---
+# Defaults for migration-hycu role
+# Organization: Infinite Improbability Corp (IIC)
+
+hycu_web_port: 8443
+hycu_api_version: "v1.0"
+hycu_restore_type: "RESTORE_TO_NEW_LOCATION"

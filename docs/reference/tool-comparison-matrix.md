@@ -39,7 +39,7 @@
 | **Option A — Standalone Hyper-V** | Extra server required | Medium | Dedicated migration pipeline, isolated from production |
 | **Option B — Azure Local as HV** | Uses existing AZL cluster | Low | Smaller migrations, no spare hardware available |
 
-## Recommended Defaults (Contoso)
+## Recommended Defaults (IIC)
 
 After completing the PoC, update this table with the decided production configuration:
 

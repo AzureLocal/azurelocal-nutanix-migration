@@ -42,7 +42,7 @@ Select **10 representative VMs** that cover the range of workloads in your envir
 
 | Step | Action | Pass/Fail |
 |------|--------|-----------|
-| Veeam server deployed | Deploy on Windows Server in Contoso datacenter | |
+| Veeam server deployed | Deploy on Windows Server in IIC datacenter | |
 | AHV proxy added | Veeam deploys AHV proxy VM via Prism | |
 | Replication job created | 5-VM job to Hyper-V staging host | |
 | Initial replication | All 5 VMs complete in expected time | |

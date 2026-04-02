@@ -1,0 +1,16 @@
+---
+# HYCU migration playbook
+# Organization: Infinite Improbability Corp (IIC)
+# Configures the Hyper-V staging host and triggers HYCU restore.
+
+- name: HYCU migration — configure Hyper-V staging
+  hosts: hyperv_staging
+  gather_facts: true
+  tags: [hycu]
+
+  vars_files:
+    - "{{ playbook_dir }}/../../config/variables/variables.yml"
+
+  roles:
+    - migration-preflight
+    - migration-hycu

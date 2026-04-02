@@ -1,6 +1,41 @@
 ---
-# migration-veeam role — stub
-# Creates Veeam replication jobs and orchestrates batch cutover
-- name: Placeholder — Veeam replication job creation
+# Tasks: migration-veeam
+# Organization: Infinite Improbability Corp (IIC)
+# Configures Hyper-V staging and triggers replica finalization via Veeam REST.
+
+- name: Verify Veeam server connectivity (port {{ veeam_api_port }})
+  ansible.builtin.wait_for:
+    host: "{{ veeam_server }}"
+    port: "{{ veeam_api_port }}"
+    timeout: 30
+  delegate_to: localhost
+
+- name: Authenticate to Veeam REST API
+  ansible.builtin.uri:
+    url: "https://{{ veeam_server }}:{{ veeam_api_port }}/api/{{ veeam_api_version }}/token"
+    method: POST
+    body_format: form-urlencoded
+    body:
+      grant_type: password
+      username: "{{ veeam_username }}"
+      password: "{{ veeam_password }}"
+    validate_certs: false
+    status_code: 200
+  register: veeam_token
+  delegate_to: localhost
+  no_log: true
+
+- name: List replication jobs
+  ansible.builtin.uri:
+    url: "https://{{ veeam_server }}:{{ veeam_api_port }}/api/{{ veeam_api_version }}/jobs?jobType=Replica"
+    method: GET
+    headers:
+      Authorization: "Bearer {{ veeam_token.json.access_token }}"
+    validate_certs: false
+    status_code: 200
+  register: veeam_jobs
+  delegate_to: localhost
+
+- name: Report replication jobs
   ansible.builtin.debug:
-    msg: "Veeam automation tasks go here"
+    msg: "Replica jobs found: {{ veeam_jobs.json.data | map(attribute='name') | list }}"

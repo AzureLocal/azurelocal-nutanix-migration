@@ -1,22 +1,41 @@
+---
+# Inventory example — Infinite Improbability Corp (IIC)
+# Copy to hosts.yml and populate with your environment values.
+# DO NOT commit real hostnames, IPs, or credentials to version control.
+
 all:
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_scheme: https
+    ansible_winrm_server_cert_validation: ignore
+    ansible_winrm_transport: ntlm
+    domain: iic.local
+
   children:
-    nutanix:
+
+    nutanix_source:
       hosts:
-        prism-element:
-          ansible_host: ""        # Prism Element IP
-          ansible_user: admin
-    hyper_v_staging:
+        nutanix-prism:
+          ansible_host: "{{ nutanix_prism_element_ip }}"
+          ansible_connection: local  # Prism managed via REST, no direct SSH
+
+    hyperv_staging:
       hosts:
         hyperv-staging:
-          ansible_host: ""        # Hyper-V staging host
-          ansible_user: ""
+          ansible_host: hyperv-staging.iic.local
+          ansible_user: "IMPROBABLE\\migrationadmin"
+
+    azlocal:
+      hosts:
+        azlocal-iic-01:
+          ansible_host: azlocal-iic-01.iic.local
+          ansible_user: "IMPROBABLE\\migrationadmin"
+
     migration_tools:
       hosts:
         veeam-server:
-          ansible_host: ""
+          ansible_host: veeam-server.iic.local
+          ansible_user: "IMPROBABLE\\migrationadmin"
         hycu-controller:
-          ansible_host: ""
-    azure_local:
-      hosts:
-        azlocal-node-01:
-          ansible_host: ""
+          ansible_host: "{{ hycu_controller_ip }}"
+          ansible_connection: local  # HYCU managed via REST

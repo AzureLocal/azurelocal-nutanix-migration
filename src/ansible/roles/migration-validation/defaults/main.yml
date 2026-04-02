@@ -1,0 +1,8 @@
+---
+# Defaults for migration-validation role
+# Organization: Infinite Improbability Corp (IIC)
+
+validation_check_vmtools: true
+validation_check_domain_join: true
+validation_check_network: true
+validation_expected_domain: "iic.local"

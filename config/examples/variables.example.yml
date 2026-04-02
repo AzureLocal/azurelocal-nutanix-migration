@@ -1,9 +1,9 @@
 # Example variables file — filled in with sample values for reference.
 # DO NOT use real credentials or IPs in this file.
 
-environment: "contoso-iic"
-datacenter: "Contoso datacenter"
-domain: "contoso.local"
+environment: "iic"
+datacenter: "Infinite Improbability Corp datacenter"
+domain: "iic.local"
 dns_servers:
   - "10.0.0.10"
   - "10.0.0.11"
@@ -15,7 +15,7 @@ azure_location: "eastus"
 nutanix_prism_element_ip: "10.0.1.10"
 nutanix_prism_username: "admin"
 
-hyperv_host: "hyperv-staging.contoso.local"
+hyperv_host: "hyperv-staging.iic.local"
 hyperv_staging_path: "D:\\Restored"
 hyperv_switch: "Migration-vSwitch"
 
@@ -23,7 +23,7 @@ hycu_controller_ip: "10.0.1.20"
 hycu_web_port: 8443
 hycu_backup_target_type: "smb"
 
-veeam_server: "veeam-server.contoso.local"
+veeam_server: "veeam-server.iic.local"
 veeam_replica_name_suffix: "-replica"
 
 azlocal_cluster: "azlocal-iic-01"

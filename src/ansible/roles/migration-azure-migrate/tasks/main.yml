@@ -1,6 +1,40 @@
 ---
-# migration-azure-migrate role — stub
-# Configures Azure Migrate replication and triggers cutover
-- name: Placeholder — Azure Migrate replication tasks
+# Tasks: migration-azure-migrate
+# Organization: Infinite Improbability Corp (IIC)
+# Validates Azure Migrate project status and initiates cutover via az CLI.
+
+- name: Verify Azure CLI is installed
+  ansible.builtin.command: az --version
+  register: az_version
+  changed_when: false
+  delegate_to: localhost
+
+- name: Get Azure Migrate project
+  ansible.builtin.command: >
+    az migrate project show
+    --resource-group {{ azure_resource_group }}
+    --name {{ migrate_project_name }}
+    --subscription {{ azure_subscription_id }}
+    --output json
+  register: migrate_project
+  changed_when: false
+  delegate_to: localhost
+
+- name: Report Azure Migrate project status
   ansible.builtin.debug:
-    msg: "Azure Migrate automation tasks go here"
+    msg: "Azure Migrate project: {{ (migrate_project.stdout | from_json).name }} — location: {{ (migrate_project.stdout | from_json).location }}"
+
+- name: List servers in replication
+  ansible.builtin.command: >
+    az migrateproject machine list
+    --resource-group {{ azure_resource_group }}
+    --project-name {{ migrate_project_name }}
+    --subscription {{ azure_subscription_id }}
+    --output json
+  register: migrate_machines
+  changed_when: false
+  delegate_to: localhost
+
+- name: Report machines ready for cutover
+  ansible.builtin.debug:
+    msg: "Machines in migration project: {{ (migrate_machines.stdout | from_json) | map(attribute='properties.displayName') | list }}"

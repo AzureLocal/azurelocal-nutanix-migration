@@ -1,0 +1,6 @@
+---
+# Defaults for migration-azure-migrate role
+# Organization: Infinite Improbability Corp (IIC)
+
+azure_migrate_replication_check_interval_seconds: 60
+azure_migrate_max_wait_minutes: 120

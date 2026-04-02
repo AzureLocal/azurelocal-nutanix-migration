@@ -1,5 +1,8 @@
 # Nutanix to Azure Local Migration
 
+!!! warning "Under Active Development"
+    This repository is a work in progress. Scripts, templates, and automation are not guaranteed to work at this time. Use at your own risk and expect breaking changes.
+
 > Documentation and automation for migrating workloads from Nutanix AHV and Nutanix ESXi to Azure Local.
 
 ---
@@ -29,12 +32,6 @@ This site provides end-to-end runbooks, architecture diagrams, and automation sc
     Provision new VMs on Azure Local first, then selectively migrate data from the source Nutanix VMs using Storage Migration Service, Robocopy, or database-specific tools.
 
     [:octicons-arrow-right-24: Deploy-First Guide](scenarios/03-deploy-first/index.md)
-
-- **Nutanix Move**
-
-    Use Nutanix's own native migration tool to move VMs directly from AHV or ESXi to Azure Local Hyper-V hosts without a separate backup product.
-
-    [:octicons-arrow-right-24: Nutanix Move Guide](scenarios/04-nutanix-move/index.md)
 
 - **Additional Scenarios**
 

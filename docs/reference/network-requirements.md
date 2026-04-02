@@ -52,7 +52,7 @@
 Apply these rules in your network/firewall for all paths:
 
 ```
-# From: Contoso Management VLAN → Nutanix Management VLAN
+# From: IIC Management VLAN → Nutanix Management VLAN
 Allow TCP 9440  # Prism Element HTTPS
 
 # From: Migration VLAN → Hyper-V Staging VLAN
@@ -74,13 +74,13 @@ Run these before starting any migration batch:
 
 ```powershell
 # Test Prism Element connectivity
-Test-NetConnection -ComputerName prism.contoso.local -Port 9440
+Test-NetConnection -ComputerName prism.iic.local -Port 9440
 
 # Test Hyper-V WinRM
-Test-WSMan -ComputerName hyperv-staging.contoso.local
+Test-WSMan -ComputerName hyperv-staging.iic.local
 
 # Test SMB (backup target or Azure Local)
-Test-NetConnection -ComputerName fileserver.contoso.local -Port 445
+Test-NetConnection -ComputerName fileserver.iic.local -Port 445
 
 # Test Azure connectivity from appliance
 Test-NetConnection -ComputerName login.microsoftonline.com -Port 443

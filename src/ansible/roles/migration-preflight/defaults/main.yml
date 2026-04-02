@@ -1,0 +1,8 @@
+---
+# Defaults for migration-preflight role
+# Organization: Infinite Improbability Corp (IIC)
+
+preflight_required_ps_version: 5
+preflight_min_disk_free_gb: 100
+preflight_check_winrm: true
+preflight_check_disk: true

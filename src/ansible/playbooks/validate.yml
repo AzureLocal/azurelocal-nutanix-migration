@@ -1,0 +1,15 @@
+---
+# Post-migration validation playbook
+# Organization: Infinite Improbability Corp (IIC)
+# Validates migrated VMs on Azure Local cluster.
+
+- name: Post-migration validation
+  hosts: azlocal
+  gather_facts: true
+  tags: [validate]
+
+  vars_files:
+    - "{{ playbook_dir }}/../../config/variables/variables.yml"
+
+  roles:
+    - migration-validation

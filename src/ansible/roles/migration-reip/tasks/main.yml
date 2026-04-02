@@ -1,6 +1,26 @@
 ---
-# migration-reip role — stub
-# Applies new IP/DNS settings to VMs post-restore on Hyper-V staging
-- name: Placeholder — post-restore re-IP tasks
-  ansible.builtin.debug:
-    msg: "Re-IP automation tasks go here"
+# Tasks: migration-reip
+# Organization: Infinite Improbability Corp (IIC)
+# Applies post-restore re-IP configuration to migrated VMs on Hyper-V staging.
+
+- name: Check for IP mapping variable
+  ansible.builtin.assert:
+    that: vm_ip_mapping is defined and vm_ip_mapping | length > 0
+    fail_msg: "vm_ip_mapping is not defined or empty. Populate config/variables/ip-mapping.yml and pass via -e @ip-mapping.yml"
+
+- name: Apply new IP configuration to migrated VMs
+  ansible.windows.win_shell: |
+    $adapter = Get-NetAdapter | Where-Object Status -eq 'Up' | Select-Object -First 1
+    if (-not $adapter) { throw "No active adapter found" }
+    $current = ($adapter | Get-NetIPAddress -AddressFamily IPv4 -ErrorAction SilentlyContinue).IPAddress
+    if ($current -eq "{{ item.new_ip }}") {
+      Write-Output "Already configured: {{ item.new_ip }}"
+      exit 0
+    }
+    $adapter | Remove-NetIPAddress -Confirm:$false -ErrorAction SilentlyContinue
+    $adapter | Remove-NetRoute -Confirm:$false -ErrorAction SilentlyContinue
+    New-NetIPAddress -InterfaceIndex $adapter.ifIndex -IPAddress "{{ item.new_ip }}" -PrefixLength {{ item.prefix_length | default(24) }} -DefaultGateway "{{ item.gateway }}"
+    Set-DnsClientServerAddress -InterfaceIndex $adapter.ifIndex -ServerAddresses @({{ dns_servers | map('regex_replace', '^(.*)$', '"\\1"') | join(', ') }})
+    Write-Output "Configured: {{ item.new_ip }}"
+  loop: "{{ vm_ip_mapping }}"
+  when: inventory_hostname == item.hostname

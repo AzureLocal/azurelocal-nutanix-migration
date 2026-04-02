@@ -1,6 +1,53 @@
 ---
-# migration-validation role — stub
-# Runs post-migration health checks on Azure Local VMs
-- name: Placeholder — post-migration validation tasks
+# Migration Validation Role - Tasks
+# Validates VM state post-migration: domain join, DNS, and critical services
+
+- name: Validate domain membership
+  ansible.windows.win_shell: |
+    (Get-WmiObject -Class Win32_ComputerSystem).Domain
+  register: domain_result
+  changed_when: false
+
+- name: Assert VM is joined to expected domain
+  ansible.builtin.assert:
+    that:
+      - domain_result.stdout | trim == expected_domain
+    fail_msg: "VM is joined to '{{ domain_result.stdout | trim }}', expected '{{ expected_domain }}'"
+    success_msg: "VM is joined to domain '{{ expected_domain }}'"
+  when: check_domain | bool
+
+- name: Validate DNS resolution
+  ansible.windows.win_shell: |
+    Resolve-DnsName -Name "{{ expected_domain }}" -ErrorAction Stop | Select-Object -ExpandProperty IPAddress | Select-Object -First 1
+  register: dns_result
+  changed_when: false
+  when: check_network | bool
+
+- name: Assert DNS resolution succeeded
+  ansible.builtin.assert:
+    that:
+      - dns_result.stdout | trim | length > 0
+    fail_msg: "DNS resolution for '{{ expected_domain }}' failed"
+    success_msg: "DNS resolution for '{{ expected_domain }}' succeeded: {{ dns_result.stdout | trim }}"
+  when: check_network | bool
+
+- name: Validate critical Windows services are running
+  ansible.windows.win_service_info:
+    name: "{{ item }}"
+  register: svc_info
+  loop: "{{ required_services }}"
+  changed_when: false
+
+- name: Assert required services are running
+  ansible.builtin.assert:
+    that:
+      - item.services | selectattr('state', 'equalto', 'started') | list | length > 0
+    fail_msg: "Service '{{ item.item }}' is not in 'started' state"
+    success_msg: "Service '{{ item.item }}' is running"
+  loop: "{{ svc_info.results }}"
+  loop_control:
+    label: "{{ item.item }}"
+
+- name: Log validation results
   ansible.builtin.debug:
-    msg: "Validation automation tasks go here"
+    msg: "Validation complete for {{ inventory_hostname }}: domain={{ domain_result.stdout | trim }}"

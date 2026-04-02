@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus"
+    },
+    "environment": {
+      "value": "iic"
+    },
+    "suffix": {
+      "value": "01"
+    },
+    "keyVaultName": {
+      "value": "kv-iic-migration"
+    },
+    "migrateProjectName": {
+      "value": "migrate-iic-nutanix-01"
+    },
+    "tags": {
+      "value": {
+        "environment": "iic",
+        "project": "nutanix-migration",
+        "managedBy": "arm",
+        "owner": "migration-team@improbability.cloud"
+      }
+    }
+  }
+}

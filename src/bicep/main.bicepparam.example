@@ -1,0 +1,17 @@
+// ─── Main Bicep Parameter File Example ───────────────────────────────────────
+// Organization: Infinite Improbability Corp (IIC)
+// Copy to main.bicepparam and populate before deploying.
+
+using 'main.bicep'
+
+param location           = 'eastus'
+param environment        = 'iic'
+param suffix             = '01'
+param migrateProjectName = 'migrate-iic-nutanix-01'
+param keyVaultName       = 'kv-iic-migration'
+param tags               = {
+  environment: 'iic'
+  project: 'nutanix-migration'
+  managedBy: 'bicep'
+  owner: 'migration-team@improbability.cloud'
+}

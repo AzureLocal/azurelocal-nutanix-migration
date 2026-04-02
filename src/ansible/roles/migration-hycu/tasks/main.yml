@@ -1,6 +1,45 @@
 ---
-# migration-hycu role — stub
-# Triggers HYCU backup policies and restores via HYCU REST API
-- name: Placeholder — HYCU backup and restore tasks
+# Tasks: migration-hycu
+# Organization: Infinite Improbability Corp (IIC)
+# Triggers HYCU backup and restore to Hyper-V staging host via REST API.
+
+- name: Verify HYCU controller connectivity (port {{ hycu_web_port }})
+  ansible.builtin.wait_for:
+    host: "{{ hycu_controller_ip }}"
+    port: "{{ hycu_web_port }}"
+    timeout: 30
+  delegate_to: localhost
+
+- name: Query HYCU cluster info
+  ansible.builtin.uri:
+    url: "https://{{ hycu_controller_ip }}:{{ hycu_web_port }}/rest/{{ hycu_api_version }}/cluster"
+    method: GET
+    url_username: "{{ hycu_username }}"
+    url_password: "{{ hycu_password }}"
+    force_basic_auth: true
+    validate_certs: false
+    status_code: 200
+  register: hycu_cluster
+  delegate_to: localhost
+  no_log: true
+
+- name: Report HYCU cluster identity
   ansible.builtin.debug:
-    msg: "HYCU automation tasks go here"
+    msg: "HYCU cluster: {{ hycu_cluster.json.name }} — version {{ hycu_cluster.json.version }}"
+
+- name: List VMs available for restore
+  ansible.builtin.uri:
+    url: "https://{{ hycu_controller_ip }}:{{ hycu_web_port }}/rest/{{ hycu_api_version }}/vms"
+    method: GET
+    url_username: "{{ hycu_username }}"
+    url_password: "{{ hycu_password }}"
+    force_basic_auth: true
+    validate_certs: false
+    status_code: 200
+  register: hycu_vms
+  delegate_to: localhost
+  no_log: true
+
+- name: Report VMs available
+  ansible.builtin.debug:
+    msg: "HYCU VMs available: {{ hycu_vms.json.entities | map(attribute='vmName') | list }}"

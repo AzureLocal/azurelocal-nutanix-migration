@@ -1,17 +1,49 @@
 ---
-# migration-preflight role — stub
-# Validates: Nutanix cluster health, Hyper-V staging connectivity,
-# network ports, Azure Migrate appliance status
-- name: Check Nutanix cluster reachability
-  ansible.builtin.uri:
-    url: "https://{{ nutanix_prism_ip }}:9440/PrismGateway/services/rest/v2.0/cluster"
-    validate_certs: false
-    url_username: "{{ nutanix_prism_username }}"
-    url_password: "{{ nutanix_prism_password }}"
-    force_basic_auth: true
-  register: prism_check
+# Tasks: migration-preflight
+# Organization: Infinite Improbability Corp (IIC)
 
-- name: Assert Prism Element is reachable
-  ansible.builtin.assert:
-    that: prism_check.status == 200
-    msg: "Cannot reach Prism Element at {{ nutanix_prism_ip }}"
+- name: Ensure Hyper-V role is installed
+  ansible.windows.win_feature:
+    name: Hyper-V
+    state: present
+    include_management_tools: true
+  register: hyperv_install
+  when: "'hyperv_staging' in group_names"
+
+- name: Reboot if Hyper-V required a restart
+  ansible.windows.win_reboot:
+    reboot_timeout: 300
+  when:
+    - hyperv_install is defined
+    - hyperv_install.reboot_required | default(false)
+
+- name: Ensure Hyper-V switch exists
+  community.windows.win_hyperv_switch:
+    name: "{{ hyperv_switch }}"
+    type: External
+  when: "'hyperv_staging' in group_names"
+
+- name: Ensure staging directory exists
+  ansible.windows.win_file:
+    path: "{{ hyperv_staging_path }}"
+    state: directory
+  when: "'hyperv_staging' in group_names"
+
+- name: Check free space on staging volume
+  ansible.windows.win_shell: |
+    $drive = Split-Path "{{ hyperv_staging_path }}" -Qualifier
+    $disk = Get-PSDrive ($drive.TrimEnd(':'))
+    $freeGB = [math]::Round($disk.Free / 1GB, 2)
+    if ($freeGB -lt {{ preflight_min_disk_free_gb }}) {
+      Write-Error "Insufficient disk space: ${freeGB}GB free, {{ preflight_min_disk_free_gb }}GB required"
+    } else {
+      Write-Output "OK: ${freeGB}GB free"
+    }
+  register: disk_check
+  failed_when: disk_check.rc != 0
+  when: preflight_check_disk and "'hyperv_staging' in group_names"
+
+- name: Report disk space
+  ansible.builtin.debug:
+    msg: "{{ disk_check.stdout | trim }}"
+  when: disk_check is defined and disk_check is not skipped

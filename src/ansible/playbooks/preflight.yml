@@ -1,0 +1,45 @@
+---
+# Preflight validation playbook
+# Organization: Infinite Improbability Corp (IIC)
+# Validates all required services and connectivity before migration begins.
+
+- name: Migration preflight checks
+  hosts: all
+  gather_facts: false
+  tags: [preflight]
+
+  vars_files:
+    - "{{ playbook_dir }}/../../config/variables/variables.yml"
+
+  tasks:
+    - name: Wait for WinRM connectivity
+      ansible.builtin.wait_for_connection:
+        timeout: 30
+      when: ansible_connection == 'winrm'
+
+    - name: Check PowerShell version
+      ansible.windows.win_shell: $PSVersionTable.PSVersion.Major
+      register: ps_version
+      when: ansible_connection == 'winrm'
+
+    - name: Validate PowerShell >= 5
+      ansible.builtin.assert:
+        that: ps_version.stdout | int >= 5
+        fail_msg: "PowerShell 5+ required. Found: {{ ps_version.stdout }}"
+        success_msg: "PowerShell version OK: {{ ps_version.stdout }}"
+      when: ansible_connection == 'winrm'
+
+    - name: Check available disk space on staging path
+      ansible.windows.win_shell: |
+        $drive = Split-Path "{{ hyperv_staging_path }}" -Qualifier
+        $disk = Get-PSDrive ($drive.TrimEnd(':'))
+        [math]::Round($disk.Free / 1GB, 2)
+      register: free_gb
+      when:
+        - ansible_connection == 'winrm'
+        - "'hyperv_staging' in group_names"
+
+    - name: Report staging disk space
+      ansible.builtin.debug:
+        msg: "Staging path free space: {{ free_gb.stdout | trim }} GB"
+      when: free_gb is defined and free_gb is not skipped

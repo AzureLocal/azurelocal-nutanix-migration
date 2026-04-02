@@ -1,0 +1,7 @@
+---
+# Defaults for migration-reip role
+# Organization: Infinite Improbability Corp (IIC)
+
+reip_adapter_name: ""       # Leave empty to auto-detect first active adapter
+reip_ip_mapping_file: "config/variables/ip-mapping.yml"
+reip_dns_servers: []        # Populated from variables.yml at runtime

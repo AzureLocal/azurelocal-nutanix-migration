@@ -44,7 +44,7 @@ Nutanix AHV/ESXi  ──[Veeam replication]──►  Hyper-V Staging  ──[Az
 
 ## Scale Reference
 
-This scenario is documented with a **~300 VM / 30-batch** reference scale (Contoso environment). Adjust batch sizes and timeline estimates for your actual VM count.
+This scenario is documented with a **~300 VM / 30-batch** reference scale (IIC environment). Adjust batch sizes and timeline estimates for your actual VM count.
 
 !!! tip "Start with the PoC"
     Before migrating production VMs, validate the Veeam path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.

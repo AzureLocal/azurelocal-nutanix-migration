@@ -1,0 +1,8 @@
+---
+# Defaults for migration-veeam role
+# Organization: Infinite Improbability Corp (IIC)
+
+veeam_api_port: 9419
+veeam_api_version: "v1"
+veeam_replica_suffix: "-replica"
+veeam_cutover_wait_minutes: 30
