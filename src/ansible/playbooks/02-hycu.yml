@@ -1,0 +1,10 @@
+---
+- name: HYCU Migration Path
+  hosts: all
+  gather_facts: false
+  roles:
+    - migration-preflight
+    - migration-hycu
+    - migration-reip
+    - migration-azure-migrate
+    - migration-validation

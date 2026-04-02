@@ -1,0 +1,93 @@
+site_name: Nutanix to Azure Local Migration
+site_description: Documentation and automation for migrating workloads from Nutanix AHV and Nutanix ESXi to Azure Local using Veeam, HYCU, Nutanix Move, and other migration tools.
+site_url: https://azurelocal.github.io/azurelocal-nutanix-migration/
+repo_url: https://github.com/AzureLocal/azurelocal-nutanix-migration
+repo_name: AzureLocal/azurelocal-nutanix-migration
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: light blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - Home: index.md
+  - Overview:
+      - Introduction: overview/index.md
+      - Migration Phases: overview/migration-phases.md
+      - Tool Comparison: overview/tool-comparison.md
+  - Migration Scenarios:
+      - Veeam Migration Path:
+          - Overview: scenarios/01-veeam/index.md
+          - Prerequisites: scenarios/01-veeam/prerequisites.md
+          - Architecture: scenarios/01-veeam/architecture.md
+          - Runbook: scenarios/01-veeam/runbook.md
+          - Validation & Checklist: scenarios/01-veeam/validation.md
+      - HYCU Migration Path:
+          - Overview: scenarios/02-hycu/index.md
+          - Prerequisites: scenarios/02-hycu/prerequisites.md
+          - Architecture: scenarios/02-hycu/architecture.md
+          - Runbook: scenarios/02-hycu/runbook.md
+          - Validation & Checklist: scenarios/02-hycu/validation.md
+      - Deploy-First Migration:
+          - Overview: scenarios/03-deploy-first/index.md
+      - Nutanix Move:
+          - Overview: scenarios/04-nutanix-move/index.md
+      - Additional Scenarios:
+          - Overview: scenarios/05-additional/index.md
+  - Proof of Concept:
+      - Overview: poc/index.md
+      - Test Matrix: poc/test-matrix.md
+      - Timeline & Decisions: poc/timeline.md
+  - Diagrams: diagrams/index.md
+  - Reference:
+      - Tool Comparison Matrix: reference/tool-comparison-matrix.md
+      - Network Requirements: reference/network-requirements.md
+      - IP Mapping Template: reference/ip-mapping-template.md
+      - Glossary: reference/glossary.md
+  - Standards: standards/index.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+plugins:
+  - search

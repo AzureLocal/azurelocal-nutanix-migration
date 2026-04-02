@@ -1,0 +1,43 @@
+# Migration configuration variables
+# Copy this file and fill in values for your environment before running any scripts.
+
+# --- Environment Identity ---
+environment: "contoso-iic"
+datacenter: "Contoso datacenter"
+domain: "contoso.local"
+dns_servers:
+  - "10.0.0.10"
+  - "10.0.0.11"
+
+# --- Azure ---
+azure_subscription_id: ""
+azure_resource_group: "rg-iic-migration-01"
+azure_location: "eastus"
+
+# --- Nutanix Source ---
+nutanix_prism_element_ip: ""
+nutanix_prism_username: "admin"
+# nutanix_prism_password: stored in secrets manager, not here
+
+# --- Hyper-V Staging ---
+hyperv_host: ""
+hyperv_staging_path: "D:\\Restored"
+hyperv_switch: "Migration-vSwitch"
+
+# --- HYCU ---
+hycu_controller_ip: ""
+hycu_web_port: 8443
+hycu_backup_target_type: "smb"  # smb | nfs | s3
+
+# --- Veeam ---
+veeam_server: ""
+veeam_replica_name_suffix: "-replica"
+
+# --- Azure Local ---
+azlocal_cluster: "azlocal-iic-01"
+azlocal_csv_path: "C:\\ClusterStorage\\Volume01"
+azlocal_switch: "ConvergedSwitch"
+
+# --- Migration Settings ---
+batch_size: 10
+holding_period_days: 14

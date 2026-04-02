@@ -1,0 +1,34 @@
+# Example variables file — filled in with sample values for reference.
+# DO NOT use real credentials or IPs in this file.
+
+environment: "contoso-iic"
+datacenter: "Contoso datacenter"
+domain: "contoso.local"
+dns_servers:
+  - "10.0.0.10"
+  - "10.0.0.11"
+
+azure_subscription_id: "00000000-0000-0000-0000-000000000000"
+azure_resource_group: "rg-iic-migration-01"
+azure_location: "eastus"
+
+nutanix_prism_element_ip: "10.0.1.10"
+nutanix_prism_username: "admin"
+
+hyperv_host: "hyperv-staging.contoso.local"
+hyperv_staging_path: "D:\\Restored"
+hyperv_switch: "Migration-vSwitch"
+
+hycu_controller_ip: "10.0.1.20"
+hycu_web_port: 8443
+hycu_backup_target_type: "smb"
+
+veeam_server: "veeam-server.contoso.local"
+veeam_replica_name_suffix: "-replica"
+
+azlocal_cluster: "azlocal-iic-01"
+azlocal_csv_path: "C:\\ClusterStorage\\Volume01"
+azlocal_switch: "ConvergedSwitch"
+
+batch_size: 10
+holding_period_days: 14

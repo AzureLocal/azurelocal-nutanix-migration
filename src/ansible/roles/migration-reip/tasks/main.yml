@@ -1,0 +1,6 @@
+---
+# migration-reip role — stub
+# Applies new IP/DNS settings to VMs post-restore on Hyper-V staging
+- name: Placeholder — post-restore re-IP tasks
+  ansible.builtin.debug:
+    msg: "Re-IP automation tasks go here"

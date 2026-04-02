@@ -1,0 +1,8 @@
+---
+- name: Nutanix to Azure Local — Full Migration Orchestration
+  hosts: all
+  gather_facts: false
+  roles:
+    - migration-preflight
+    - migration-azure-migrate
+    - migration-validation

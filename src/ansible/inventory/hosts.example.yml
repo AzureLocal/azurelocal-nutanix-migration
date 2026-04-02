@@ -1,0 +1,22 @@
+all:
+  children:
+    nutanix:
+      hosts:
+        prism-element:
+          ansible_host: ""        # Prism Element IP
+          ansible_user: admin
+    hyper_v_staging:
+      hosts:
+        hyperv-staging:
+          ansible_host: ""        # Hyper-V staging host
+          ansible_user: ""
+    migration_tools:
+      hosts:
+        veeam-server:
+          ansible_host: ""
+        hycu-controller:
+          ansible_host: ""
+    azure_local:
+      hosts:
+        azlocal-node-01:
+          ansible_host: ""

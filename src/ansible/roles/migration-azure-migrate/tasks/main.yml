@@ -1,0 +1,6 @@
+---
+# migration-azure-migrate role — stub
+# Configures Azure Migrate replication and triggers cutover
+- name: Placeholder — Azure Migrate replication tasks
+  ansible.builtin.debug:
+    msg: "Azure Migrate automation tasks go here"

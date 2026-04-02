@@ -1,0 +1,10 @@
+---
+- name: Veeam Migration Path
+  hosts: all
+  gather_facts: false
+  roles:
+    - migration-preflight
+    - migration-veeam
+    - migration-reip
+    - migration-azure-migrate
+    - migration-validation

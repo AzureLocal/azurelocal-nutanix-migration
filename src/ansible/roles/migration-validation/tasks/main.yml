@@ -1,0 +1,6 @@
+---
+# migration-validation role — stub
+# Runs post-migration health checks on Azure Local VMs
+- name: Placeholder — post-migration validation tasks
+  ansible.builtin.debug:
+    msg: "Validation automation tasks go here"

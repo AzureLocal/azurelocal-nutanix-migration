@@ -1,0 +1,413 @@
+<mxfile host="app.diagrams.net" modified="2026-04-02T00:00:00.000Z" agent="Claude" version="24.0.0" type="device">
+  <diagram id="arch-overview" name="1 - High-Level Architecture">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title1" value="&lt;b&gt;Nutanix AHV → Azure Local Migration: Two-Hop Architecture (HYCU)&lt;/b&gt;" style="text;html=1;fontSize=20;fontFamily=Arial;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="1100" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Source Zone -->
+        <mxCell id="zone-src" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;dashed=1;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="420" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-src-label" value="&lt;b&gt;SOURCE ENVIRONMENT&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="120" y="100" width="260" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="ahv-cluster" value="&lt;b&gt;Nutanix AHV Cluster&lt;/b&gt;&lt;br&gt;Prism Element / Central&lt;br&gt;~300 VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="110" y="150" width="260" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="ahv-vms" value="&lt;b&gt;VM Batch (10 VMs)&lt;/b&gt;&lt;br&gt;Batch 01: VM001–VM010&lt;br&gt;Batch 02: VM011–VM020&lt;br&gt;... through Batch 30" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="110" y="260" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="hycu-controller" value="&lt;b&gt;HYCU Controller VM&lt;/b&gt;&lt;br&gt;Runs ON Nutanix cluster&lt;br&gt;4 vCPU / 8 GB RAM&lt;br&gt;Web UI management console&lt;br&gt;No separate Windows server!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="90" y="385" width="290" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="ngt" value="Nutanix Snapshots (native)&lt;br&gt;No agent required" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#66bb6a;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="130" y="505" width="220" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- HYCU Target/Repo Zone -->
+        <mxCell id="zone-hycu" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6ffe6;strokeColor=#338833;dashed=1;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="520" y="90" width="260" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-hycu-label" value="&lt;b&gt;HYCU BACKUP TARGET&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#338833;align=center;" vertex="1" parent="1">
+          <mxGeometry x="550" y="100" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="hycu-target" value="&lt;b&gt;HYCU Backup Target&lt;/b&gt;&lt;br&gt;SMB Share / NFS / S3&lt;br&gt;or iSCSI volume&lt;br&gt;Stores backup copies" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="545" y="160" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="hycu-migrate" value="&lt;b&gt;HYCU Migration Job&lt;/b&gt;&lt;br&gt;Backup → Restore to Hyper-V&lt;br&gt;Disk format conversion&lt;br&gt;(AHV → VHDX)&lt;br&gt;10 VMs per batch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="545" y="290" width="210" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="hycu-license" value="&lt;b&gt;HYCU Licensing&lt;/b&gt;&lt;br&gt;Per-VM or per-socket&lt;br&gt;Subscription model" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="560" y="430" width="180" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="hycu-adv" value="&lt;b&gt;Key Advantage:&lt;/b&gt;&lt;br&gt;No Windows backup server&lt;br&gt;No proxy VM to manage&lt;br&gt;Native AHV integration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="555" y="515" width="195" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Staging Zone -->
+        <mxCell id="zone-staging" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#c88400;dashed=1;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="840" y="90" width="320" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-staging-label" value="&lt;b&gt;HYPER-V STAGING&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#c88400;align=center;" vertex="1" parent="1">
+          <mxGeometry x="910" y="100" width="180" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="hv-host" value="&lt;b&gt;Hyper-V Staging Host&lt;/b&gt;&lt;br&gt;Windows Server 2022/2025&lt;br&gt;Hyper-V Role Enabled&lt;br&gt;10 GbE Network" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="880" y="150" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="restored-vms" value="&lt;b&gt;Restored VMs (Batch of 10)&lt;/b&gt;&lt;br&gt;Dynamic VHDX (thin)&lt;br&gt;Restored by HYCU" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="890" y="270" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="staging-storage" value="&lt;b&gt;Staging Storage&lt;/b&gt;&lt;br&gt;D:\Restored\BatchNN&lt;br&gt;Dynamic VHDX only&lt;br&gt;DELETE after Azure Migrate!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="365" width="220" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="az-mig-appliance" value="&lt;b&gt;Azure Migrate Appliance&lt;/b&gt;&lt;br&gt;VM on Hyper-V Host&lt;br&gt;8 GB RAM / 4 vCPU&lt;br&gt;Discovers VMs via WMI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="890" y="470" width="220" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Target Zone -->
+        <mxCell id="zone-target" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;dashed=1;strokeWidth=2;arcSize=8;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="90" width="340" height="520" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-target-label" value="&lt;b&gt;AZURE LOCAL (TARGET)&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#1a73e8;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="100" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="azl-cluster" value="&lt;b&gt;Azure Local Cluster&lt;/b&gt;&lt;br&gt;23H2 / 2411+&lt;br&gt;Azure Arc-Enabled&lt;br&gt;S2D / CSV Storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="150" width="220" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="prod-vms" value="&lt;b&gt;Production VMs&lt;/b&gt;&lt;br&gt;Final home for all 300 VMs&lt;br&gt;Arc-managed&lt;br&gt;Full Azure integration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="280" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="az-portal" value="&lt;b&gt;Azure Portal&lt;/b&gt;&lt;br&gt;Azure Migrate Project&lt;br&gt;Arc Resource Bridge&lt;br&gt;Monitoring &amp; Management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="410" width="210" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- ARROWS -->
+        <mxCell id="arr1" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2e7d32;" edge="1" parent="1" source="hycu-controller" target="hycu-target">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arr1-label" value="&lt;b&gt;Backup via AHV API&lt;/b&gt;&lt;br&gt;Native snapshots" style="edgeLabel;html=1;fontSize=9;fontColor=#2e7d32;align=center;" vertex="1" connectable="0" parent="arr1">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="arr2" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#c88400;" edge="1" parent="1" source="hycu-migrate" target="restored-vms">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arr2-label" value="&lt;b&gt;HOP 1: HYCU Restore&lt;/b&gt;&lt;br&gt;Backup → Hyper-V (VHDX)&lt;br&gt;10 VMs per batch" style="edgeLabel;html=1;fontSize=10;fontColor=#c88400;align=center;fontStyle=1;" vertex="1" connectable="0" parent="arr2">
+          <mxGeometry relative="1" as="geometry"><mxPoint y="-10" as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="arr3" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#1a73e8;" edge="1" parent="1" source="restored-vms" target="prod-vms">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arr3-label" value="&lt;b&gt;HOP 2: Azure Migrate&lt;/b&gt;&lt;br&gt;Hyper-V → Azure Local&lt;br&gt;SMB / HTTPS" style="edgeLabel;html=1;fontSize=10;fontColor=#1a73e8;align=center;fontStyle=1;" vertex="1" connectable="0" parent="arr3">
+          <mxGeometry relative="1" as="geometry"><mxPoint y="-10" as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="arr4" value="" style="endArrow=block;endFill=1;strokeWidth=1;strokeColor=#9673a6;dashed=1;" edge="1" parent="1" source="az-mig-appliance" target="az-portal">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="arr4-label" value="HTTPS 443&lt;br&gt;(Metadata &amp; Control)" style="edgeLabel;html=1;fontSize=9;fontColor=#9673a6;" vertex="1" connectable="0" parent="arr4">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="arr5" value="" style="endArrow=none;strokeWidth=1;strokeColor=#6c8ebf;dashed=1;" edge="1" parent="1" source="ahv-cluster" target="ahv-vms">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Legend -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="520" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-title" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;fontSize=11;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="50" y="645" width="80" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="Source (Nutanix)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="50" y="670" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="HYCU Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="170" y="670" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="Hyper-V Staging" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="290" y="670" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="Azure / Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg5" value="Action Required" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="170" y="700" width="110" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg6" value="Azure Local (Target)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="290" y="700" width="110" height="25" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="batch-pipeline" name="2 - Batch Pipeline Flow">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="bp-title" value="&lt;b&gt;Per-Batch Pipeline: 10 VMs Through the Two-Hop Migration (HYCU)&lt;/b&gt;" style="text;html=1;fontSize=18;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="1100" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph1" value="&lt;b&gt;1. PREP&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Identify 10 VMs&lt;br&gt;Verify networking&lt;br&gt;Notify stakeholders&lt;br&gt;&lt;br&gt;&lt;i&gt;1–2 days&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph2" value="&lt;b&gt;2. HYCU&lt;br&gt;BACKUP&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Full backup from AHV&lt;br&gt;Native snapshots&lt;br&gt;To HYCU target&lt;br&gt;&lt;br&gt;&lt;i&gt;2–12 hours&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph3" value="&lt;b&gt;3. HYCU&lt;br&gt;INCREMENTAL&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Scheduled incrementals&lt;br&gt;Snapshot-based&lt;br&gt;Until cutover window&lt;br&gt;&lt;br&gt;&lt;i&gt;1–7 days&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="370" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph4" value="&lt;b&gt;4. HYCU&lt;br&gt;RESTORE&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Final incremental&lt;br&gt;Power off AHV VMs&lt;br&gt;Restore to Hyper-V&lt;br&gt;&lt;br&gt;&lt;i&gt;1–4 hours&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="540" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph5" value="&lt;b&gt;5. HYPER-V&lt;br&gt;VALIDATION&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Boot test&lt;br&gt;Network check&lt;br&gt;App verification&lt;br&gt;&lt;br&gt;&lt;i&gt;2–4 hours&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="710" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph6" value="&lt;b&gt;6. AZURE MIGRATE&lt;br&gt;REPLICATION&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Replicate VHDX&lt;br&gt;to Azure Local&lt;br&gt;via SMB/HTTPS&lt;br&gt;&lt;br&gt;&lt;i&gt;4–24 hours&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="880" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph7" value="&lt;b&gt;7. TEST&lt;br&gt;MIGRATION&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Test failover to&lt;br&gt;isolated network&lt;br&gt;Validate apps&lt;br&gt;&lt;br&gt;&lt;i&gt;2–4 hours&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph8" value="&lt;b&gt;8. AZURE LOCAL&lt;br&gt;CUTOVER&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Final sync&lt;br&gt;Create prod VMs&lt;br&gt;Complete migration&lt;br&gt;&lt;br&gt;&lt;i&gt;30–60 min&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1220" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ph9" value="&lt;b&gt;9. VALIDATE&lt;br&gt;&amp; CLEANUP&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Full app validation&lt;br&gt;Delete HV VMs&lt;br&gt;Decommission AHV&lt;br&gt;&lt;br&gt;&lt;i&gt;2–4 hours&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1390" y="80" width="140" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="a12" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph1" target="ph2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a23" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph2" target="ph3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a34" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph3" target="ph4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a45" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph4" target="ph5"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a56" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph5" target="ph6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a67" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph6" target="ph7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a78" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph7" target="ph8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a89" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#333333;" edge="1" parent="1" source="ph8" target="ph9"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="rollback" value="&lt;b&gt;ROLLBACK&lt;/b&gt;: Power AHV source VMs back on" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#b85450;dashed=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;curved=1;edgeStyle=orthogonalEdgeStyle;" edge="1" parent="1" source="ph5" target="ph1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="780" y="280"/><mxPoint x="100" y="280"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="storage-note" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;strokeWidth=2;arcSize=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="320" width="1500" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="sn-title" value="&lt;b&gt;STORAGE RECYCLING PATTERN (Critical for Hyper-V Staging)&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#f57f17;align=left;" vertex="1" parent="1">
+          <mxGeometry x="50" y="330" width="500" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="sn-text" value="1. Batch 1 VMs backed up by HYCU → restored to Hyper-V → occupies ~800 GB–2 TB staging storage&lt;br&gt;2. Batch 1 migrated to Azure Local via Azure Migrate → now on Azure Local CSV&lt;br&gt;3. &lt;b&gt;DELETE Batch 1 restored VMs from Hyper-V&lt;/b&gt; → storage reclaimed&lt;br&gt;4. Batch 2 restore begins → reuses the freed storage&lt;br&gt;5. Repeat for all 30 batches → &lt;b&gt;only ever need storage for 10–20 VMs at a time&lt;/b&gt;" style="text;html=1;fontSize=11;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="50" y="358" width="750" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="wf-title" value="&lt;b&gt;Batch Waterfall (Overlapping Batches)&lt;/b&gt;" style="text;html=1;fontSize=14;fontFamily=Arial;align=left;" vertex="1" parent="1">
+          <mxGeometry x="30" y="470" width="400" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk-label" value="&lt;b&gt;Batch&lt;/b&gt;" style="text;html=1;fontSize=10;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="30" y="510" width="80" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk1" value="&lt;b&gt;Week 1&lt;/b&gt;" style="text;html=1;fontSize=10;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="120" y="510" width="200" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk2" value="&lt;b&gt;Week 2&lt;/b&gt;" style="text;html=1;fontSize=10;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="330" y="510" width="200" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk3" value="&lt;b&gt;Week 3&lt;/b&gt;" style="text;html=1;fontSize=10;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="540" y="510" width="200" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk4" value="&lt;b&gt;Week 4&lt;/b&gt;" style="text;html=1;fontSize=10;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="750" y="510" width="200" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1-label" value="Batch 1" style="text;html=1;fontSize=10;fontFamily=Arial;align=right;" vertex="1" parent="1">
+          <mxGeometry x="30" y="540" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1-hycu" value="HYCU Backup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="120" y="540" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1-cut" value="Restore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="225" y="540" width="50" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1-azmig" value="Az Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="280" y="540" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b1-done" value="✓" style="text;html=1;fontSize=14;fontColor=#2e7d32;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="385" y="538" width="30" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2-label" value="Batch 2" style="text;html=1;fontSize=10;fontFamily=Arial;align=right;" vertex="1" parent="1">
+          <mxGeometry x="30" y="575" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2-hycu" value="HYCU Backup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="330" y="575" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2-cut" value="Restore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="435" y="575" width="50" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2-azmig" value="Az Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="490" y="575" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b2-done" value="✓" style="text;html=1;fontSize=14;fontColor=#2e7d32;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="595" y="573" width="30" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3-label" value="Batch 3" style="text;html=1;fontSize=10;fontFamily=Arial;align=right;" vertex="1" parent="1">
+          <mxGeometry x="30" y="610" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3-hycu" value="HYCU Backup" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="540" y="610" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3-cut" value="Restore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="645" y="610" width="50" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3-azmig" value="Az Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="700" y="610" width="100" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="b3-done" value="✓" style="text;html=1;fontSize=14;fontColor=#2e7d32;fontStyle=1;align=center;" vertex="1" parent="1">
+          <mxGeometry x="805" y="608" width="30" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="bn-label" value="Batch 30" style="text;html=1;fontSize=10;fontFamily=Arial;align=right;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="30" y="650" width="80" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="bn-dots" value="..." style="text;html=1;fontSize=18;fontFamily=Arial;align=center;fontColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="120" y="645" width="200" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="del-note" value="⚠ Delete Hyper-V restored VMs after each batch migrates to Azure Local → reclaim staging storage" style="text;html=1;fontSize=11;fontFamily=Arial;fontColor=#b85450;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="30" y="690" width="700" height="25" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="hycu-detail" name="3 - HYCU Setup Detail">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="vd-title" value="&lt;b&gt;HYCU: Configuration Detail for AHV-to-Hyper-V Migration&lt;/b&gt;" style="text;html=1;fontSize=18;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="900" height="35" as="geometry"/>
+        </mxCell>
+        <!-- HYCU Controller Box -->
+        <mxCell id="ctrl-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="400" height="440" as="geometry"/>
+        </mxCell>
+        <mxCell id="ctrl-title" value="&lt;b&gt;HYCU CONTROLLER (on Nutanix)&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#2e7d32;align=center;" vertex="1" parent="1">
+          <mxGeometry x="80" y="90" width="300" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="c1" value="&lt;b&gt;1. Deploy HYCU Controller VM&lt;/b&gt;&lt;br&gt;Download OVA from HYCU portal&lt;br&gt;Deploy on Nutanix AHV via Prism&lt;br&gt;4 vCPU / 8 GB RAM / 256 GB disk&lt;br&gt;Assign static IP on management VLAN" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="55" y="125" width="350" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="c2" value="&lt;b&gt;2. Initial Configuration (Web UI)&lt;/b&gt;&lt;br&gt;Browse to https://&amp;lt;hycu-ip&amp;gt;:8443&lt;br&gt;Set admin password&lt;br&gt;Add Nutanix cluster (Prism VIP + creds)&lt;br&gt;HYCU auto-discovers all AHV VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="55" y="230" width="350" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="c3" value="&lt;b&gt;3. No Agents Required&lt;/b&gt;&lt;br&gt;HYCU uses native AHV snapshot API&lt;br&gt;No proxy VM on the cluster&lt;br&gt;No Windows backup server needed&lt;br&gt;All management via web console" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#66bb6a;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="55" y="335" width="350" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="c4" value="&lt;b&gt;4. Firewall / Network&lt;/b&gt;&lt;br&gt;HYCU → Prism: HTTPS 9440&lt;br&gt;HYCU → Backup Target: SMB 445 / NFS / S3&lt;br&gt;HYCU → Hyper-V: WinRM 5985/5986&lt;br&gt;Admin → HYCU Web UI: HTTPS 8443" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="55" y="430" width="350" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- HYCU Center -->
+        <mxCell id="hycu-center" value="&lt;b&gt;BACKUP TARGET&lt;/b&gt;&lt;br&gt;&lt;hr&gt;&lt;b&gt;Option A:&lt;/b&gt; SMB file share&lt;br&gt;&lt;b&gt;Option B:&lt;/b&gt; NFS export&lt;br&gt;&lt;b&gt;Option C:&lt;/b&gt; S3-compatible&lt;br&gt;&lt;b&gt;Option D:&lt;/b&gt; iSCSI target&lt;br&gt;&lt;hr&gt;Stores full + incremental&lt;br&gt;backup copies of AHV VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#2e7d32;strokeWidth=2;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="500" y="120" width="240" height="200" as="geometry"/>
+        </mxCell>
+
+        <!-- Target Side Box -->
+        <mxCell id="tgt-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#c88400;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="80" width="400" height="440" as="geometry"/>
+        </mxCell>
+        <mxCell id="tgt-title" value="&lt;b&gt;HYPER-V TARGET SETUP&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#c88400;align=center;" vertex="1" parent="1">
+          <mxGeometry x="920" y="90" width="200" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="t1" value="&lt;b&gt;1. Hyper-V Host Prep&lt;/b&gt;&lt;br&gt;Windows Server 2022/2025&lt;br&gt;Hyper-V role enabled&lt;br&gt;Domain-joined (recommended)&lt;br&gt;WinRM + PS Remoting enabled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="850" y="125" width="340" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="t2" value="&lt;b&gt;2. Virtual Switches&lt;/b&gt;&lt;br&gt;Create vSwitches matching target networks&lt;br&gt;Map source AHV networks → HV switches&lt;br&gt;Trunk VLANs if needed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="850" y="220" width="340" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="t3" value="&lt;b&gt;3. Staging Storage&lt;/b&gt;&lt;br&gt;Dedicated volume: D:\Restored&lt;br&gt;Thin-provisioned SAN LUN or local SSD&lt;br&gt;Size for 10 VMs used space (~1–3 TB)&lt;br&gt;&lt;b&gt;Monitor free space before each batch!&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="850" y="305" width="340" height="85" as="geometry"/>
+        </mxCell>
+        <mxCell id="t4" value="&lt;b&gt;4. Register Hyper-V in HYCU&lt;/b&gt;&lt;br&gt;HYCU Web UI → Targets → Add Hyper-V&lt;br&gt;Provide FQDN + domain credentials&lt;br&gt;HYCU discovers available storage paths" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="850" y="405" width="340" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="va1" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2e7d32;" edge="1" parent="1" source="c1" target="hycu-center">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="va2" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#c88400;" edge="1" parent="1" source="hycu-center" target="t1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Restore Job Detail -->
+        <mxCell id="rj-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f5e9;strokeColor=#2e7d32;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="370" y="540" width="660" height="190" as="geometry"/>
+        </mxCell>
+        <mxCell id="rj-title" value="&lt;b&gt;BACKUP + RESTORE WORKFLOW (per batch of 10)&lt;/b&gt;" style="text;html=1;fontSize=13;fontColor=#2e7d32;align=center;" vertex="1" parent="1">
+          <mxGeometry x="490" y="550" width="420" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="rj-details" value="&lt;b&gt;Backup Policy:&lt;/b&gt; Assign 10 VMs to a migration backup policy&lt;br&gt;&lt;b&gt;Schedule:&lt;/b&gt; Daily incrementals, with on-demand full before cutover&lt;br&gt;&lt;b&gt;Target:&lt;/b&gt; SMB share or S3 bucket configured as HYCU backup target&lt;br&gt;&lt;b&gt;Restore:&lt;/b&gt; HYCU Web UI → Virtual Machines → Select VM → Restore → Hyper-V&lt;br&gt;&lt;b&gt;Restore Path:&lt;/b&gt; Hyper-V host → D:\Restored\Batch01&lt;br&gt;&lt;b&gt;Disk Conversion:&lt;/b&gt; HYCU converts AHV disk format → VHDX automatically&lt;br&gt;&lt;b&gt;Network:&lt;/b&gt; Assign target Hyper-V vSwitch during restore wizard&lt;br&gt;&lt;b&gt;Post-Restore:&lt;/b&gt; Boot VM, validate, then proceed to Azure Migrate" style="text;html=1;fontSize=11;fontFamily=Arial;align=left;verticalAlign=top;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="390" y="580" width="620" height="140" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="azure-migrate-detail" name="4 - Azure Migrate Workflow">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="am-title" value="&lt;b&gt;Azure Migrate: Hyper-V → Azure Local Workflow&lt;/b&gt;" style="text;html=1;fontSize=18;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="800" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="am1" value="&lt;b&gt;1. Create Azure Migrate Project&lt;/b&gt;&lt;hr&gt;Azure Portal → Azure Migrate&lt;br&gt;Project: AHV-to-AzureLocal-Migration&lt;br&gt;RG: rg-migration-ahv-to-azl&lt;br&gt;Geography: US East (metadata only)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="30" y="80" width="250" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="am2" value="&lt;b&gt;2. Deploy Appliance on Hyper-V&lt;/b&gt;&lt;hr&gt;Download VHD from portal&lt;br&gt;Create VM: 8 GB RAM / 4 vCPU&lt;br&gt;Boot → browser config wizard&lt;br&gt;Register with project key&lt;br&gt;Add Hyper-V host credentials" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="320" y="80" width="250" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="am3" value="&lt;b&gt;3. Discover VMs&lt;/b&gt;&lt;hr&gt;Appliance scans Hyper-V host(s)&lt;br&gt;Enumerates restored VMs via WMI&lt;br&gt;Reports to Azure Migrate portal&lt;br&gt;Select batch of 10 VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="610" y="80" width="250" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="am4" value="&lt;b&gt;4. Assess (Optional)&lt;/b&gt;&lt;hr&gt;Run compatibility assessment&lt;br&gt;Validates OS, disk, CPU/RAM&lt;br&gt;Flags unsupported configs&lt;br&gt;Sizing recommendations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="80" width="250" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="am5" value="&lt;b&gt;5. Replicate to Azure Local&lt;/b&gt;&lt;hr&gt;Click Replicate → Source: Hyper-V&lt;br&gt;Target: Azure Local cluster&lt;br&gt;Select CSV volume for storage&lt;br&gt;Map VM names (keep original)&lt;br&gt;Map networks / virtual switches&lt;br&gt;Initial full copy → incremental sync" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="30" y="280" width="280" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="am6" value="&lt;b&gt;6. Test Migration&lt;/b&gt;&lt;hr&gt;Run test failover per VM&lt;br&gt;Uses isolated test network&lt;br&gt;on Azure Local&lt;br&gt;Validate: boot, apps, DNS&lt;br&gt;Clean up test VMs after" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="350" y="280" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="am7" value="&lt;b&gt;7. Migrate (Cutover)&lt;/b&gt;&lt;hr&gt;Trigger Migrate for 10 VMs&lt;br&gt;Final delta sync&lt;br&gt;Creates production VMs&lt;br&gt;on Azure Local&lt;br&gt;Registers with Azure Arc" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1565c0;strokeWidth=2;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="280" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="am8" value="&lt;b&gt;8. Complete Migration&lt;/b&gt;&lt;hr&gt;Click Complete Migration&lt;br&gt;Stops replication&lt;br&gt;Cleans up Azure Migrate state&lt;br&gt;&lt;b&gt;→ Delete Hyper-V restored VMs!&lt;/b&gt;&lt;br&gt;→ Begin next batch" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="930" y="280" width="250" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="ama1" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#9673a6;" edge="1" parent="1" source="am1" target="am2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ama2" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#9673a6;" edge="1" parent="1" source="am2" target="am3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ama3" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#999999;dashed=1;" edge="1" parent="1" source="am3" target="am4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ama4" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6c8ebf;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="am3" target="am5">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="735" y="240"/><mxPoint x="170" y="240"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="ama5" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#6c8ebf;" edge="1" parent="1" source="am5" target="am6"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ama6" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#1565c0;" edge="1" parent="1" source="am6" target="am7"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ama7" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#b85450;" edge="1" parent="1" source="am7" target="am8"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="ip-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="30" y="490" width="1150" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="ip-title" value="&lt;b&gt;IP ADDRESS, NAMING &amp; DNS CONSIDERATIONS&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#f57f17;align=center;" vertex="1" parent="1">
+          <mxGeometry x="350" y="500" width="500" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="ip-col1" value="&lt;b&gt;VM NAMES&lt;/b&gt;&lt;br&gt;• HYCU restore preserves original VM name&lt;br&gt;• Set target name in Azure Migrate config&lt;br&gt;• Guest hostname unchanged throughout&lt;br&gt;• Keep original names end-to-end" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="50" y="530" width="270" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="ip-col2" value="&lt;b&gt;IP ADDRESSES&lt;/b&gt;&lt;br&gt;• Same VLAN → preserve IPs (ideal)&lt;br&gt;• Different subnet → reconfigure post-restore&lt;br&gt;  or use Azure Migrate network mapping&lt;br&gt;• DHCP reservations as alternative&lt;br&gt;• Pre-stage DNS A/PTR record updates" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="340" y="530" width="270" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="ip-col3" value="&lt;b&gt;DNS / AD&lt;/b&gt;&lt;br&gt;• Lower TTL to 300s 48 hours before cutover&lt;br&gt;• Update A + PTR records if re-IPing&lt;br&gt;• CNAME records: no change needed&lt;br&gt;• Verify SPN registrations (SQL, IIS, etc.)&lt;br&gt;• Flush DNS caches post-cutover&lt;br&gt;• AD computer accounts preserved" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="630" y="530" width="270" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="ip-col4" value="&lt;b&gt;STORAGE SAVINGS&lt;/b&gt;&lt;br&gt;• Dynamic VHDX = thin on Hyper-V&lt;br&gt;• DELETE restored VMs after Az Migrate&lt;br&gt;• Only 10 VMs on staging at a time&lt;br&gt;• Monitor D:\Restored free space&lt;br&gt;• Thin-provision SAN LUN" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="920" y="530" width="240" height="100" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

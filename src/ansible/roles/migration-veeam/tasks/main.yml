@@ -1,0 +1,6 @@
+---
+# migration-veeam role — stub
+# Creates Veeam replication jobs and orchestrates batch cutover
+- name: Placeholder — Veeam replication job creation
+  ansible.builtin.debug:
+    msg: "Veeam automation tasks go here"

@@ -1,0 +1,351 @@
+<mxfile host="app.diagrams.net" modified="2026-04-02T00:00:00.000Z" agent="Claude" version="24.0.0" type="device">
+  <diagram id="poc-overview" name="1 - PoC Overview - Both Options">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;PoC Plan: Nutanix AHV → Azure Local Migration (RAL Datacenter)&lt;/b&gt;" style="text;html=1;fontSize=20;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="250" y="15" width="1100" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Testing Both Migration Tools (Veeam &amp; HYCU) × Both Staging Options (A &amp; B)" style="text;html=1;fontSize=13;fontFamily=Arial;align=center;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="350" y="48" width="900" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- SOURCE -->
+        <mxCell id="src-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f4fd;strokeColor=#6c8ebf;dashed=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="90" width="280" height="380" as="geometry"/>
+        </mxCell>
+        <mxCell id="src-label" value="&lt;b&gt;SOURCE (RAL)&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#1565c0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="160" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="nutanix" value="&lt;b&gt;Nutanix AHV Cluster&lt;/b&gt;&lt;br&gt;RAL Datacenter&lt;br&gt;Prism Element / Central&lt;br&gt;PoC VMs (5–10 test VMs)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="65" y="140" width="230" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="tool-choice" value="&lt;b&gt;MIGRATION TOOL&lt;/b&gt;&lt;br&gt;&lt;hr&gt;&lt;b&gt;Test A:&lt;/b&gt; Veeam B&amp;R v12+&lt;br&gt;(replication to Hyper-V)&lt;br&gt;&lt;hr&gt;&lt;b&gt;Test B:&lt;/b&gt; HYCU&lt;br&gt;(backup → restore to HV)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;strokeWidth=2;fontSize=11;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="65" y="250" width="230" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="poc-vms" value="PoC: 5–10 VMs covering&lt;br&gt;Windows, Linux, small DB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="395" width="200" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- OPTION A -->
+        <mxCell id="optA-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff8e1;strokeColor=#f9a825;dashed=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="400" y="90" width="340" height="380" as="geometry"/>
+        </mxCell>
+        <mxCell id="optA-label" value="&lt;b&gt;OPTION A: Standalone Hyper-V&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#f57f17;align=center;" vertex="1" parent="1">
+          <mxGeometry x="430" y="100" width="280" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="optA-hv" value="&lt;b&gt;Dedicated Hyper-V Server&lt;/b&gt;&lt;br&gt;Windows Server 2022/2025&lt;br&gt;Hyper-V role only&lt;br&gt;NOT part of Azure Local cluster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="425" y="140" width="290" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="optA-storage" value="&lt;b&gt;Storage Options:&lt;/b&gt;&lt;br&gt;• Local NVMe/SSD (fastest)&lt;br&gt;• SAN LUN (thin-provisioned)&lt;br&gt;• Size for 10 VMs used space" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="435" y="240" width="270" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="optA-pros" value="&lt;b&gt;✓ Pros:&lt;/b&gt; Zero risk to Azure Local&lt;br&gt;   Isolated staging environment&lt;br&gt;   Full control over storage&lt;br&gt;&lt;b&gt;✗ Cons:&lt;/b&gt; Extra hardware needed&lt;br&gt;   Additional hop (more time)&lt;br&gt;   Double storage footprint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="435" y="335" width="270" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- OPTION B -->
+        <mxCell id="optB-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#7e57c2;dashed=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="820" y="90" width="340" height="380" as="geometry"/>
+        </mxCell>
+        <mxCell id="optB-label" value="&lt;b&gt;OPTION B: Azure Local as Hyper-V&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#7e57c2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="845" y="100" width="290" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="optB-hv" value="&lt;b&gt;Azure Local Cluster Nodes&lt;/b&gt;&lt;br&gt;Already running Hyper-V!&lt;br&gt;Target VMs land directly on&lt;br&gt;S2D / CSV storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#7e57c2;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="845" y="140" width="290" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="optB-storage" value="&lt;b&gt;Storage:&lt;/b&gt;&lt;br&gt;• Azure Local CSV volumes (S2D)&lt;br&gt;• VMs land as standard HV VMs&lt;br&gt;• Already on final storage!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#7e57c2;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="855" y="240" width="270" height="75" as="geometry"/>
+        </mxCell>
+        <mxCell id="optB-pros" value="&lt;b&gt;✓ Pros:&lt;/b&gt; No extra hardware&lt;br&gt;   VMs already on final storage&lt;br&gt;   Fewer data copies&lt;br&gt;&lt;b&gt;✗ Cons:&lt;/b&gt; Staging on production cluster&lt;br&gt;   Must promote to Arc VMs&lt;br&gt;   Azure Migrate still needed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="855" y="335" width="270" height="110" as="geometry"/>
+        </mxCell>
+
+        <!-- FINAL TARGET -->
+        <mxCell id="tgt-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;dashed=1;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1240" y="90" width="320" height="380" as="geometry"/>
+        </mxCell>
+        <mxCell id="tgt-label" value="&lt;b&gt;FINAL TARGET (RAL)&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#1a73e8;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="100" width="200" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="azl" value="&lt;b&gt;Azure Local Cluster&lt;/b&gt;&lt;br&gt;RAL Datacenter&lt;br&gt;Azure Arc-Enabled&lt;br&gt;S2D / CSV Storage&lt;br&gt;Arc VM Management" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1565c0;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1275" y="150" width="250" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="arc-vms" value="&lt;b&gt;Arc-Managed VMs&lt;/b&gt;&lt;br&gt;Full Azure integration&lt;br&gt;Azure Portal management&lt;br&gt;Azure Update Manager&lt;br&gt;Defender for Cloud&lt;br&gt;Azure Monitor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1285" y="280" width="230" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="az-migrate" value="&lt;b&gt;Azure Migrate&lt;/b&gt;&lt;br&gt;Promotes Hyper-V VMs&lt;br&gt;to Arc-managed VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1295" y="405" width="210" height="50" as="geometry"/>
+        </mxCell>
+
+        <!-- ARROWS -->
+        <mxCell id="a-src-optA" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#f57f17;" edge="1" parent="1" source="tool-choice" target="optA-hv">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a-src-optA-label" value="&lt;b&gt;Option A&lt;/b&gt;" style="edgeLabel;html=1;fontSize=11;fontColor=#f57f17;" vertex="1" connectable="0" parent="a-src-optA">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a-src-optB" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#7e57c2;" edge="1" parent="1" source="tool-choice" target="optB-hv">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a-src-optB-label" value="&lt;b&gt;Option B&lt;/b&gt;" style="edgeLabel;html=1;fontSize=11;fontColor=#7e57c2;" vertex="1" connectable="0" parent="a-src-optB">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a-optA-tgt" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#1a73e8;" edge="1" parent="1" source="optA-hv" target="azl">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a-optA-tgt-label" value="&lt;b&gt;Azure Migrate&lt;/b&gt;" style="edgeLabel;html=1;fontSize=10;fontColor=#1a73e8;" vertex="1" connectable="0" parent="a-optA-tgt">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+        <mxCell id="a-optB-tgt" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#1a73e8;" edge="1" parent="1" source="optB-hv" target="azl">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a-optB-tgt-label" value="&lt;b&gt;Azure Migrate&lt;/b&gt;&lt;br&gt;(in-place promote)" style="edgeLabel;html=1;fontSize=10;fontColor=#1a73e8;" vertex="1" connectable="0" parent="a-optB-tgt">
+          <mxGeometry relative="1" as="geometry"><mxPoint as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Test Matrix -->
+        <mxCell id="matrix-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#333333;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="510" width="1520" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="matrix-title" value="&lt;b&gt;PoC TEST MATRIX (4 Combinations)&lt;/b&gt;" style="text;html=1;fontSize=16;fontColor=#333333;align=center;" vertex="1" parent="1">
+          <mxGeometry x="550" y="520" width="500" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="test1" value="&lt;b&gt;Test 1&lt;/b&gt;&lt;br&gt;&lt;hr&gt;&lt;b&gt;Veeam + Option A&lt;/b&gt;&lt;br&gt;Replicate to standalone HV&lt;br&gt;→ Azure Migrate to AzL&lt;br&gt;&lt;br&gt;&lt;i&gt;Best for: low-risk staging&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="80" y="560" width="280" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="test2" value="&lt;b&gt;Test 2&lt;/b&gt;&lt;br&gt;&lt;hr&gt;&lt;b&gt;Veeam + Option B&lt;/b&gt;&lt;br&gt;Replicate to Azure Local HV&lt;br&gt;→ Azure Migrate in-place&lt;br&gt;&lt;br&gt;&lt;i&gt;Best for: fewer data copies&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="420" y="560" width="280" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="test3" value="&lt;b&gt;Test 3&lt;/b&gt;&lt;br&gt;&lt;hr&gt;&lt;b&gt;HYCU + Option A&lt;/b&gt;&lt;br&gt;Backup/restore to standalone HV&lt;br&gt;→ Azure Migrate to AzL&lt;br&gt;&lt;br&gt;&lt;i&gt;Best for: simple source setup&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="760" y="560" width="280" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="test4" value="&lt;b&gt;Test 4&lt;/b&gt;&lt;br&gt;&lt;hr&gt;&lt;b&gt;HYCU + Option B&lt;/b&gt;&lt;br&gt;Backup/restore to Azure Local HV&lt;br&gt;→ Azure Migrate in-place&lt;br&gt;&lt;br&gt;&lt;i&gt;Best for: minimal infrastructure&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="560" width="280" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="matrix-note" value="Each test uses the same 5–10 PoC VMs. Run all 4 tests sequentially. Measure: migration time, downtime, data integrity, app validation, storage consumption." style="text;html=1;fontSize=11;fontFamily=Arial;fontColor=#666666;fontStyle=2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="710" width="1200" height="20" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="option-a-detail" name="2 - Option A Detail">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;Option A: Standalone Hyper-V Staging Server (RAL Datacenter)&lt;/b&gt;" style="text;html=1;fontSize=18;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="1000" height="35" as="geometry"/>
+        </mxCell>
+        <!-- Nutanix -->
+        <mxCell id="nut" value="&lt;b&gt;Nutanix AHV&lt;/b&gt;&lt;br&gt;RAL Datacenter&lt;br&gt;5–10 PoC VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="120" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <!-- Veeam path -->
+        <mxCell id="veeam-srv" value="&lt;b&gt;Veeam B&amp;R Server&lt;/b&gt;&lt;br&gt;Windows Server 2022&lt;br&gt;8 vCPU / 32 GB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="80" width="200" height="65" as="geometry"/>
+        </mxCell>
+        <!-- HYCU path -->
+        <mxCell id="hycu-ctrl" value="&lt;b&gt;HYCU Controller&lt;/b&gt;&lt;br&gt;VM on Nutanix&lt;br&gt;4 vCPU / 8 GB" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="320" y="165" width="200" height="65" as="geometry"/>
+        </mxCell>
+        <!-- Standalone HV -->
+        <mxCell id="hv-standalone" value="&lt;b&gt;Standalone Hyper-V Server&lt;/b&gt;&lt;br&gt;Windows Server 2022/2025&lt;br&gt;Hyper-V role (NOT Azure Local)&lt;br&gt;Local NVMe or SAN LUN&lt;br&gt;10 GbE to Nutanix &amp; Azure Local" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="620" y="90" width="300" height="110" as="geometry"/>
+        </mxCell>
+        <!-- Azure Migrate Appliance -->
+        <mxCell id="az-app" value="&lt;b&gt;Azure Migrate Appliance&lt;/b&gt;&lt;br&gt;VM on standalone HV host&lt;br&gt;Discovers staged VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="650" y="230" width="240" height="60" as="geometry"/>
+        </mxCell>
+        <!-- Azure Local -->
+        <mxCell id="azl" value="&lt;b&gt;Azure Local Cluster&lt;/b&gt;&lt;br&gt;RAL Datacenter&lt;br&gt;Arc-Enabled&lt;br&gt;S2D / CSV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1565c0;strokeWidth=2;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="100" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="arc-vm" value="&lt;b&gt;Arc-Managed PoC VMs&lt;/b&gt;&lt;br&gt;Full Azure integration" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="220" width="200" height="50" as="geometry"/>
+        </mxCell>
+        <!-- Arrows -->
+        <mxCell id="a1" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#82b366;" edge="1" parent="1" source="nut" target="veeam-srv"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2e7d32;" edge="1" parent="1" source="nut" target="hycu-ctrl"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#d6b656;" edge="1" parent="1" source="veeam-srv" target="hv-standalone"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3l" value="Replicate" style="edgeLabel;html=1;fontSize=9;fontColor=#d6b656;" vertex="1" connectable="0" parent="a3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#d6b656;" edge="1" parent="1" source="hycu-ctrl" target="hv-standalone"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4l" value="Restore" style="edgeLabel;html=1;fontSize=9;fontColor=#d6b656;" vertex="1" connectable="0" parent="a4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#1565c0;" edge="1" parent="1" source="hv-standalone" target="azl"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5l" value="&lt;b&gt;Azure Migrate&lt;/b&gt;" style="edgeLabel;html=1;fontSize=11;fontColor=#1565c0;" vertex="1" connectable="0" parent="a5"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Storage detail -->
+        <mxCell id="stor-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fffde7;strokeColor=#f9a825;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="340" width="1240" height="230" as="geometry"/>
+        </mxCell>
+        <mxCell id="stor-title" value="&lt;b&gt;OPTION A: STANDALONE HYPER-V SERVER REQUIREMENTS&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#f57f17;align=center;" vertex="1" parent="1">
+          <mxGeometry x="350" y="350" width="600" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="stor-c1" value="&lt;b&gt;Hardware&lt;/b&gt;&lt;br&gt;• Any server with Hyper-V support&lt;br&gt;• 32+ GB RAM (for VMs + appliance)&lt;br&gt;• 8+ CPU cores&lt;br&gt;• 10 GbE NIC (to Nutanix &amp; AzL)&lt;br&gt;• Can be an existing repurposed server" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="60" y="385" width="250" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="stor-c2" value="&lt;b&gt;Storage Options&lt;/b&gt;&lt;br&gt;• &lt;b&gt;Local NVMe/SSD:&lt;/b&gt; Fastest, simplest&lt;br&gt;  2–4 TB for 10 VMs staging&lt;br&gt;• &lt;b&gt;SAN LUN:&lt;/b&gt; Thin-provisioned&lt;br&gt;  iSCSI or FC from existing SAN&lt;br&gt;• &lt;b&gt;NFS/SMB share:&lt;/b&gt; Possible but slower&lt;br&gt;  Not recommended for PoC perf testing" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="320" y="385" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="stor-c3" value="&lt;b&gt;Network&lt;/b&gt;&lt;br&gt;• Same VLAN as Nutanix mgmt (or routed)&lt;br&gt;• Same VLAN as Azure Local mgmt&lt;br&gt;• VM traffic VLANs trunked&lt;br&gt;• Outbound HTTPS 443 for Az Migrate&lt;br&gt;• WinRM 5985/5986 from Veeam/HYCU" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="620" y="385" width="280" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="stor-c4" value="&lt;b&gt;Software&lt;/b&gt;&lt;br&gt;• Windows Server 2022/2025&lt;br&gt;• Hyper-V role enabled&lt;br&gt;• Domain-joined (recommended)&lt;br&gt;• Virtual switch(es) configured&lt;br&gt;• Azure Migrate appliance VM&lt;br&gt;• Veeam transport svc (if Veeam)" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="920" y="385" width="280" height="110" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="option-b-detail" name="3 - Option B Detail">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;Option B: Target Azure Local Cluster Directly as Hyper-V (RAL Datacenter)&lt;/b&gt;" style="text;html=1;fontSize=18;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="250" y="20" width="1100" height="35" as="geometry"/>
+        </mxCell>
+        <!-- Nutanix -->
+        <mxCell id="nut" value="&lt;b&gt;Nutanix AHV&lt;/b&gt;&lt;br&gt;RAL Datacenter&lt;br&gt;5–10 PoC VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="40" y="140" width="200" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="veeam-srv" value="&lt;b&gt;Veeam B&amp;R&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="110" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="hycu-ctrl" value="&lt;b&gt;HYCU Controller&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="310" y="170" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <!-- Azure Local as HV -->
+        <mxCell id="azl-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede7f6;strokeColor=#7e57c2;strokeWidth=2;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="80" width="500" height="320" as="geometry"/>
+        </mxCell>
+        <mxCell id="azl-title" value="&lt;b&gt;AZURE LOCAL CLUSTER (RAL) — Used as Both Staging &amp; Final Target&lt;/b&gt;" style="text;html=1;fontSize=13;fontColor=#7e57c2;align=center;" vertex="1" parent="1">
+          <mxGeometry x="560" y="90" width="460" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="azl-hv" value="&lt;b&gt;Step 1: Hyper-V Target&lt;/b&gt;&lt;br&gt;Veeam/HYCU targets Azure Local&lt;br&gt;nodes as standard Hyper-V hosts&lt;br&gt;VMs land on CSV as regular HV VMs&lt;br&gt;(NOT yet Arc-managed)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#7e57c2;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="565" y="125" width="220" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="az-migrate" value="&lt;b&gt;Step 2: Azure Migrate&lt;/b&gt;&lt;br&gt;Discovers HV VMs on the&lt;br&gt;same Azure Local cluster&lt;br&gt;Promotes to Arc VMs&lt;br&gt;(in-place, no data copy)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="565" y="250" width="220" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="arc-final" value="&lt;b&gt;Step 3: Arc-Managed VMs&lt;/b&gt;&lt;br&gt;VMs promoted to full&lt;br&gt;Azure Local Arc VMs&lt;br&gt;Azure Portal management&lt;br&gt;Same storage, no move!" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1565c0;strokeWidth=2;fontSize=10;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="810" y="160" width="210" height="100" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows -->
+        <mxCell id="a1" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#82b366;" edge="1" parent="1" source="nut" target="veeam-srv"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2e7d32;" edge="1" parent="1" source="nut" target="hycu-ctrl"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#7e57c2;" edge="1" parent="1" source="veeam-srv" target="azl-hv"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a4" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#7e57c2;" edge="1" parent="1" source="hycu-ctrl" target="azl-hv"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a5" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#9673a6;" edge="1" parent="1" source="azl-hv" target="az-migrate"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a6" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#1565c0;" edge="1" parent="1" source="az-migrate" target="arc-final"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a6l" value="&lt;b&gt;Promote&lt;/b&gt;&lt;br&gt;(in-place)" style="edgeLabel;html=1;fontSize=10;fontColor=#1565c0;" vertex="1" connectable="0" parent="a6"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- Key consideration -->
+        <mxCell id="key-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff3e0;strokeColor=#e65100;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="440" width="1500" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="key-title" value="&lt;b&gt;OPTION B: KEY CONSIDERATIONS &amp; GOTCHAS&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#e65100;align=center;" vertex="1" parent="1">
+          <mxGeometry x="500" y="450" width="560" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="key-c1" value="&lt;b&gt;How It Works&lt;/b&gt;&lt;br&gt;• Azure Local nodes ARE Hyper-V hosts&lt;br&gt;• Veeam/HYCU can target them like any HV host&lt;br&gt;• VMs land on CSV volumes as standard HV VMs&lt;br&gt;• Azure Migrate then &quot;discovers&quot; these VMs&lt;br&gt;• Migrate promotes them to Arc-managed&lt;br&gt;• Data stays on same CSV — no extra copy!" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="60" y="485" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="key-c2" value="&lt;b&gt;Advantages&lt;/b&gt;&lt;br&gt;• No additional hardware needed&lt;br&gt;• VMs are already on final storage (S2D)&lt;br&gt;• Faster overall: skip one data copy&lt;br&gt;• Less storage consumption total&lt;br&gt;• Simpler cleanup (no staging server)&lt;br&gt;• Works well when AzL has capacity" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="360" y="485" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="key-c3" value="&lt;b&gt;Risks / Gotchas&lt;/b&gt;&lt;br&gt;• Staging workloads hit production cluster&lt;br&gt;• Must have enough S2D capacity for PoC VMs&lt;br&gt;• Veeam/HYCU needs cluster node credentials&lt;br&gt;• VMs are NOT Arc-managed until Migrate runs&lt;br&gt;• If AzL cluster is new/empty, this is low risk&lt;br&gt;• If AzL has production VMs, use Option A" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="660" y="485" width="290" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="key-c4" value="&lt;b&gt;Azure Migrate In-Place Promote&lt;/b&gt;&lt;br&gt;• Deploy Az Migrate appliance ON Azure Local&lt;br&gt;• Appliance discovers VMs on same cluster&lt;br&gt;• Replicate step is minimal (same storage)&lt;br&gt;• Migrate promotes VM to Arc management&lt;br&gt;• Verify: Arc agent installed, Azure policies&lt;br&gt;• Test this path carefully in PoC!" style="text;html=1;fontSize=10;fontFamily=Arial;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="970" y="485" width="280" height="120" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="poc-timeline" name="4 - PoC Timeline &amp; Decision">
+    <mxGraphModel dx="1422" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;PoC Timeline: 3–4 Week Execution Plan&lt;/b&gt;" style="text;html=1;fontSize=18;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="800" height="35" as="geometry"/>
+        </mxCell>
+        <!-- Week headers -->
+        <mxCell id="wk0" value="&lt;b&gt;Phase&lt;/b&gt;" style="text;html=1;fontSize=11;align=center;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="30" y="70" width="120" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk1" value="&lt;b&gt;Week 1&lt;/b&gt;&lt;br&gt;Setup &amp; Prep" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="65" width="300" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk2" value="&lt;b&gt;Week 2&lt;/b&gt;&lt;br&gt;Veeam Tests" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="65" width="300" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk3" value="&lt;b&gt;Week 3&lt;/b&gt;&lt;br&gt;HYCU Tests" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="65" width="300" height="35" as="geometry"/>
+        </mxCell>
+        <mxCell id="wk4" value="&lt;b&gt;Week 4&lt;/b&gt;&lt;br&gt;Evaluate &amp; Decide" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="65" width="300" height="35" as="geometry"/>
+        </mxCell>
+
+        <!-- Week 1 tasks -->
+        <mxCell id="w1t1" value="&lt;b&gt;Infra Setup&lt;/b&gt;&lt;br&gt;• Provision standalone HV server (Opt A)&lt;br&gt;• Verify Azure Local capacity (Opt B)&lt;br&gt;• Configure virtual switches&lt;br&gt;• Create PoC VM test group (5–10)&lt;br&gt;• Document baseline (IPs, apps, perf)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="160" y="115" width="300" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="w1t2" value="&lt;b&gt;Tool Setup&lt;/b&gt;&lt;br&gt;• Install Veeam B&amp;R + trial license&lt;br&gt;• Deploy HYCU controller + trial license&lt;br&gt;• Add Nutanix cluster to both tools&lt;br&gt;• Add HV targets to both tools&lt;br&gt;• Create Azure Migrate project" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#999999;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="160" y="250" width="300" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Week 2 tasks -->
+        <mxCell id="w2t1" value="&lt;b&gt;Test 1: Veeam + Option A&lt;/b&gt;&lt;br&gt;• Replicate 5 VMs to standalone HV&lt;br&gt;• Cutover: failover to HV&lt;br&gt;• Validate VMs on HV&lt;br&gt;• Azure Migrate → Azure Local&lt;br&gt;• Validate Arc VMs&lt;br&gt;• Record metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="480" y="115" width="300" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="w2t2" value="&lt;b&gt;Test 2: Veeam + Option B&lt;/b&gt;&lt;br&gt;• Replicate 5 VMs to Azure Local HV&lt;br&gt;• Cutover: failover on AzL nodes&lt;br&gt;• Validate VMs as standard HV&lt;br&gt;• Azure Migrate in-place promote&lt;br&gt;• Validate Arc VMs&lt;br&gt;• Record metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="480" y="260" width="300" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- Week 3 tasks -->
+        <mxCell id="w3t1" value="&lt;b&gt;Test 3: HYCU + Option A&lt;/b&gt;&lt;br&gt;• Backup 5 VMs via HYCU&lt;br&gt;• Restore to standalone HV&lt;br&gt;• Validate VMs on HV&lt;br&gt;• Azure Migrate → Azure Local&lt;br&gt;• Validate Arc VMs&lt;br&gt;• Record metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="800" y="115" width="300" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="w3t2" value="&lt;b&gt;Test 4: HYCU + Option B&lt;/b&gt;&lt;br&gt;• Backup 5 VMs via HYCU&lt;br&gt;• Restore to Azure Local HV&lt;br&gt;• Validate VMs as standard HV&lt;br&gt;• Azure Migrate in-place promote&lt;br&gt;• Validate Arc VMs&lt;br&gt;• Record metrics" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="800" y="260" width="300" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- Week 4 tasks -->
+        <mxCell id="w4t1" value="&lt;b&gt;Compare Results&lt;/b&gt;&lt;br&gt;• Migration time per VM&lt;br&gt;• Total downtime window&lt;br&gt;• Storage consumption&lt;br&gt;• Operational complexity&lt;br&gt;• Licensing cost&lt;br&gt;• App validation pass/fail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="115" width="300" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="w4t2" value="&lt;b&gt;Decision &amp; Recommendation&lt;/b&gt;&lt;br&gt;• Select tool: Veeam or HYCU&lt;br&gt;• Select option: A or B&lt;br&gt;• Document findings&lt;br&gt;• Build production migration plan&lt;br&gt;• Procure licenses&lt;br&gt;• Schedule Batch 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="260" width="300" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- Decision diamond -->
+        <mxCell id="decision-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fce4ec;strokeColor=#c62828;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="430" width="1500" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="dec-title" value="&lt;b&gt;DECISION FRAMEWORK: Which Combination Wins?&lt;/b&gt;" style="text;html=1;fontSize=14;fontColor=#c62828;align=center;" vertex="1" parent="1">
+          <mxGeometry x="500" y="440" width="540" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="dec-c1" value="&lt;b&gt;Choose Veeam if:&lt;/b&gt;&lt;br&gt;• Need live replication (lower RPO)&lt;br&gt;• Need built-in re-IP rules&lt;br&gt;• Already have Veeam licensing&lt;br&gt;• Want granular failover controls&lt;br&gt;• Comfortable with Windows infra" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="70" y="475" width="320" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="dec-c2" value="&lt;b&gt;Choose HYCU if:&lt;/b&gt;&lt;br&gt;• Want simplest source-side setup&lt;br&gt;• Prefer no Windows backup server&lt;br&gt;• Native Nutanix integration matters&lt;br&gt;• Fewer moving parts is priority&lt;br&gt;• OK with backup/restore RPO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#c8e6c9;strokeColor=#2e7d32;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="420" y="475" width="320" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="dec-c3" value="&lt;b&gt;Choose Option A if:&lt;/b&gt;&lt;br&gt;• Azure Local has production workloads&lt;br&gt;• Want zero risk to AzL cluster&lt;br&gt;• Have spare hardware available&lt;br&gt;• Prefer clean separation of concerns&lt;br&gt;• Need maximum rollback safety" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="770" y="475" width="320" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="dec-c4" value="&lt;b&gt;Choose Option B if:&lt;/b&gt;&lt;br&gt;• Azure Local is new/empty (no prod)&lt;br&gt;• Want to minimize data copies&lt;br&gt;• No spare hardware available&lt;br&gt;• Fastest time to Arc VMs matters&lt;br&gt;• Comfortable with shared cluster" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d1c4e9;strokeColor=#7e57c2;fontSize=10;align=left;spacingLeft=10;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="475" width="320" height="110" as="geometry"/>
+        </mxCell>
+        <mxCell id="rec" value="&lt;b&gt;Recommended Starting Point:&lt;/b&gt; If Azure Local cluster is new/empty → Test Option B first (fewer resources). If AzL has production → Test Option A first (safer)." style="text;html=1;fontSize=11;fontFamily=Arial;fontColor=#c62828;fontStyle=3;align=center;" vertex="1" parent="1">
+          <mxGeometry x="200" y="600" width="1140" height="40" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

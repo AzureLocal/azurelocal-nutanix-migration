@@ -1,0 +1,6 @@
+---
+# migration-hycu role — stub
+# Triggers HYCU backup policies and restores via HYCU REST API
+- name: Placeholder — HYCU backup and restore tasks
+  ansible.builtin.debug:
+    msg: "HYCU automation tasks go here"

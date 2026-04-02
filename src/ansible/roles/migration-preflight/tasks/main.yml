@@ -1,0 +1,17 @@
+---
+# migration-preflight role — stub
+# Validates: Nutanix cluster health, Hyper-V staging connectivity,
+# network ports, Azure Migrate appliance status
+- name: Check Nutanix cluster reachability
+  ansible.builtin.uri:
+    url: "https://{{ nutanix_prism_ip }}:9440/PrismGateway/services/rest/v2.0/cluster"
+    validate_certs: false
+    url_username: "{{ nutanix_prism_username }}"
+    url_password: "{{ nutanix_prism_password }}"
+    force_basic_auth: true
+  register: prism_check
+
+- name: Assert Prism Element is reachable
+  ansible.builtin.assert:
+    that: prism_check.status == 200
+    msg: "Cannot reach Prism Element at {{ nutanix_prism_ip }}"
