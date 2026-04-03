@@ -60,7 +60,7 @@ This project uses [Conventional Commits](https://www.conventionalcommits.org/):
 
 ## Standards
 
-All examples and configurations must use **Contoso (IIC)** naming. See [Standards](docs/standards/index.md).
+All examples and configurations must use **Contoso (IIC)** naming. See [Standards](standards/index.md).
 
 - Company: **Contoso**
 - Domain: `contoso.cloud` / `contoso.local`
