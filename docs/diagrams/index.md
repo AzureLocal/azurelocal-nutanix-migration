@@ -4,6 +4,20 @@
 
 ---
 
+## Common Architecture {#common-architecture}
+
+### Simple Two-Hop Pattern
+
+Tool-neutral architecture for documentation overviews:
+
+Nutanix AHV/ESXi (Source) → Hyper-V Staging (Intermediate) → Azure Local (Target)
+
+### Common Two-Hop DrawIO Source
+
+[`diagrams/common/migration-diagrams-common-two-hop.drawio`](../assets/diagrams/migration-diagrams-common-two-hop.drawio)
+
+---
+
 ## Veeam Migration Path {#veeam}
 
 ### High-Level Architecture

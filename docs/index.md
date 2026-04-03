@@ -45,11 +45,11 @@ This site provides end-to-end runbooks, architecture diagrams, and automation sc
 
 All two-hop scenarios follow the same pattern:
 
-```
-Nutanix AHV/ESXi  →  Hyper-V Staging  →  Azure Local
-     (Source)         (Intermediate)       (Target)
-       Veeam/HYCU         Azure Migrate
-```
+![Two-hop migration architecture](assets/images/01-high-level-architecture.png)
+
+*Two-hop architecture: Nutanix AHV/ESXi source → Hyper-V staging → Azure Local target via Azure Migrate.*
+
+Draw.io source: [migration-diagrams-common-two-hop.drawio](assets/diagrams/migration-diagrams-common-two-hop.drawio)
 
 The staging hop converts Nutanix disk formats (VMDK/AHV) to VHDX and provides a validation checkpoint before the VMs land on Azure Local as Arc-managed workloads.
 
