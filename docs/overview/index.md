@@ -14,7 +14,6 @@ This documentation covers migrations from two Nutanix source configurations:
 
     - Veeam connects via the Prism API and deploys a temporary AHV Backup Proxy VM on the cluster
     - HYCU connects natively via the AHV snapshot API — no proxy VM needed
-    - Nutanix Move supports AHV as a migration source directly
     - Disk format: AHV (converted to VHDX during migration)
 
 === "Nutanix ESXi"
@@ -23,7 +22,6 @@ This documentation covers migrations from two Nutanix source configurations:
 
     - Veeam connects via the vCenter/ESXi API — no special Nutanix integration needed
     - HYCU supports ESXi as a source through the VMware vSphere API
-    - Nutanix Move supports ESXi as a source
     - Disk format: VMDK (converted to VHDX during migration)
 
 ---
@@ -67,4 +65,4 @@ After all scenarios, VMs on Azure Local are:
 ## Next Steps
 
 - [Migration Phases](migration-phases.md) — common phases that apply to all scenarios
-- [Tool Comparison](tool-comparison.md) — choose between Veeam, HYCU, Nutanix Move, and others
+- [Tool Comparison](tool-comparison.md) — choose between Veeam, HYCU, and other tools

@@ -6,20 +6,20 @@
 
 ## Primary Tool Comparison
 
-| Aspect | Veeam B&R | HYCU | Nutanix Move |
-|--------|-----------|------|--------------|
-| **Deployment** | Dedicated Windows Server + SQL Express | Single Linux VM on Nutanix cluster | Lightweight VM on Nutanix or separate host |
-| **AHV Integration** | Via Prism API; deploys AHV Backup Proxy VM | Native AHV snapshot API; no proxy VM | Native AHV API |
-| **ESXi Support** | Full vSphere API support | Full vSphere API support | Full vSphere support |
-| **Agent Required** | No (agentless); NGT recommended for re-IP | No (agentless) | No (agentless) |
-| **Management UI** | Windows desktop console | Web UI (port 8443) | Web UI |
-| **Re-IP on Migration** | Built-in re-IP rules via Guest Processing | Not built-in; requires post-restore scripting | Built-in |
-| **Migration Workflow** | Direct live replication to Hyper-V | Backup → Restore to Hyper-V (two steps) | Direct move to Hyper-V |
-| **RPO / Cutover** | Low RPO — live replica kept in sync | RPO = last incremental backup interval | Direct move — no ongoing sync |
-| **Storage Overhead** | Only Hyper-V staging (direct replication) | Backup target + Hyper-V staging (two copies) | Only Hyper-V staging |
-| **Licensing Model** | Veeam Universal License (VUL) per workload | Per-VM or per-socket subscription | Included with Nutanix (check entitlement) |
-| **Complexity** | Higher (more components, more flexibility) | Lower (fewer moving parts, simpler setup) | Lowest for AHV-native environments |
-| **Existing Veeam** | Reuse existing investment | New tool if no existing HYCU | Requires Nutanix entitlement |
+| Aspect | Veeam B&R | HYCU |
+|--------|-----------|------|
+| **Deployment** | Dedicated Windows Server + SQL Express | Single Linux VM on Nutanix cluster |
+| **AHV Integration** | Via Prism API; deploys AHV Backup Proxy VM | Native AHV snapshot API; no proxy VM |
+| **ESXi Support** | Full vSphere API support | Full vSphere API support |
+| **Agent Required** | No (agentless); NGT recommended for re-IP | No (agentless) |
+| **Management UI** | Windows desktop console | Web UI (port 8443) |
+| **Re-IP on Migration** | Built-in re-IP rules via Guest Processing | Not built-in; requires post-restore scripting |
+| **Migration Workflow** | Direct live replication to Hyper-V | Backup → Restore to Hyper-V (two steps) |
+| **RPO / Cutover** | Low RPO — live replica kept in sync | RPO = last incremental backup interval |
+| **Storage Overhead** | Only Hyper-V staging (direct replication) | Backup target + Hyper-V staging (two copies) |
+| **Licensing Model** | Veeam Universal License (VUL) per workload | Per-VM or per-socket subscription |
+| **Complexity** | Higher (more components, more flexibility) | Lower (fewer moving parts, simpler setup) |
+| **Existing Veeam** | Reuse existing investment | New tool if no existing HYCU |
 
 ---
 
@@ -40,14 +40,6 @@
 - Backup/restore RPO (daily or more frequent incrementals) is acceptable for your workloads
 - You prefer HYCU's web-based management console
 - Per-VM subscription licensing matches your procurement model
-
-### Choose Nutanix Move if:
-
-- You have a valid Nutanix Move entitlement (check with your Nutanix account team)
-- You want **direct migration** without a backup/restore intermediate step
-- Your source is AHV or ESXi-on-Nutanix
-- You want the fewest tools and moving parts (native Nutanix)
-- Your migration window allows for a direct cutover (no need for continuous sync)
 
 ---
 

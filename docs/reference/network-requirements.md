@@ -37,14 +37,6 @@
 | Hyper-V Host | Azure Local Cluster | SMB | 445 | Replication data |
 | Azure Local ARM Agent | Azure | HTTPS | 443 | Arc registration |
 
-## Nutanix Move (Hop 1)
-
-| Source | Destination | Protocol | Port | Description |
-|--------|-------------|----------|------|-------------|
-| Move Appliance | Prism Element | HTTPS | 9440 | AHV source API |
-| Move Appliance | Hyper-V Target | HTTPS | 443 | Hyper-V target API |
-| Move Appliance | Admin Browser | HTTPS | 443 | Move web console |
-
 ---
 
 ## Firewall Rule Summary (Minimum Required)

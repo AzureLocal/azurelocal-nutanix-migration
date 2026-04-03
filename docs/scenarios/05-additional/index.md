@@ -4,7 +4,7 @@
 
 ---
 
-This page summarizes additional migration options beyond the primary Veeam, HYCU, and Nutanix Move paths. These are not covered by detailed runbooks in this repository but are applicable in specific situations.
+This page summarizes additional migration options beyond the primary Veeam and HYCU paths. These are not covered by detailed runbooks in this repository but are applicable in specific situations.
 
 ---
 

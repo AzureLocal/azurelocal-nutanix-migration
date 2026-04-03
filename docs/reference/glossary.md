@@ -7,7 +7,7 @@
 ## A
 
 **AHV** (Acropolis Hypervisor)  
-Nutanix's native KVM-based hypervisor. AHV is fully integrated with Prism and uses native snapshot APIs leveraged by HYCU, Nutanix Move, and Azure Migrate for agentless VM replication.
+Nutanix's native KVM-based hypervisor. AHV is fully integrated with Prism and uses native snapshot APIs leveraged by HYCU and Azure Migrate for agentless VM replication.
 
 **Arc-managed VM**  
 A Hyper-V VM running on Azure Local that is registered with Azure Arc, enabling Azure management features (RBAC, Policy, Defender for Cloud, Update Manager, Monitor).
@@ -39,7 +39,7 @@ A shared disk volume accessible by all nodes in an Azure Local or Windows Server
 A purpose-built backup and recovery solution for Nutanix, VMware, and other platforms. Uses native AHV snapshot APIs — no proxy VM required on Nutanix clusters.
 
 **Hop 1**  
-The first migration hop: migrating VMs from the Nutanix source to a Hyper-V staging environment using Veeam, HYCU, or Nutanix Move.
+The first migration hop: migrating VMs from the Nutanix source to a Hyper-V staging environment using Veeam or HYCU.
 
 **Hop 2**  
 The second migration hop: migrating VMs from Hyper-V staging to Azure Local using Azure Migrate.
@@ -58,9 +58,6 @@ The IIC environment naming/resource convention used throughout this repository f
 
 ## N
 
-**Nutanix Move**  
-A free migration appliance from Nutanix for migrating AHV VMs to other hypervisors, including Hyper-V. Uses native AHV APIs; separate from HYCU.
-
 **NCC** (Nutanix Cluster Check)  
 A health-check utility built into Nutanix clusters. Run `ncli health-check run-all` or use Prism to validate cluster health before migration.
 
@@ -72,7 +69,7 @@ A health-check utility built into Nutanix clusters. Run `ncli health-check run-a
 Nutanix's multi-cluster management plane. Required for some Azure Migrate direct-from-AHV scenarios. Distinct from Prism Element (the single-cluster management plane).
 
 **Prism Element**  
-Nutanix's per-cluster management plane (HTTPS port 9440). Used by Veeam, HYCU, and Nutanix Move to discover and snapshot VMs.
+Nutanix's per-cluster management plane (HTTPS port 9440). Used by Veeam and HYCU to discover and snapshot VMs.
 
 ---
 

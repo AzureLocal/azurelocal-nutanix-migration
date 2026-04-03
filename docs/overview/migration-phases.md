@@ -6,7 +6,7 @@
 
 ## Phase Overview
 
-Every migration from Nutanix to Azure Local follows the same high-level phases. The specific steps within each phase vary by scenario (Veeam vs. HYCU vs. Nutanix Move), but the workflow is consistent.
+Every migration from Nutanix to Azure Local follows the same high-level phases. The specific steps within each phase vary by scenario (Veeam vs. HYCU), but the workflow is consistent.
 
 | Phase | Name | Key Activities |
 |-------|------|----------------|
@@ -42,7 +42,7 @@ Before any migration work begins:
 ## Phase 1 — Environment Preparation
 
 - Provision the Hyper-V staging host(s) with appropriate storage (1–5 TB depending on batch sizes)
-- Install and license the migration tool (Veeam, HYCU, or Nutanix Move)
+- Install and license the migration tool (Veeam or HYCU)
 - Add Nutanix cluster as a source in the tool
 - Add Hyper-V host(s) as a target in the tool
 - Create the Azure Migrate project in the Azure portal
