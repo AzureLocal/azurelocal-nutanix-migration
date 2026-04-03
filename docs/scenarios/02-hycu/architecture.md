@@ -6,47 +6,9 @@
 
 ## Component Diagram
 
-```
-┌──────────────────────────────────────────────────────────────────────────────────────────────┐
-│ IIC Datacenter (Infinite Improbability Corp)                                                 │
-│                                                                                              │
-│  ┌─────────────────────────────────────────────────────────────────────────────────────────┐ │
-│  │  Nutanix Cluster                                                                        │ │
-│  │                                                                                         │ │
-│  │  ┌─────────────────────────────────┐                                                   │ │
-│  │  │  HYCU Controller VM             │  AHV Snapshot API HTTPS:9440                      │ │
-│  │  │  (Linux, deployed ON Nutanix)   │ ──────────────────────────────► Prism Element     │ │
-│  │  │  Web UI: https://<ip>:8443      │                                                   │ │
-│  │  └──────────────┬──────────────────┘                                                   │ │
-│  │                 │ Backup data                                                           │ │
-│  │  VM-001..VM-300 │                                                                       │ │
-│  └─────────────────┼───────────────────────────────────────────────────────────────────────┘ │
-│                    │                                                                          │
-│                    ▼ SMB/NFS/S3                                                               │
-│  ┌─────────────────────────────────────┐                                                     │
-│  │  HYCU Backup Target                 │                                                     │
-│  │  (SMB share, NFS, S3, or iSCSI)    │                                                     │
-│  │  Holds: full + incremental backups  │                                                     │
-│  └──────────────────┬──────────────────┘                                                     │
-│                     │ Restore (HYCU reads backup → writes VHDX to Hyper-V)                   │
-│                     ▼                                                                         │
-│  ┌─────────────────────────────────────────────────────────────────────────────────────────┐ │
-│  │  Hyper-V Staging Host (Option A) or Azure Local Cluster Node (Option B)                │ │
-│  │                                                                                         │ │
-│  │  ┌──────────────────────────┐    ┌─────────────────────────────────────────────────┐  │ │
-│  │  │  Restored VMs (VHDX)     │    │  Azure Migrate Appliance VM                     │  │ │
-│  │  │  Batch 01: VM-001..010   │    │  - Discovers Hyper-V VMs via WMI               │  │ │
-│  │  │  (one batch at a time)   │    │  - Replicates VHDX to Azure Local CSV          │  │ │
-│  │  └──────────────────────────┘    └──────────────────────┬──────────────────────────┘  │ │
-│  └──────────────────────────────────────────────────────────┼──────────────────────────────┘ │
-│                                                              │ SMB/HTTPS to Azure Local       │
-│                                                              ▼                               │
-│  ┌─────────────────────────────────────────────────────────────────────────────────────────┐ │
-│  │  Azure Local Cluster                                                                    │ │
-│  │  Azure Local VMs — final destination                                                    │ │
-│  └─────────────────────────────────────────────────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────────────────────────────────────────────────┘
-```
+![HYCU detailed architecture](../../assets/images/02-hycu-architecture-detailed.svg)
+
+Draw.io source: [02-hycu-architecture-detailed.drawio](../../assets/diagrams/02-hycu-architecture-detailed.drawio)
 
 ---
 

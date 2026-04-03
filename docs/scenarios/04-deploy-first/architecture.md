@@ -8,6 +8,12 @@
 
 Deploy-First differs from Veeam and HYCU in one important way: **the target VM is created first**. Migration methods then move either data, application state, or full OS state into that pre-built destination.
 
+## Component diagram
+
+![Deploy-First detailed architecture](../../assets/images/04-deploy-first-architecture-detailed.svg)
+
+Draw.io source: [04-deploy-first-architecture-detailed.drawio](../../assets/diagrams/04-deploy-first-architecture-detailed.drawio)
+
 ## Architecture variants
 
 | Variant | Source | Target | Data path | Best fit |

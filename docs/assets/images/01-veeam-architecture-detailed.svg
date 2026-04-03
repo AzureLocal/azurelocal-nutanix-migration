@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .zone { fill: #ffffff; stroke-width: 3; stroke-dasharray: 10 8; }
+      .zone-title { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .box-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .text { font: 400 15px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+      .label { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    </style>
+    <marker id="arrow-green" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#16a34a"/></marker>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#ea580c"/></marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#2563eb"/></marker>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#7c3aed"/></marker>
+  </defs>
+
+  <rect width="1600" height="820" fill="#ffffff"/>
+  <text x="800" y="52" text-anchor="middle" class="title">Veeam Two-Hop Migration Architecture</text>
+  <text x="800" y="82" text-anchor="middle" class="subtitle">Nutanix source VMs replicate to Hyper-V with Veeam, then Azure Migrate moves the staged VHDX workloads into Azure Local</text>
+
+  <rect x="40" y="110" rx="20" ry="20" width="360" height="640" class="zone" stroke="#64748b" fill="#f8fafc"/>
+  <rect x="450" y="110" rx="20" ry="20" width="310" height="640" class="zone" stroke="#16a34a" fill="#f0fdf4"/>
+  <rect x="810" y="110" rx="20" ry="20" width="330" height="640" class="zone" stroke="#ea580c" fill="#fff7ed"/>
+  <rect x="1190" y="110" rx="20" ry="20" width="360" height="640" class="zone" stroke="#2563eb" fill="#eff6ff"/>
+
+  <text x="220" y="145" text-anchor="middle" class="zone-title">Source Estate</text>
+  <text x="605" y="145" text-anchor="middle" class="zone-title">Veeam B&amp;R</text>
+  <text x="975" y="145" text-anchor="middle" class="zone-title">Hyper-V Staging</text>
+  <text x="1370" y="145" text-anchor="middle" class="zone-title">Azure Local Target</text>
+
+  <rect x="90" y="180" rx="16" ry="16" width="260" height="100" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="220" y="214" text-anchor="middle" class="box-title">Nutanix Cluster</text>
+  <text x="220" y="240" text-anchor="middle" class="text">AHV or ESXi-on-Nutanix</text>
+  <text x="220" y="264" text-anchor="middle" class="text">Prism Element or vCenter</text>
+
+  <rect x="90" y="330" rx="16" ry="16" width="260" height="100" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="220" y="364" text-anchor="middle" class="box-title">Source VM Wave</text>
+  <text x="220" y="390" text-anchor="middle" class="text">VM-001..VM-010</text>
+  <text x="220" y="414" text-anchor="middle" class="text">Changed blocks tracked until cutover</text>
+
+  <rect x="90" y="480" rx="16" ry="16" width="260" height="96" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="220" y="514" text-anchor="middle" class="box-title">AHV Backup Proxy</text>
+  <text x="220" y="540" text-anchor="middle" class="text">Auto-deployed for AHV path</text>
+  <text x="220" y="564" text-anchor="middle" class="text">Streams snapshot reads to Veeam</text>
+
+  <rect x="90" y="620" rx="16" ry="16" width="260" height="86" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <text x="220" y="652" text-anchor="middle" class="box-title">Platform Variants</text>
+  <text x="220" y="676" text-anchor="middle" class="small">AHV uses Prism API and proxy VM</text>
+  <text x="220" y="696" text-anchor="middle" class="small">ESXi uses VMware API and CBT</text>
+
+  <rect x="500" y="180" rx="16" ry="16" width="210" height="100" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="605" y="214" text-anchor="middle" class="box-title">Veeam B&amp;R Server</text>
+  <text x="605" y="240" text-anchor="middle" class="text">Windows Server 2022</text>
+  <text x="605" y="264" text-anchor="middle" class="text">Policies, jobs, credentials</text>
+
+  <rect x="500" y="340" rx="16" ry="16" width="210" height="100" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="605" y="374" text-anchor="middle" class="box-title">Replication Jobs</text>
+  <text x="605" y="400" text-anchor="middle" class="text">REP-Batch01, REP-Batch02</text>
+  <text x="605" y="424" text-anchor="middle" class="text">10 VMs per active wave</text>
+
+  <rect x="500" y="500" rx="16" ry="16" width="210" height="100" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="605" y="534" text-anchor="middle" class="box-title">Network Mapping</text>
+  <text x="605" y="560" text-anchor="middle" class="text">Source networks to Hyper-V</text>
+  <text x="605" y="584" text-anchor="middle" class="text">Optional re-IP rules</text>
+
+  <rect x="500" y="650" rx="16" ry="16" width="210" height="70" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+  <text x="605" y="680" text-anchor="middle" class="box-title">Hop 1 Behavior</text>
+  <text x="605" y="704" text-anchor="middle" class="small">Continuous replication keeps staged VMs near current state</text>
+
+  <rect x="860" y="180" rx="16" ry="16" width="230" height="100" fill="#fed7aa" stroke="#ea580c" stroke-width="3"/>
+  <text x="975" y="214" text-anchor="middle" class="box-title">Hyper-V Staging Host</text>
+  <text x="975" y="240" text-anchor="middle" class="text">Standalone or Azure Local-hosted</text>
+  <text x="975" y="264" text-anchor="middle" class="text">Stores VHDX replica disks</text>
+
+  <rect x="860" y="340" rx="16" ry="16" width="230" height="100" fill="#fed7aa" stroke="#ea580c" stroke-width="3"/>
+  <text x="975" y="374" text-anchor="middle" class="box-title">Replica VMs</text>
+  <text x="975" y="400" text-anchor="middle" class="text">Powered on for validation</text>
+  <text x="975" y="424" text-anchor="middle" class="text">Batch-sized landing zone</text>
+
+  <rect x="860" y="500" rx="16" ry="16" width="230" height="100" fill="#e9d5ff" stroke="#7c3aed" stroke-width="3"/>
+  <text x="975" y="534" text-anchor="middle" class="box-title">Azure Migrate Appliance</text>
+  <text x="975" y="560" text-anchor="middle" class="text">Discovers Hyper-V via WMI</text>
+  <text x="975" y="584" text-anchor="middle" class="text">Coordinates replication to Azure Local</text>
+
+  <rect x="860" y="650" rx="16" ry="16" width="230" height="70" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+  <text x="975" y="680" text-anchor="middle" class="box-title">Operational Checkpoint</text>
+  <text x="975" y="704" text-anchor="middle" class="small">Validate, then reclaim staging storage after cutover</text>
+
+  <rect x="1240" y="190" rx="16" ry="16" width="250" height="100" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1365" y="224" text-anchor="middle" class="box-title">Azure Local Cluster</text>
+  <text x="1365" y="250" text-anchor="middle" class="text">CSV or S2D storage</text>
+  <text x="1365" y="274" text-anchor="middle" class="text">Arc-connected infrastructure</text>
+
+  <rect x="1240" y="370" rx="16" ry="16" width="250" height="100" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1365" y="404" text-anchor="middle" class="box-title">Azure Local VMs</text>
+  <text x="1365" y="430" text-anchor="middle" class="text">Final production placement</text>
+  <text x="1365" y="454" text-anchor="middle" class="text">Created during test or production migrate</text>
+
+  <rect x="1240" y="550" rx="16" ry="16" width="250" height="100" fill="#ddd6fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="1365" y="584" text-anchor="middle" class="box-title">Azure Control Plane</text>
+  <text x="1365" y="610" text-anchor="middle" class="text">Azure Migrate project</text>
+  <text x="1365" y="634" text-anchor="middle" class="text">Arc and governance services</text>
+
+  <line x1="350" y1="230" x2="500" y2="230" stroke="#16a34a" stroke-width="4" marker-end="url(#arrow-green)"/>
+  <text x="425" y="200" text-anchor="middle" class="label">HTTPS 443</text>
+  <text x="425" y="222" text-anchor="middle" class="small">Prism or vSphere API</text>
+
+  <line x1="350" y1="380" x2="350" y2="528" stroke="#d97706" stroke-width="3" marker-end="url(#arrow-orange)"/>
+  <text x="384" y="442" class="small">Snapshots and CBT</text>
+
+  <line x1="710" y1="390" x2="860" y2="390" stroke="#ea580c" stroke-width="6" marker-end="url(#arrow-orange)"/>
+  <text x="785" y="352" text-anchor="middle" class="label">Hop 1</text>
+  <text x="785" y="374" text-anchor="middle" class="small">Veeam replication to VHDX</text>
+
+  <line x1="1090" y1="390" x2="1240" y2="420" stroke="#2563eb" stroke-width="6" marker-end="url(#arrow-blue)"/>
+  <text x="1165" y="352" text-anchor="middle" class="label">Hop 2</text>
+  <text x="1165" y="374" text-anchor="middle" class="small">Azure Migrate</text>
+
+  <line x1="1090" y1="550" x2="1240" y2="600" stroke="#7c3aed" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#arrow-purple)"/>
+  <text x="1165" y="540" text-anchor="middle" class="small">HTTPS 443 metadata and control</text>
+</svg>

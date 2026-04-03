@@ -40,6 +40,14 @@ Nutanix AHV/ESXi (Source) → Hyper-V Staging (Intermediate) → Azure Local (Ta
 
 ## Veeam Migration Path {#veeam}
 
+### Scenario page detailed architecture
+
+![Veeam scenario detailed architecture](../assets/images/01-veeam-architecture-detailed.svg)
+
+*Scenario-page component diagram: source Nutanix estate, Veeam B&R control plane, Hyper-V staging, Azure Migrate appliance, and Azure Local destination.*
+
+[`diagrams/scenarios/01-veeam-architecture-detailed.drawio`](../assets/diagrams/01-veeam-architecture-detailed.drawio)
+
 ### High-Level Architecture
 
 ![Veeam high-level architecture](../assets/images/01-high-level-architecture.png)
@@ -73,6 +81,14 @@ The editable DrawIO source for all Veeam diagrams:
 
 ## HYCU Migration Path {#hycu}
 
+### Scenario page detailed architecture
+
+![HYCU scenario detailed architecture](../assets/images/02-hycu-architecture-detailed.svg)
+
+*Scenario-page component diagram: Nutanix source estate, HYCU controller and backup target, Hyper-V restore landing zone, Azure Migrate appliance, and Azure Local destination.*
+
+[`diagrams/scenarios/02-hycu-architecture-detailed.drawio`](../assets/diagrams/02-hycu-architecture-detailed.drawio)
+
 ### HYCU Setup Detail
 
 ![HYCU setup detail](../assets/images/03-hycu-setup-detail.png)
@@ -86,6 +102,14 @@ The editable DrawIO source for all Veeam diagrams:
 ---
 
 ## Commvault Migration Path {#commvault}
+
+### Scenario page detailed architecture
+
+![Commvault scenario detailed architecture](../assets/images/03-commvault-architecture-detailed.svg)
+
+*Scenario-page component diagram: Nutanix source estate, Commvault control and copy layers, Hyper-V staging, Azure Migrate appliance, and Azure Local destination.*
+
+[`diagrams/scenarios/03-commvault-architecture-detailed.drawio`](../assets/diagrams/03-commvault-architecture-detailed.drawio)
 
 ### High-Level Architecture
 
@@ -106,6 +130,14 @@ The editable DrawIO source for all Veeam diagrams:
 ---
 
 ## Deploy-First Migration Path {#deploy-first}
+
+### Scenario page detailed architecture
+
+![Deploy-First scenario detailed architecture](../assets/images/04-deploy-first-architecture-detailed.svg)
+
+*Scenario-page component diagram: build-first Azure Local target VM, direct migration methods, and no intermediate Hyper-V staging layer in the primary flow.*
+
+[`diagrams/scenarios/04-deploy-first-architecture-detailed.drawio`](../assets/diagrams/04-deploy-first-architecture-detailed.drawio)
 
 ### Architecture Overview
 

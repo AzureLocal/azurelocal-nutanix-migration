@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .zone { fill: #ffffff; stroke-width: 3; stroke-dasharray: 10 8; }
+      .zone-title { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .box-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .text { font: 400 15px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+      .label { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    </style>
+    <marker id="arrow-violet" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#8b5cf6"/></marker>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#ea580c"/></marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#2563eb"/></marker>
+    <marker id="arrow-purple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#7c3aed"/></marker>
+  </defs>
+
+  <rect width="1600" height="820" fill="#ffffff"/>
+  <text x="800" y="52" text-anchor="middle" class="title">Commvault Two-Hop Migration Architecture</text>
+  <text x="800" y="82" text-anchor="middle" class="subtitle">Commvault protects Nutanix workloads, restores staged VHDX-backed VMs into Hyper-V, and Azure Migrate places the final workloads on Azure Local</text>
+
+  <rect x="40" y="110" rx="20" ry="20" width="320" height="640" class="zone" stroke="#64748b" fill="#f8fafc"/>
+  <rect x="410" y="110" rx="20" ry="20" width="390" height="640" class="zone" stroke="#8b5cf6" fill="#faf5ff"/>
+  <rect x="850" y="110" rx="20" ry="20" width="310" height="640" class="zone" stroke="#ea580c" fill="#fff7ed"/>
+  <rect x="1210" y="110" rx="20" ry="20" width="340" height="640" class="zone" stroke="#2563eb" fill="#eff6ff"/>
+
+  <text x="200" y="145" text-anchor="middle" class="zone-title">Source Estate</text>
+  <text x="605" y="145" text-anchor="middle" class="zone-title">Commvault Platform</text>
+  <text x="1005" y="145" text-anchor="middle" class="zone-title">Hyper-V Staging</text>
+  <text x="1380" y="145" text-anchor="middle" class="zone-title">Azure Local Target</text>
+
+  <rect x="85" y="220" rx="16" ry="16" width="230" height="110" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="200" y="254" text-anchor="middle" class="box-title">Nutanix AHV or ESXi</text>
+  <text x="200" y="280" text-anchor="middle" class="text">Protected VM inventory</text>
+  <text x="200" y="304" text-anchor="middle" class="text">Batch-ready migration waves</text>
+
+  <rect x="85" y="450" rx="16" ry="16" width="230" height="110" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <text x="200" y="484" text-anchor="middle" class="box-title">Planning Note</text>
+  <text x="200" y="510" text-anchor="middle" class="small">Release-specific Nutanix integration and restore workflow</text>
+  <text x="200" y="532" text-anchor="middle" class="small">must be validated in the pilot</text>
+
+  <rect x="470" y="170" rx="16" ry="16" width="270" height="90" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="605" y="204" text-anchor="middle" class="box-title">Command Center</text>
+  <text x="605" y="230" text-anchor="middle" class="text">Job orchestration</text>
+  <text x="605" y="252" text-anchor="middle" class="text">Reporting and approvals</text>
+
+  <rect x="470" y="320" rx="16" ry="16" width="270" height="120" fill="#ede9fe" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="605" y="354" text-anchor="middle" class="box-title">CommServe and Media Components</text>
+  <text x="605" y="380" text-anchor="middle" class="text">Catalog, policy, indexing, and data movement</text>
+  <text x="605" y="404" text-anchor="middle" class="text">Worker or media services sized for wave throughput</text>
+
+  <rect x="470" y="510" rx="16" ry="16" width="270" height="110" fill="#ddd6fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="605" y="544" text-anchor="middle" class="box-title">Protected Copy Storage</text>
+  <text x="605" y="570" text-anchor="middle" class="text">Primary or secondary copy</text>
+  <text x="605" y="594" text-anchor="middle" class="text">Restore source for Hyper-V staging</text>
+
+  <rect x="470" y="660" rx="16" ry="16" width="270" height="60" fill="#faf5ff" stroke="#c4b5fd" stroke-width="2"/>
+  <text x="605" y="690" text-anchor="middle" class="small">Hop 1 protects or copies first, then restores selected workloads for staging</text>
+
+  <rect x="900" y="200" rx="16" ry="16" width="210" height="110" fill="#fed7aa" stroke="#ea580c" stroke-width="3"/>
+  <text x="1005" y="234" text-anchor="middle" class="box-title">Hyper-V Staging Host</text>
+  <text x="1005" y="260" text-anchor="middle" class="text">Restore target and validation point</text>
+  <text x="1005" y="284" text-anchor="middle" class="text">Holds staged VHDX-backed VMs</text>
+
+  <rect x="900" y="410" rx="16" ry="16" width="210" height="110" fill="#fed7aa" stroke="#ea580c" stroke-width="3"/>
+  <text x="1005" y="444" text-anchor="middle" class="box-title">Restored VMs</text>
+  <text x="1005" y="470" text-anchor="middle" class="text">App and network validation</text>
+  <text x="1005" y="494" text-anchor="middle" class="text">Rollback point before Azure Migrate</text>
+
+  <rect x="900" y="620" rx="16" ry="16" width="210" height="90" fill="#e9d5ff" stroke="#7c3aed" stroke-width="3"/>
+  <text x="1005" y="654" text-anchor="middle" class="box-title">Azure Migrate Appliance</text>
+  <text x="1005" y="680" text-anchor="middle" class="text">Discovers Hyper-V and coordinates migration</text>
+
+  <rect x="1275" y="220" rx="16" ry="16" width="210" height="110" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1380" y="254" text-anchor="middle" class="box-title">Azure Local Cluster</text>
+  <text x="1380" y="280" text-anchor="middle" class="text">Arc-connected infrastructure</text>
+  <text x="1380" y="304" text-anchor="middle" class="text">CSV or S2D storage pools</text>
+
+  <rect x="1275" y="430" rx="16" ry="16" width="210" height="110" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1380" y="464" text-anchor="middle" class="box-title">Azure Local VMs</text>
+  <text x="1380" y="490" text-anchor="middle" class="text">Final production workloads</text>
+  <text x="1380" y="514" text-anchor="middle" class="text">Created during test or production migration</text>
+
+  <rect x="1275" y="620" rx="16" ry="16" width="210" height="90" fill="#ddd6fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="1380" y="654" text-anchor="middle" class="box-title">Azure Control Plane</text>
+  <text x="1380" y="680" text-anchor="middle" class="text">Azure Migrate project and Arc services</text>
+
+  <line x1="315" y1="275" x2="470" y2="215" stroke="#8b5cf6" stroke-width="5" marker-end="url(#arrow-violet)"/>
+  <text x="392" y="216" text-anchor="middle" class="small">Inventory, policy, and credentials</text>
+
+  <line x1="740" y1="565" x2="900" y2="465" stroke="#ea580c" stroke-width="6" marker-end="url(#arrow-orange)"/>
+  <text x="820" y="500" text-anchor="middle" class="label">Hop 1</text>
+  <text x="820" y="522" text-anchor="middle" class="small">Restore to Hyper-V</text>
+
+  <line x1="1110" y1="465" x2="1275" y2="485" stroke="#2563eb" stroke-width="6" marker-end="url(#arrow-blue)"/>
+  <text x="1192" y="428" text-anchor="middle" class="label">Hop 2</text>
+  <text x="1192" y="450" text-anchor="middle" class="small">Azure Migrate</text>
+
+  <line x1="1110" y1="655" x2="1275" y2="665" stroke="#7c3aed" stroke-width="4" stroke-dasharray="10 8" marker-end="url(#arrow-purple)"/>
+  <text x="1192" y="644" text-anchor="middle" class="small">HTTPS 443 metadata and control</text>
+</svg>

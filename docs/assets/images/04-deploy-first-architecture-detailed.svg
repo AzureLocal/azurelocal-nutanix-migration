@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="820" viewBox="0 0 1600 820">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .zone { fill: #ffffff; stroke-width: 3; stroke-dasharray: 10 8; }
+      .zone-title { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .box-title { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .text { font: 400 15px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+      .label { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+    </style>
+    <marker id="arrow-orange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#d97706"/></marker>
+    <marker id="arrow-blue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L12,6 L0,12 z" fill="#2563eb"/></marker>
+  </defs>
+
+  <rect width="1600" height="820" fill="#ffffff"/>
+  <text x="800" y="52" text-anchor="middle" class="title">Deploy-First Migration Architecture</text>
+  <text x="800" y="82" text-anchor="middle" class="subtitle">Build the Azure Local target first, then move data, application state, or guest OS state directly into that destination without a Hyper-V staging hop</text>
+
+  <rect x="40" y="110" rx="20" ry="20" width="330" height="640" class="zone" stroke="#64748b" fill="#f8fafc"/>
+  <rect x="420" y="110" rx="20" ry="20" width="430" height="640" class="zone" stroke="#d97706" fill="#fffbeb"/>
+  <rect x="900" y="110" rx="20" ry="20" width="650" height="640" class="zone" stroke="#2563eb" fill="#eff6ff"/>
+
+  <text x="205" y="145" text-anchor="middle" class="zone-title">Source Workloads</text>
+  <text x="635" y="145" text-anchor="middle" class="zone-title">Deploy-First Methods</text>
+  <text x="1225" y="145" text-anchor="middle" class="zone-title">Azure Local Target Estate</text>
+
+  <rect x="90" y="220" rx="16" ry="16" width="230" height="110" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="205" y="254" text-anchor="middle" class="box-title">Nutanix VM</text>
+  <text x="205" y="280" text-anchor="middle" class="text">Windows or Linux</text>
+  <text x="205" y="304" text-anchor="middle" class="text">Existing data and app state</text>
+
+  <rect x="90" y="430" rx="16" ry="16" width="230" height="110" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="205" y="464" text-anchor="middle" class="box-title">Migration Payload</text>
+  <text x="205" y="490" text-anchor="middle" class="text">Files, databases, app config,</text>
+  <text x="205" y="514" text-anchor="middle" class="text">or full guest OS state</text>
+
+  <rect x="90" y="640" rx="16" ry="16" width="230" height="70" fill="#f8fafc" stroke="#94a3b8" stroke-width="2"/>
+  <text x="205" y="670" text-anchor="middle" class="box-title">No Staging Hop</text>
+  <text x="205" y="694" text-anchor="middle" class="small">Source workload moves directly into the new Azure Local VM</text>
+
+  <rect x="485" y="180" rx="16" ry="16" width="300" height="110" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="635" y="214" text-anchor="middle" class="box-title">File or Data Migration</text>
+  <text x="635" y="240" text-anchor="middle" class="text">Storage Migration Service, Robocopy, rsync</text>
+  <text x="635" y="264" text-anchor="middle" class="text">Best for file servers and content stores</text>
+
+  <rect x="485" y="350" rx="16" ry="16" width="300" height="120" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="635" y="384" text-anchor="middle" class="box-title">Application-Native Migration</text>
+  <text x="635" y="410" text-anchor="middle" class="text">Backup and restore, export and import, native replication</text>
+  <text x="635" y="434" text-anchor="middle" class="text">Best for SQL, IIS, and app stacks</text>
+
+  <rect x="485" y="540" rx="16" ry="16" width="300" height="110" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="635" y="574" text-anchor="middle" class="box-title">Carbonite Migrate</text>
+  <text x="635" y="600" text-anchor="middle" class="text">Agent-based changed block replication</text>
+  <text x="635" y="624" text-anchor="middle" class="text">Preserves more guest OS state with low downtime</text>
+
+  <rect x="485" y="680" rx="16" ry="16" width="300" height="40" fill="#fffbeb" stroke="#fcd34d" stroke-width="2"/>
+  <text x="635" y="706" text-anchor="middle" class="small">Choose the method based on what must be preserved</text>
+
+  <rect x="940" y="180" rx="16" ry="16" width="230" height="110" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1055" y="214" text-anchor="middle" class="box-title">Azure Local Cluster</text>
+  <text x="1055" y="240" text-anchor="middle" class="text">Pre-built target platform</text>
+  <text x="1055" y="264" text-anchor="middle" class="text">Arc-connected and policy-ready</text>
+
+  <rect x="1230" y="180" rx="16" ry="16" width="270" height="130" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1365" y="214" text-anchor="middle" class="box-title">Pre-Provisioned Target VM</text>
+  <text x="1365" y="240" text-anchor="middle" class="text">New Azure Local VM with right-sized CPU, RAM,</text>
+  <text x="1365" y="264" text-anchor="middle" class="text">network, and storage</text>
+  <text x="1365" y="288" text-anchor="middle" class="text">Provisioned before migration begins</text>
+
+  <rect x="1085" y="390" rx="16" ry="16" width="300" height="120" fill="#bfdbfe" stroke="#2563eb" stroke-width="3"/>
+  <text x="1235" y="424" text-anchor="middle" class="box-title">Cutover and Validation</text>
+  <text x="1235" y="450" text-anchor="middle" class="text">Service validation happens directly on the new Azure Local VM</text>
+  <text x="1235" y="474" text-anchor="middle" class="text">No Hyper-V staging checkpoint in the primary flow</text>
+
+  <rect x="1085" y="610" rx="16" ry="16" width="300" height="90" fill="#ddd6fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="1235" y="644" text-anchor="middle" class="box-title">Azure and Arc Services</text>
+  <text x="1235" y="670" text-anchor="middle" class="text">Governance, monitoring, policy, and lifecycle management</text>
+
+  <line x1="320" y1="485" x2="485" y2="235" stroke="#d97706" stroke-width="5" marker-end="url(#arrow-orange)"/>
+  <line x1="320" y1="485" x2="485" y2="410" stroke="#d97706" stroke-width="5" marker-end="url(#arrow-orange)"/>
+  <line x1="320" y1="485" x2="485" y2="595" stroke="#d97706" stroke-width="5" marker-end="url(#arrow-orange)"/>
+  <text x="400" y="360" text-anchor="middle" class="small">Data-centric move</text>
+  <text x="400" y="450" text-anchor="middle" class="small">Application-centric move</text>
+  <text x="400" y="560" text-anchor="middle" class="small">OS-state move</text>
+
+  <line x1="785" y1="235" x2="1230" y2="235" stroke="#2563eb" stroke-width="6" marker-end="url(#arrow-blue)"/>
+  <line x1="785" y1="410" x2="1230" y2="245" stroke="#2563eb" stroke-width="6" marker-end="url(#arrow-blue)"/>
+  <line x1="785" y1="595" x2="1230" y2="255" stroke="#2563eb" stroke-width="6" marker-end="url(#arrow-blue)"/>
+  <text x="995" y="206" text-anchor="middle" class="label">Methods execute directly into the target VM</text>
+</svg>
