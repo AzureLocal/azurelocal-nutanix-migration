@@ -124,6 +124,12 @@ The editable draw.io source (open in [app.diagrams.net](https://app.diagrams.net
 
 *Four-week PoC timeline with decision gates at the end of each cell.*
 
+### PoC Execution and Decision Flow
+
+![PoC execution and decision flow](../assets/images/07-poc-execution-decision-flow.svg)
+
+[`diagrams/poc/poc-execution-decision-flow.drawio`](../assets/diagrams/poc-execution-decision-flow.drawio)
+
 ### PoC DrawIO Source
 
 [`diagrams/poc/poc-diagrams.drawio`](../assets/diagrams/poc-diagrams.drawio)

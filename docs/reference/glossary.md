@@ -7,10 +7,10 @@
 ## A
 
 **AHV** (Acropolis Hypervisor)  
-Nutanix's native KVM-based hypervisor. AHV is fully integrated with Prism and uses native snapshot APIs leveraged by HYCU and Azure Migrate for agentless VM replication.
+Nutanix's native KVM-based hypervisor. AHV is fully integrated with Prism and uses snapshot APIs leveraged by tools such as HYCU and Veeam for Hop 1 operations.
 
-**Arc-managed VM**  
-A Hyper-V VM running on Azure Local that is registered with Azure Arc, enabling Azure management features (RBAC, Policy, Defender for Cloud, Update Manager, Monitor).
+**Azure Local VM**  
+A Hyper-V VM running on Azure Local and visible in the Azure portal, enabling Azure-integrated management experiences (RBAC, Policy, Defender for Cloud, Update Manager, Monitor).
 
 **Azure Local**  
 Microsoft's hyperconverged infrastructure (HCI) platform formerly known as Azure Stack HCI. Runs Hyper-V workloads on-premises with Azure Arc integration.
@@ -66,7 +66,7 @@ A health-check utility built into Nutanix clusters. Run `ncli health-check run-a
 ## P
 
 **Prism Central**  
-Nutanix's multi-cluster management plane. Required for some Azure Migrate direct-from-AHV scenarios. Distinct from Prism Element (the single-cluster management plane).
+Nutanix's multi-cluster management plane. Distinct from Prism Element (the single-cluster management plane).
 
 **Prism Element**  
 Nutanix's per-cluster management plane (HTTPS port 9440). Used by Veeam and HYCU to discover and snapshot VMs.

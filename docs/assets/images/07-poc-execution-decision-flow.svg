@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1080" viewBox="0 0 1800 1080">
+  <defs>
+    <style>
+      .title { font: 700 40px Arial, sans-serif; fill: #111827; }
+      .txt { font: 400 18px Arial, sans-serif; fill: #1f2937; }
+      .b { font: 700 20px Arial, sans-serif; fill: #111827; }
+      .s { font: 400 15px Arial, sans-serif; fill: #374151; }
+      .label { font: 700 14px Arial, sans-serif; fill: #111827; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="1800" height="1080" fill="#ffffff"/>
+  <text x="900" y="58" text-anchor="middle" class="title">PoC Execution and Decision Flow</text>
+
+  <polygon points="900,110 1060,170 900,230 740,170" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="168" text-anchor="middle" class="b">Entry Criteria Met?</text>
+  <text x="900" y="190" text-anchor="middle" class="s">People, tooling, network, VM list</text>
+
+  <rect x="140" y="280" width="280" height="90" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="280" y="334" text-anchor="middle" class="b">Week 1 Setup</text>
+
+  <rect x="470" y="280" width="300" height="90" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="620" y="334" text-anchor="middle" class="b">Week 2 Cells A1/A2</text>
+
+  <rect x="830" y="280" width="330" height="90" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="995" y="334" text-anchor="middle" class="b">Week 3 Azure Migrate + Setup</text>
+
+  <rect x="1220" y="280" width="320" height="90" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="1380" y="334" text-anchor="middle" class="b">Week 4 Cells A3/A4 + Decision</text>
+
+  <rect x="500" y="430" width="280" height="84" rx="12" fill="#f3e8ff" stroke="#8e7cc3" stroke-width="3"/>
+  <text x="640" y="477" text-anchor="middle" class="txt">Per-cell gates</text>
+
+  <rect x="860" y="430" width="300" height="84" rx="12" fill="#e6f4ea" stroke="#34a853" stroke-width="3"/>
+  <text x="1010" y="477" text-anchor="middle" class="txt">Metrics + evidence capture</text>
+
+  <rect x="1230" y="430" width="300" height="84" rx="12" fill="#fdebd0" stroke="#d79b00" stroke-width="3"/>
+  <text x="1380" y="477" text-anchor="middle" class="txt">Risk + capacity checks</text>
+
+  <polygon points="900,600 1060,660 900,720 740,660" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="658" text-anchor="middle" class="b">Weighted score complete?</text>
+
+  <rect x="1140" y="620" width="290" height="84" rx="12" fill="#d9f2e6" stroke="#34a853" stroke-width="3"/>
+  <text x="1285" y="650" text-anchor="middle" class="label">GO</text>
+  <text x="1285" y="674" text-anchor="middle" class="txt">Select tool + path</text>
+
+  <rect x="370" y="620" width="300" height="84" rx="12" fill="#f8cecc" stroke="#b85450" stroke-width="3"/>
+  <text x="520" y="650" text-anchor="middle" class="label">NO-GO / EXTEND</text>
+  <text x="520" y="674" text-anchor="middle" class="txt">Fix blockers and rerun</text>
+
+  <rect x="650" y="800" width="500" height="96" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+  <text x="900" y="840" text-anchor="middle" class="b">PoC Deliverables</text>
+  <text x="900" y="866" text-anchor="middle" class="s">Evidence pack, recommendation, and sign-off</text>
+
+  <line x1="900" y1="230" x2="280" y2="280" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="420" y1="325" x2="470" y2="325" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="770" y1="325" x2="830" y2="325" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1160" y1="325" x2="1220" y2="325" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="620" y1="370" x2="640" y2="430" stroke="#8e7cc3" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="995" y1="370" x2="1010" y2="430" stroke="#34a853" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1380" y1="370" x2="1380" y2="430" stroke="#d79b00" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="640" y1="514" x2="850" y2="632" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1010" y1="514" x2="930" y2="600" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1380" y1="514" x2="980" y2="620" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="1060" y1="660" x2="1140" y2="660" stroke="#34a853" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="740" y1="660" x2="670" y2="660" stroke="#b85450" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="1285" y1="704" x2="980" y2="800" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="520" y1="704" x2="620" y2="325" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>

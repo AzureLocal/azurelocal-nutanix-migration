@@ -28,20 +28,29 @@
 | HYCU Controller VM | Hyper-V Host (WinRM) | WinRM | 5985/5986 | Restore operations |
 | Admin Workstation | HYCU Web UI | HTTPS | 8443 | Management console |
 
-## Azure Migrate (Both Paths)
+## Carbonite Migration Path (Deploy-First)
+
+| Source | Destination | Protocol | Port | Description |
+|--------|-------------|----------|------|-------------|
+| Carbonite Console/Server | Source VM agents | TCP | 6325/6326 | Job control and replication coordination |
+| Source VM agents | Target VM agents (Azure Local) | TCP | 6325/6326 | Replication data channel |
+| Admin Workstation | Carbonite Console | HTTPS | 443 | Management UI |
+| Source/Target VMs | DNS/AD services | DNS/Kerberos/LDAP | 53/88/389/636 | Identity and name resolution dependencies |
+
+## Azure Migrate (Two-Hop Paths)
 
 | Source | Destination | Protocol | Port | Description |
 |--------|-------------|----------|------|-------------|
 | Azure Migrate Appliance | Azure | HTTPS | 443 | Control plane, metadata |
 | Hyper-V Host | Azure Migrate Appliance | WinRM | 5985/5986 | VM discovery |
 | Hyper-V Host | Azure Local Cluster | SMB | 445 | Replication data |
-| Azure Local ARM Agent | Azure | HTTPS | 443 | Arc registration |
+| Azure Local management plane | Azure | HTTPS | 443 | Azure integration and resource control |
 
 ---
 
 ## Firewall Rule Summary (Minimum Required)
 
-Apply these rules in your network/firewall for all paths:
+Apply these rules in your network/firewall for all supported paths:
 
 ```
 # From: IIC Management VLAN → Nutanix Management VLAN
@@ -51,6 +60,9 @@ Allow TCP 9440  # Prism Element HTTPS
 Allow TCP 5985, 5986  # WinRM
 Allow TCP 2500-3300   # Veeam data channel
 Allow TCP 445         # SMB (backup target, Azure Migrate replication)
+
+# From: Source VMs → Target VMs (Carbonite deploy-first)
+Allow TCP 6325, 6326  # Carbonite replication/control channels
 
 # From: Migration VLAN → Internet / Azure
 Allow TCP 443 outbound  # Azure Migrate, Arc, Azure portal

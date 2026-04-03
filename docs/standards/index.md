@@ -79,7 +79,14 @@ All documentation in this repository follows these conventions:
 - Section headings: Sentence case
 - Code blocks: Always include language identifier (```powershell, ```bash, ```yaml)
 - Relative links within docs: Use `relative/path.md` — no absolute URLs for internal docs
-- Diagrams: Embed via `![alt](../../diagrams/path.png)` or the `mkdocs-drawio` plugin for `.drawio` files
+- Diagrams: Rendered images go in `docs/assets/images/` and editable sources go in `docs/assets/diagrams/`
+- Diagram references: Embed rendered files via `![alt](../assets/images/<file>.svg|png)` and include a companion `Draw.io source` link
+- Do not commit local export/mount artifacts (for example, `mnt/` paths)
+
+### Terminology standard
+
+- Prefer **Azure Local VMs** terminology across docs for target workloads
+- Avoid outdated phrasing that implies unsupported direct AHV migration paths
 
 See [MkDocs Material reference](https://squidfunk.github.io/mkdocs-material/) for the full feature set.
 

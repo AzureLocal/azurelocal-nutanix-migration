@@ -15,7 +15,7 @@
 | Day 2–3 | Configure HYCU source (Nutanix AHV), backup target, and Hyper-V restore target |
 | Day 2–3 | Configure Veeam AHV source, AHV proxy, and Hyper-V replication destination |
 | Day 3–4 | Provision standalone Hyper-V staging host (for Option A tests) |
-| Day 3–5 | Verify Azure Local cluster health, CSV capacity, Arc registration |
+| Day 3–5 | Verify Azure Local cluster health, CSV capacity, and Azure integration readiness |
 | Day 4–5 | Deploy Azure Migrate appliance on Hyper-V staging host; register with project |
 | Day 5 | Identify and document the 10 PoC VMs; record baseline: OS, apps, IP, services |
 
@@ -75,6 +75,45 @@ Fill in this table before starting Week 2. Shared with networking team for VLAN/
 
 ---
 
+## Rollback Runbook (PoC)
+
+### Rollback triggers
+
+- Tier 1 VM fails application smoke test after cutover
+- Data integrity mismatch detected (checksums/record counts/files)
+- Cutover exceeds agreed downtime window
+
+### Rollback steps
+
+1. Declare rollback and freeze further cutovers in current cell
+2. Stop target workload on Azure Local VM
+3. Power on source VM on Nutanix (or restore prior running state)
+4. Repoint DNS/LB records to source VM
+5. Validate app health from business-owner test script
+6. Record rollback duration and root cause in metrics workbook
+
+### Rollback validation
+
+- Source VM serving production traffic
+- Application owner confirms service restoration
+- Incident notes and remediation plan documented before next test wave
+
+---
+
+## Capacity and Saturation Thresholds
+
+Treat these as stop-wave thresholds during PoC execution:
+
+| Domain | Threshold | Action if exceeded |
+|--------|-----------|--------------------|
+| Azure Local node CPU | > 85% sustained for 15+ minutes | Pause replication/cutover wave; scale down concurrency |
+| Azure Local memory pressure | < 15% free sustained | Pause non-critical test jobs |
+| CSV free capacity | < 25% remaining | Stop new replication; reclaim space |
+| Storage latency | > 20 ms sustained | Pause wave; investigate storage bottleneck |
+| Replication network throughput | < planned floor for 30+ minutes | Extend window and re-baseline estimate |
+
+---
+
 ## Decision Framework
 
 After the PoC, answer these questions to finalize tool selection:
@@ -88,6 +127,27 @@ After the PoC, answer these questions to finalize tool selection:
 | Did HYCU backup target add complexity? | | If yes, favor Veeam |
 | Was standalone HV needed, or is AZL sufficient? | | If AZL sufficient, reduces hardware |
 | Team preference after hands-on use? | | Operator comfort matters at 300-VM scale |
+
+### Weighted scorecard model
+
+Use weighted scoring to prevent subjective decisions:
+
+| Category | Weight | A1 | A2 | A3 | A4 |
+|----------|:------:|:--:|:--:|:--:|:--:|
+| Migration fidelity / reliability | 30% | | | | |
+| Speed (full + incremental + cutover) | 20% | | | | |
+| Operational complexity | 15% | | | | |
+| Re-IP and network stability | 10% | | | | |
+| Rollback performance | 10% | | | | |
+| Capacity efficiency / hardware footprint | 10% | | | | |
+| Team fit / supportability | 5% | | | | |
+
+Scoring method:
+
+- Rate each category 1-5 per cell
+- Weighted score = `rating * weight`
+- Sum weighted scores to rank A1-A4
+- Any auto-fail gate overrides score and disqualifies that cell
 
 ### Outcome Scenarios
 
