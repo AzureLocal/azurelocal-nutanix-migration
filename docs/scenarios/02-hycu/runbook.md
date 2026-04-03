@@ -148,8 +148,8 @@ Same as the Veeam path — Azure Migrate is independent of the Hop 1 tool:
 ### 5.3 Production Cutover
 
 1. Select all 10 VMs → **Migrate**
-2. Azure Migrate performs a final delta sync and creates Arc-managed VMs on Azure Local
-3. Confirm VMs visible in Azure portal as Arc VMs
+2. Azure Migrate performs a final delta sync and creates Azure Local VMs on Azure Local
+3. Confirm VMs visible in Azure portal as Azure Local VMs
 4. Click **Complete Migration**
 
 ---

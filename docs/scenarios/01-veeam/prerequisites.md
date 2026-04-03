@@ -9,7 +9,7 @@
 | Component | Requirement |
 |-----------|-------------|
 | **Veeam Universal License (VUL)** | Required. Each replicated VM consumes one VUL instance. For rolling batches of 10, a minimum of **10 VUL instances** is sufficient if you delete completed replicas before starting the next batch. For all 300 VMs simultaneously, 300 VUL instances are needed. |
-| **Azure Local** | Valid Azure Local subscription with Azure Arc registration |
+| **Azure Local** | Valid Azure Local subscription with Azure integration enabled |
 | **Azure Migrate** | No additional license — included with Azure subscription |
 
 !!! warning "Confirm licensing before starting"

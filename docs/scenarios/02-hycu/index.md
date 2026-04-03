@@ -1,6 +1,6 @@
 # HYCU Migration Path
 
-> Migrate Nutanix AHV VMs to Azure Local using HYCU Backup & Recovery and Azure Migrate.
+> Migrate Nutanix AHV or ESXi VMs to Azure Local using HYCU Backup & Recovery and Azure Migrate.
 
 ---
 
@@ -8,8 +8,8 @@
 
 The HYCU migration path uses a two-hop architecture:
 
-1. **Hop 1 — HYCU**: Backs up VMs from Nutanix AHV using native snapshot APIs, then restores them to a Hyper-V staging host with automatic VHDX conversion.
-2. **Hop 2 — Azure Migrate**: Discovers the staged Hyper-V VMs and migrates them to Azure Local as Arc-managed VMs.
+1. **Hop 1 — HYCU**: Backs up VMs from Nutanix AHV or ESXi, then restores them to a Hyper-V staging host with automatic VHDX conversion.
+2. **Hop 2 — Azure Migrate**: Discovers the staged Hyper-V VMs and migrates them to Azure Local as Azure Local VMs.
 
 ```
 Nutanix AHV  ──[HYCU backup]──►  HYCU Backup Target  ──[HYCU restore]──►  Hyper-V Staging  ──[Azure Migrate]──►  Azure Local
@@ -56,3 +56,9 @@ Nutanix AHV  ──[HYCU backup]──►  HYCU Backup Target  ──[HYCU resto
 
 !!! tip "Start with the PoC"
     Before migrating production VMs, validate the HYCU path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.
+
+## Alternative approaches
+
+- Compare all three paths in the [Tool Comparison](../../overview/tool-comparison.md)
+- If you want live replication and built-in re-IP, see [Veeam](../01-veeam/index.md)
+- If you prefer clean-build target VMs and data/application migration, see [Deploy-First](../03-deploy-first/index.md)

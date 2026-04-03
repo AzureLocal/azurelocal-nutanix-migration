@@ -38,10 +38,10 @@
 │  │  Azure Local Cluster                                                                    │ │
 │  │                                                                                         │ │
 │  │  ┌──────────────────────────────────────────────────────────────────────────────────┐  │ │
-│  │  │  Arc-Managed VMs (final destination)                                             │  │ │
-│  │  │  VM-001 ... VM-010 (Batch 01, promoted to Arc)                                  │  │ │
+│  │  │  Azure Local VMs (final destination)                                             │  │ │
+│  │  │  VM-001 ... VM-010 (Batch 01, promoted on Azure Local)                          │  │ │
 │  │  └──────────────────────────────────────────────────────────────────────────────────┘  │ │
-│  │  S2D / CSV Storage                    Azure Arc Connection (HTTPS:443 outbound)         │ │
+│  │  S2D / CSV Storage                    Azure integration (HTTPS:443 outbound)            │ │
 │  └─────────────────────────────────────────────────────────────────────────────────────────┘ │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -74,8 +74,8 @@
 1. Azure Migrate appliance connects to the Hyper-V host via **WMI** and discovers VMs
 2. For each VM, Azure Migrate reads the VHDX file and replicates it to **Azure Local CSV storage** over SMB/HTTPS
 3. Once initial replication is complete (**Protected** state), delta syncs run on a schedule
-4. At cutover, a final delta sync runs, then Azure Migrate creates the **Arc-managed VM** on Azure Local
-5. VM is registered with Azure Arc and visible in the Azure portal
+    4. At cutover, a final delta sync runs, then Azure Migrate creates the **Azure Local VM** on Azure Local
+    5. VM is visible in the Azure portal through Azure Local integration
 
 ---
 

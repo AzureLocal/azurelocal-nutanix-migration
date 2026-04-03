@@ -9,7 +9,7 @@
 The Veeam migration path uses a two-hop architecture:
 
 1. **Hop 1 — Veeam B&R**: Replicates VMs from Nutanix (AHV or ESXi) to an on-premises Hyper-V staging host. Veeam performs live replication, keeping replicas continuously in sync with the source until cutover. Disk format is automatically converted to VHDX.
-2. **Hop 2 — Azure Migrate**: Discovers the staged Hyper-V VMs and migrates them to Azure Local as Arc-managed VMs.
+2. **Hop 2 — Azure Migrate**: Discovers the staged Hyper-V VMs and migrates them to Azure Local as Azure Local VMs.
 
 ```
 Nutanix AHV/ESXi  ──[Veeam replication]──►  Hyper-V Staging  ──[Azure Migrate]──►  Azure Local
@@ -48,3 +48,9 @@ This scenario is documented with a **~300 VM / 30-batch** reference scale (IIC e
 
 !!! tip "Start with the PoC"
     Before migrating production VMs, validate the Veeam path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.
+
+## Alternative approaches
+
+- Compare all three paths in the [Tool Comparison](../../overview/tool-comparison.md)
+- If you want a simpler Nutanix-native backup/restore model, see [HYCU](../02-hycu/index.md)
+- If you prefer clean-build target VMs and data/application migration, see [Deploy-First](../03-deploy-first/index.md)

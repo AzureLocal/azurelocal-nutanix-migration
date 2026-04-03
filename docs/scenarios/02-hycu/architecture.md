@@ -43,7 +43,7 @@
 │                                                              ▼                               │
 │  ┌─────────────────────────────────────────────────────────────────────────────────────────┐ │
 │  │  Azure Local Cluster                                                                    │ │
-│  │  Arc-Managed VMs — final destination                                                    │ │
+│  │  Azure Local VMs — final destination                                                    │ │
 │  └─────────────────────────────────────────────────────────────────────────────────────────┘ │
 └──────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
@@ -76,7 +76,7 @@ Same as the Veeam path — Azure Migrate is tool-agnostic for Hop 2:
 
 1. Azure Migrate appliance discovers VMs on Hyper-V via WMI
 2. Replicates VHDX files to Azure Local CSV storage
-3. At cutover: final delta, Azure Migrate creates Arc-managed VMs on Azure Local
+3. At cutover: final delta, Azure Migrate creates Azure Local VMs on Azure Local
 
 ---
 

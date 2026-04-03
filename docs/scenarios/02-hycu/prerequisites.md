@@ -9,7 +9,7 @@
 | Component | Requirement |
 |-----------|-------------|
 | **HYCU License** | Per-VM or per-socket subscription required. Contact your HYCU account representative for trial or production licenses. |
-| **Azure Local** | Valid Azure Local subscription with Azure Arc registration |
+| **Azure Local** | Valid Azure Local subscription with Azure integration enabled |
 | **Azure Migrate** | No additional license — included with Azure subscription |
 
 !!! warning "Confirm licensing before starting"

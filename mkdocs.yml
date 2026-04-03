@@ -38,6 +38,7 @@ nav:
       - Migration Phases: overview/migration-phases.md
       - Tool Comparison: overview/tool-comparison.md
   - Migration Scenarios:
+      - Choose Your Path: scenarios/index.md
       - Veeam Migration Path:
           - Overview: scenarios/01-veeam/index.md
           - Prerequisites: scenarios/01-veeam/prerequisites.md
@@ -52,6 +53,10 @@ nav:
           - Validation & Checklist: scenarios/02-hycu/validation.md
       - Deploy-First Migration:
           - Overview: scenarios/03-deploy-first/index.md
+          - Prerequisites: scenarios/03-deploy-first/prerequisites.md
+          - Architecture: scenarios/03-deploy-first/architecture.md
+          - Runbook: scenarios/03-deploy-first/runbook.md
+          - Validation & Checklist: scenarios/03-deploy-first/validation.md
   - Proof of Concept:
       - Overview: poc/index.md
       - Test Matrix: poc/test-matrix.md

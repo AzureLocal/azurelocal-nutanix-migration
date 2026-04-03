@@ -156,8 +156,8 @@ After successful Hyper-V validation (see [Validation section](validation.md)):
 
 1. Select all 10 VMs → **Migrate**
 2. Toggle **Shutdown VMs before migration** = Yes (or leave off if already powered off from Veeam cutover)
-3. Azure Migrate performs a final delta sync and creates Arc-managed VMs on Azure Local
-4. Confirm VMs are visible in the Azure portal as Arc VMs
+3. Azure Migrate performs a final delta sync and creates Azure Local VMs on Azure Local
+4. Confirm VMs are visible in the Azure portal as Azure Local VMs
 5. Click **Complete Migration** to stop replication
 
 ---
