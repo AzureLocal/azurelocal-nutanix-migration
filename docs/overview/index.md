@@ -53,7 +53,7 @@ Draw.io source: [migration-diagrams-common-two-hop-detailed.drawio](../assets/di
 
 After all scenarios, VMs on Azure Local are:
 
-- Managed as **Azure Arc VMs** visible in the Azure portal
+- Managed as **Azure Local VMs** visible in the Azure portal
 - Integrated with **Azure Update Manager**, **Microsoft Defender for Cloud**, and **Azure Monitor**
 - Running on **Hyper-V** backed by **S2D (Storage Spaces Direct)** on the Azure Local cluster
 - Enrolled in **Azure Policy** and governance frameworks

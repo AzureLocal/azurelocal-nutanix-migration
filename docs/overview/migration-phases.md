@@ -1,12 +1,16 @@
 # Migration Phases
 
-> Common phases that apply across all migration scenarios, regardless of tool.
+> Common phases for two-hop migration scenarios (Veeam or HYCU in Hop 1, Azure Migrate in Hop 2).
 
 ---
 
 ## Phase Overview
 
-Every migration from Nutanix to Azure Local follows the same high-level phases. The specific steps within each phase vary by scenario (Veeam vs. HYCU), but the workflow is consistent.
+Every two-hop migration from Nutanix to Azure Local follows the same high-level phases. The specific steps within each phase vary by tool (Veeam vs. HYCU), but the workflow is consistent.
+
+![Migration phases overview](../assets/images/05-migration-phases-overview.svg)
+
+Draw.io source: [migration-diagrams-phases-overview.drawio](../assets/diagrams/migration-diagrams-phases-overview.drawio)
 
 | Phase | Name | Key Activities |
 |-------|------|----------------|
@@ -18,7 +22,7 @@ Every migration from Nutanix to Azure Local follows the same high-level phases. 
 | 5 | Staging Validation | Validate VMs on Hyper-V: boot, network, applications, DNS |
 | 6 | Azure Migrate Replication | Replicate VHDX disks from Hyper-V to Azure Local CSV storage |
 | 7 | Test Migration | Test failover to isolated network on Azure Local |
-| 8 | Azure Migrate Cutover | Create production Arc-managed VMs on Azure Local |
+| 8 | Azure Migrate Cutover | Create production Azure Local VMs |
 | 9 | Azure Local Validation | Full application validation on Azure Local |
 | 10 | Cleanup | Delete staging VMs, decommission source VMs, free licenses |
 
@@ -40,6 +44,8 @@ Before any migration work begins:
 ---
 
 ## Phase 1 — Environment Preparation
+
+These preparation steps apply to two-hop scenarios with a Hyper-V staging layer.
 
 - Provision the Hyper-V staging host(s) with appropriate storage (1–5 TB depending on batch sizes)
 - Install and license the migration tool (Veeam or HYCU)
@@ -99,7 +105,7 @@ For each VM in the batch:
 
 ## Phase 6 — Azure Migrate Replication
 
-- In the Azure Migrate project, select the 10 VMs on Hyper-V for replication
+- In the Azure Migrate project, select the current batch of VMs on Hyper-V for replication (typically 8-10)
 - Set target: Azure Local cluster + target CSV volume
 - Configure VM names and network mapping
 - Start replication — wait for **Protected** state (initial full copy complete)
@@ -118,8 +124,8 @@ For each VM in the batch:
 ## Phase 8 — Azure Migrate Cutover
 
 - Trigger **Migrate** for all VMs in the batch
-- Azure Migrate performs a final delta sync and creates production Arc-managed VMs on Azure Local
-- Confirm VMs are visible in the Azure portal as Arc VMs
+- Azure Migrate performs a final delta sync and creates production Azure Local VMs
+- Confirm VMs are visible in the Azure portal as Azure Local VMs
 
 ---
 
@@ -128,7 +134,7 @@ For each VM in the batch:
 Full validation of production VMs on Azure Local:
 
 - [ ] All Phase 5 checks pass on Azure Local
-- [ ] Arc status shows **Connected** in the Azure portal
+- [ ] Azure Local VM resource status shows healthy/connected in the Azure portal
 - [ ] Azure Monitor agents are reporting
 - [ ] Update Manager shows the VM
 - [ ] Application team sign-off

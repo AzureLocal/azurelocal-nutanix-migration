@@ -16,6 +16,18 @@ Nutanix AHV/ESXi (Source) → Hyper-V Staging (Intermediate) → Azure Local (Ta
 
 [`diagrams/common/migration-diagrams-common-two-hop.drawio`](../assets/diagrams/migration-diagrams-common-two-hop.drawio)
 
+### Migration Phases Overview
+
+![Migration phases overview](../assets/images/05-migration-phases-overview.svg)
+
+[`diagrams/overview/migration-diagrams-phases-overview.drawio`](../assets/diagrams/migration-diagrams-phases-overview.drawio)
+
+### Tool Selection Flow
+
+![Tool selection flow](../assets/images/06-tool-selection-flow.svg)
+
+[`diagrams/overview/migration-diagrams-tool-selection-flow.drawio`](../assets/diagrams/migration-diagrams-tool-selection-flow.drawio)
+
 ---
 
 ## Veeam Migration Path {#veeam}

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1180" viewBox="0 0 1800 1180">
+  <defs>
+    <style>
+      .title { font: 700 40px Arial, sans-serif; fill: #111827; }
+      .text { font: 400 20px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 16px Arial, sans-serif; fill: #374151; }
+      .bold { font: 700 20px Arial, sans-serif; fill: #111827; }
+      .q { font: 700 18px Arial, sans-serif; fill: #111827; }
+      .yesno { font: 700 16px Arial, sans-serif; fill: #0f172a; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="1800" height="1180" fill="#ffffff"/>
+  <text x="900" y="60" text-anchor="middle" class="title">Migration Tool Selection Flow</text>
+
+  <ellipse cx="900" cy="145" rx="250" ry="52" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="900" y="140" text-anchor="middle" class="bold">Start</text>
+  <text x="900" y="166" text-anchor="middle" class="small">Need to migrate Nutanix workloads to Azure Local</text>
+
+  <polygon points="900,245 1080,315 900,385 720,315" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="305" text-anchor="middle" class="q">Need hypervisor-independent migration?</text>
+  <text x="900" y="327" text-anchor="middle" class="small">(mixed/legacy or API constraints)</text>
+
+  <rect x="1230" y="255" rx="14" ry="14" width="470" height="120" fill="#e6f4ea" stroke="#34a853" stroke-width="3"/>
+  <text x="1465" y="300" text-anchor="middle" class="bold">Choose Carbonite Migrate</text>
+  <text x="1465" y="326" text-anchor="middle" class="small">Agent-based, hypervisor-agnostic, strong for deploy-first</text>
+
+  <polygon points="900,445 1080,515 900,585 720,515" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="505" text-anchor="middle" class="q">Need lowest downtime + built-in re-IP</text>
+  <text x="900" y="527" text-anchor="middle" class="small">+ granular operational control?</text>
+
+  <rect x="1230" y="455" rx="14" ry="14" width="470" height="120" fill="#dbeafe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="1465" y="500" text-anchor="middle" class="bold">Choose Veeam B&amp;R</text>
+  <text x="1465" y="526" text-anchor="middle" class="small">Live replication and strongest control for complex waves</text>
+
+  <polygon points="900,655 1080,725 900,795 720,725" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="715" text-anchor="middle" class="q">Prefer simplest AHV-native deployment</text>
+  <text x="900" y="737" text-anchor="middle" class="small">with backup/restore workflow?</text>
+
+  <rect x="1230" y="665" rx="14" ry="14" width="470" height="120" fill="#f3e8ff" stroke="#8e7cc3" stroke-width="3"/>
+  <text x="1465" y="710" text-anchor="middle" class="bold">Choose HYCU</text>
+  <text x="1465" y="736" text-anchor="middle" class="small">Simpler operations with AHV-native posture</text>
+
+  <rect x="700" y="875" rx="14" ry="14" width="400" height="110" fill="#dbeafe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="900" y="920" text-anchor="middle" class="bold">Default: Choose Veeam B&amp;R</text>
+  <text x="900" y="946" text-anchor="middle" class="small">When no strong constraint points to HYCU or Carbonite</text>
+
+  <rect x="530" y="1030" rx="14" ry="14" width="740" height="92" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+  <text x="900" y="1070" text-anchor="middle" class="bold">Then for all choices: Azure Migrate for Hop 2</text>
+  <text x="900" y="1096" text-anchor="middle" class="small">Hyper-V staging to Azure Local migration path</text>
+
+  <line x1="900" y1="197" x2="900" y2="245" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1080" y1="315" x2="1230" y2="315" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1150" y="294" class="yesno">Yes</text>
+  <line x1="900" y1="385" x2="900" y2="445" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="417" class="yesno">No</text>
+
+  <line x1="1080" y1="515" x2="1230" y2="515" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1150" y="494" class="yesno">Yes</text>
+  <line x1="900" y1="585" x2="900" y2="655" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="621" class="yesno">No</text>
+
+  <line x1="1080" y1="725" x2="1230" y2="725" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1150" y="704" class="yesno">Yes</text>
+  <line x1="900" y1="795" x2="900" y2="875" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="838" class="yesno">No</text>
+
+  <line x1="1465" y1="375" x2="1140" y2="1030" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1465" y1="575" x2="1060" y2="1030" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1465" y1="785" x2="980" y2="1030" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="900" y1="985" x2="900" y2="1030" stroke="#64748b" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>
