@@ -30,13 +30,9 @@ This documentation covers migrations from two Nutanix source configurations:
 
 All scenarios that use an intermediate staging host follow this pattern:
 
-```
-┌─────────────────────┐     Hop 1      ┌──────────────────────┐     Hop 2      ┌─────────────────────┐
-│   Nutanix Cluster   │ ─────────────► │  Hyper-V Staging     │ ─────────────► │   Azure Local       │
-│                     │  Veeam / HYCU  │  Host or Cluster     │  Azure Migrate │                     │
-│  AHV or ESXi VMs   │                │  (VHDX on Hyper-V)   │                │  Arc-managed VMs    │
-└─────────────────────┘                └──────────────────────┘                └─────────────────────┘
-```
+![Detailed two-hop migration architecture](../assets/images/01-common-two-hop-architecture-detailed.svg)
+
+Draw.io source: [migration-diagrams-common-two-hop-detailed.drawio](../assets/diagrams/migration-diagrams-common-two-hop-detailed.drawio)
 
 **Hop 1** — Veeam replication or HYCU backup/restore converts the source disk format to VHDX and lands VMs on the Hyper-V staging host. This serves as both a format conversion step and a validation checkpoint.
 

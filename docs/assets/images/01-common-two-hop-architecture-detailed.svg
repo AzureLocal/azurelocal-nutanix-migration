@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="640" viewBox="0 0 1600 640">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .zoneTitle { font: 700 24px Arial, sans-serif; fill: #0f172a; }
+      .line { font: 400 17px Arial, sans-serif; fill: #1f2937; }
+      .hop { font: 700 20px Arial, sans-serif; fill: #0f766e; }
+      .hopSub { font: 400 16px Arial, sans-serif; fill: #115e59; }
+      .note { font: 400 16px Arial, sans-serif; fill: #374151; }
+      .small { font: 400 14px Arial, sans-serif; fill: #4b5563; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="640" fill="#ffffff" />
+
+  <text x="800" y="54" text-anchor="middle" class="title">Two-Hop Migration Architecture</text>
+  <text x="800" y="84" text-anchor="middle" class="subtitle">Nutanix source VMs migrate through Hyper-V staging before final cutover to Azure Local</text>
+
+  <!-- Source -->
+  <rect x="70" y="160" rx="18" ry="18" width="420" height="290" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="280" y="208" text-anchor="middle" class="zoneTitle">Nutanix Cluster</text>
+  <text x="280" y="240" text-anchor="middle" class="line">AHV or ESXi source VMs</text>
+  <text x="280" y="272" text-anchor="middle" class="line">Prism / vCenter managed</text>
+  <text x="280" y="318" text-anchor="middle" class="line">Source disk format:</text>
+  <text x="280" y="348" text-anchor="middle" class="line">QCOW2 (AHV) or VMDK (ESXi)</text>
+  <text x="280" y="400" text-anchor="middle" class="small">Batch scope: 5-20 VMs per wave</text>
+
+  <!-- Staging -->
+  <rect x="590" y="160" rx="18" ry="18" width="420" height="290" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="800" y="208" text-anchor="middle" class="zoneTitle">Hyper-V Staging</text>
+  <text x="800" y="240" text-anchor="middle" class="line">Standalone host or cluster</text>
+  <text x="800" y="272" text-anchor="middle" class="line">Landing zone for Hop 1 output</text>
+  <text x="800" y="318" text-anchor="middle" class="line">Converted disk format:</text>
+  <text x="800" y="348" text-anchor="middle" class="line">VHDX on Hyper-V storage</text>
+  <text x="800" y="400" text-anchor="middle" class="small">Checkpoint: boot/validation before Hop 2</text>
+
+  <!-- Target -->
+  <rect x="1110" y="160" rx="18" ry="18" width="420" height="290" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="1320" y="208" text-anchor="middle" class="zoneTitle">Azure Local</text>
+  <text x="1320" y="240" text-anchor="middle" class="line">Target cluster</text>
+  <text x="1320" y="272" text-anchor="middle" class="line">CSV / S2D backed VM storage</text>
+  <text x="1320" y="318" text-anchor="middle" class="line">Final state:</text>
+  <text x="1320" y="348" text-anchor="middle" class="line">Arc-managed VMs in Azure portal</text>
+  <text x="1320" y="400" text-anchor="middle" class="small">Integrated with governance and monitoring</text>
+
+  <!-- Arrows -->
+  <line x1="490" y1="305" x2="590" y2="305" stroke="#0f766e" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="540" y="260" text-anchor="middle" class="hop">Hop 1</text>
+  <text x="540" y="284" text-anchor="middle" class="hopSub">Veeam or HYCU</text>
+  <text x="540" y="488" text-anchor="middle" class="note">Replicate/restore and convert to VHDX</text>
+
+  <line x1="1010" y1="305" x2="1110" y2="305" stroke="#0f766e" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="1060" y="260" text-anchor="middle" class="hop">Hop 2</text>
+  <text x="1060" y="284" text-anchor="middle" class="hopSub">Azure Migrate</text>
+  <text x="1060" y="488" text-anchor="middle" class="note">Discover Hyper-V VMs and migrate to Azure Local</text>
+
+  <!-- Footer note -->
+  <rect x="140" y="540" rx="10" ry="10" width="1320" height="62" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="800" y="578" text-anchor="middle" class="note">This is the common architecture for Veeam and HYCU migration scenarios that require an intermediate staging layer.</text>
+</svg>
