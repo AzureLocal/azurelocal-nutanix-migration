@@ -10,11 +10,19 @@
 
 Tool-neutral architecture for documentation overviews:
 
+![Simple two-hop pattern](../assets/images/01-common-two-hop-architecture.svg)
+
 Nutanix AHV/ESXi (Source) → Hyper-V Staging (Intermediate) → Azure Local (Target)
 
 ### Common Two-Hop DrawIO Source
 
 [`diagrams/common/migration-diagrams-common-two-hop.drawio`](../assets/diagrams/migration-diagrams-common-two-hop.drawio)
+
+### Detailed Two-Hop Architecture
+
+![Detailed two-hop architecture](../assets/images/01-common-two-hop-architecture-detailed.svg)
+
+[`diagrams/common/migration-diagrams-common-two-hop-detailed.drawio`](../assets/diagrams/migration-diagrams-common-two-hop-detailed.drawio)
 
 ### Migration Phases Overview
 
@@ -54,7 +62,7 @@ Nutanix AHV/ESXi (Source) → Hyper-V Staging (Intermediate) → Azure Local (Ta
 
 ![Azure Migrate workflow](../assets/images/04-azure-migrate-workflow.png)
 
-*Azure Migrate: appliance discovery → replication → test migration → production cutover → Arc-managed VMs.*
+*Azure Migrate: appliance discovery → replication → test migration → production cutover → Azure Local VMs.*
 
 ### Veeam DrawIO Source
 
