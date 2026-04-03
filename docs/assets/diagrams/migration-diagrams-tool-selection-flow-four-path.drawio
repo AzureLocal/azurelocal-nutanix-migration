@@ -1,0 +1,30 @@
+<mxfile host="app.diagrams.net" modified="2026-04-03T00:00:00.000Z" agent="GitHub Copilot" version="24.0.0" type="device">
+  <diagram id="tool-selection-4path" name="Four-Path Selection Flow">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1320" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;Migration Path Selection Flow&lt;/b&gt;" style="text;html=1;fontSize=24;fontFamily=Arial;align=center;verticalAlign=middle;" parent="1" vertex="1"><mxGeometry x="530" y="20" width="740" height="40" as="geometry"/></mxCell>
+        <mxCell id="start" value="&lt;b&gt;Start&lt;/b&gt;&lt;br&gt;Need to move Nutanix workloads to Azure Local" style="ellipse;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#4a86e8;strokeWidth=2;fontSize=13;" parent="1" vertex="1"><mxGeometry x="730" y="90" width="340" height="90" as="geometry"/></mxCell>
+        <mxCell id="d1" value="Need clean-build targets or selective data/app migration?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff4e5;strokeColor=#d79b00;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="730" y="230" width="340" height="150" as="geometry"/></mxCell>
+        <mxCell id="deploy" value="&lt;b&gt;Choose Deploy-First&lt;/b&gt;&lt;br&gt;Use SMS, app-native methods, or Carbonite when OS-level replication is needed" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6f4ea;strokeColor=#34a853;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1220" y="245" width="420" height="120" as="geometry"/></mxCell>
+        <mxCell id="d2" value="Existing Commvault estate or governance requirement?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff4e5;strokeColor=#d79b00;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="730" y="450" width="340" height="150" as="geometry"/></mxCell>
+        <mxCell id="commvault" value="&lt;b&gt;Choose Commvault&lt;/b&gt;&lt;br&gt;Best when Commvault is already the approved protection platform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1220" y="465" width="420" height="110" as="geometry"/></mxCell>
+        <mxCell id="d3" value="Need lowest downtime, built-in re-IP, or granular control?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff4e5;strokeColor=#d79b00;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="730" y="670" width="340" height="150" as="geometry"/></mxCell>
+        <mxCell id="veeam" value="&lt;b&gt;Choose Veeam&lt;/b&gt;&lt;br&gt;Use when cutover control and re-IP matter most" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#4a86e8;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1220" y="690" width="420" height="110" as="geometry"/></mxCell>
+        <mxCell id="d4" value="Prefer the simplest AHV-native backup/restore operating model?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff4e5;strokeColor=#d79b00;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="730" y="890" width="340" height="150" as="geometry"/></mxCell>
+        <mxCell id="hycu" value="&lt;b&gt;Choose HYCU&lt;/b&gt;&lt;br&gt;Best when AHV-native simplicity is the priority" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#8e7cc3;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1220" y="905" width="420" height="110" as="geometry"/></mxCell>
+        <mxCell id="default" value="&lt;b&gt;Default recommendation: Veeam&lt;/b&gt;&lt;br&gt;If no strong requirement points to Deploy-First, Commvault, or HYCU" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#60a5fa;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="700" y="1130" width="400" height="90" as="geometry"/></mxCell>
+        <mxCell id="e1" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="start" target="d1"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d1" target="deploy"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d1" target="d2"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d2" target="commvault"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d2" target="d3"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d3" target="veeam"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d3" target="d4"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d4" target="hycu"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="d4" target="default"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

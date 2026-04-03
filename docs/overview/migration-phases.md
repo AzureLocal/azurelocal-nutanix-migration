@@ -1,12 +1,12 @@
 # Migration Phases
 
-> Common phases for two-hop migration scenarios (Veeam or HYCU in Hop 1, Azure Migrate in Hop 2).
+> Common phases for two-hop migration scenarios (Veeam, HYCU, or Commvault in Hop 1, Azure Migrate in Hop 2).
 
 ---
 
 ## Phase Overview
 
-Every two-hop migration from Nutanix to Azure Local follows the same high-level phases. The specific steps within each phase vary by tool (Veeam vs. HYCU), but the workflow is consistent.
+Every two-hop migration from Nutanix to Azure Local follows the same high-level phases. The specific steps within each phase vary by tool, but the workflow is consistent.
 
 ![Migration phases overview](../assets/images/05-migration-phases-overview.svg)
 
@@ -48,7 +48,7 @@ Before any migration work begins:
 These preparation steps apply to two-hop scenarios with a Hyper-V staging layer.
 
 - Provision the Hyper-V staging host(s) with appropriate storage (1–5 TB depending on batch sizes)
-- Install and license the migration tool (Veeam or HYCU)
+- Install and license the migration tool for the selected path (Veeam, HYCU, or Commvault)
 - Add Nutanix cluster as a source in the tool
 - Add Hyper-V host(s) as a target in the tool
 - Create the Azure Migrate project in the Azure portal
@@ -82,7 +82,7 @@ These preparation steps apply to two-hop scenarios with a Hyper-V staging layer.
 2. Trigger a final incremental sync/backup
 3. Power off source VMs on Nutanix
 4. Run one more sync/backup to capture final dirty blocks
-5. Failover (Veeam) or restore (HYCU) VMs to Hyper-V staging
+5. Fail over or restore the VMs to Hyper-V staging using the selected tool
 6. Proceed to Phase 5
 
 !!! warning "Do not delete source VMs"

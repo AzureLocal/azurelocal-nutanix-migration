@@ -1,6 +1,6 @@
 # PoC — Timeline
 
-> Four-week execution plan for the 2×2 PoC matrix.
+> Five-week execution plan for the 3×2 PoC matrix.
 
 ---
 
@@ -12,52 +12,62 @@
 |-----|---------|
 | Day 1–2 | Deploy HYCU controller VM on Nutanix AHV cluster |
 | Day 1–2 | Deploy Veeam Backup & Replication server |
-| Day 2–3 | Configure HYCU source (Nutanix AHV), backup target, and Hyper-V restore target |
-| Day 2–3 | Configure Veeam AHV source, AHV proxy, and Hyper-V replication destination |
-| Day 3–4 | Provision standalone Hyper-V staging host (for Option A tests) |
+| Day 1–3 | Validate Commvault pilot workflow, licensing, storage target, and restore path |
+| Day 2–3 | Configure HYCU source, backup target, and Hyper-V restore target |
+| Day 2–3 | Configure Veeam source, AHV proxy, and Hyper-V replication destination |
+| Day 3–4 | Provision standalone Hyper-V staging host for Option A tests |
 | Day 3–5 | Verify Azure Local cluster health, CSV capacity, and Azure integration readiness |
-| Day 4–5 | Deploy Azure Migrate appliance on Hyper-V staging host; register with project |
-| Day 5 | Identify and document the 10 PoC VMs; record baseline: OS, apps, IP, services |
+| Day 4–5 | Deploy Azure Migrate appliance; register with project |
+| Day 5 | Identify and document the 15 PoC VMs; record baseline OS, apps, IPs, and services |
 
 ---
 
-### Week 2 — Cell A1 + A2 (Standalone Hyper-V)
+### Week 2 — Option A: Cells A1 + A2
 
 | Day | Activity |
 |-----|---------|
 | Day 6–7 | **Cell A1**: Start Veeam replication job (PoC-VM-01..05) to standalone Hyper-V |
 | Day 6–7 | **Cell A2**: Start HYCU full backup (PoC-VM-06..10) |
-| Day 7 | Monitor initial full replication/backup completion; record timing |
-| Day 8 | Let 2× incremental cycles run; confirm CBT/incremental working |
-| Day 9 | **Cell A1 Cutover**: Power off PoC-VM-01..05 on Nutanix; run final sync; power on HV VMs; test re-IP |
-| Day 9 | **Cell A2 Cutover**: Power off PoC-VM-06..10; run final increment; restore to Hyper-V; apply re-IP script |
-| Day 10 | Validate all 10 VMs on Hyper-V (see validation checklist) |
-| Day 10 | Start Azure Migrate replication from Hyper-V → Azure Local for all 10 VMs |
+| Day 7 | Monitor initial full copy completion; record timing |
+| Day 8 | Let incremental cycles run; confirm CBT or incremental behavior |
+| Day 9 | **Cell A1 Cutover**: final sync, failover, re-IP validation |
+| Day 9 | **Cell A2 Cutover**: final increment, restore, post-restore re-IP validation |
+| Day 10 | Validate A1 and A2 VMs on Hyper-V and start Azure Migrate replication |
 
 ---
 
-### Week 3 — Azure Migrate Cutover (A1+A2) + Cell A3+A4 Setup
+### Week 3 — Option A: Cell A3 + Azure Migrate Completion
 
 | Day | Activity |
 |-----|---------|
-| Day 11–12 | **Test migration**: Azure Migrate test-migrate all 10 VMs to isolated vnet on Azure Local |
-| Day 12 | Validate all 10 VMs on Azure Local; run app smoke tests |
-| Day 13 | **Production cutover**: Complete Azure Migrate for all 10 VMs |
-| Day 13 | Document metrics for Cells A1 and A2 |
-| Day 14 | Power source Nutanix VMs back on (restore from powered-off state — rollback test) |
-| Day 15 | **Re-run**: Begin Cells A3+A4 using Azure Local nodes as Hyper-V staging |
+| Day 11–12 | **Cell A3**: Run Commvault protection, final sync, restore to standalone Hyper-V |
+| Day 12 | Validate Commvault-restored VMs on Hyper-V and start Azure Migrate replication |
+| Day 13 | Test migration for A1-A3 workloads to isolated Azure Local network |
+| Day 14 | Production cutover for A1-A3 workloads; collect evidence and metrics |
+| Day 15 | Rollback drill for one representative workload and prepare Azure Local-hosted Hyper-V staging for Option B |
 
 ---
 
-### Week 4 — Cell A3 + A4 + Decision
+### Week 4 — Option B: Cells B1 + B2
 
 | Day | Activity |
 |-----|---------|
-| Day 16–17 | Run Cell A3 (Veeam → AZL) and Cell A4 (HYCU → AZL) — same VMs, different staging |
-| Day 17–18 | Cutover and validate all 10 VMs in Option B configuration |
-| Day 19 | Record all metrics, compare all 4 cells |
-| Day 19 | Run full [Decision Framework](#decision-framework) analysis |
-| Day 20 | **Go/No-Go** meeting — decide production migration tool and path |
+| Day 16–17 | **Cell B1**: Re-run Veeam workload set using Azure Local-hosted Hyper-V staging |
+| Day 16–17 | **Cell B2**: Re-run HYCU workload set using Azure Local-hosted Hyper-V staging |
+| Day 18 | Validate both cells on staging and monitor Azure Local resource impact |
+| Day 19 | Run Azure Migrate test migration for B1 and B2 |
+| Day 20 | Complete B1 and B2 cutovers; document capacity, throughput, and operational complexity |
+
+---
+
+### Week 5 — Option B: Cell B3 + Decision
+
+| Day | Activity |
+|-----|---------|
+| Day 21–22 | **Cell B3**: Run Commvault workload set using Azure Local-hosted Hyper-V staging |
+| Day 23 | Validate B3 workloads and record Azure Local resource impact |
+| Day 24 | Complete scorecard, finalize risk register, and compare all 6 cells |
+| Day 25 | **Go/No-Go** meeting — select the production migration tool and staging model |
 
 ---
 
@@ -120,20 +130,21 @@ After the PoC, answer these questions to finalize tool selection:
 
 | Question | Answer | Impact |
 |----------|--------|--------|
-| Did both tools successfully migrate all 10 VMs? | Yes / No / Partial | If no, eliminate that tool |
-| Which tool had faster initial transfer? | Veeam / HYCU | Veeam if delta < 20%, otherwise either |
+| Did all three tools successfully migrate their workload sets? | Yes / No / Partial | Eliminate failing tools from production shortlist |
+| Which tool had the fastest initial transfer or restore window? | Veeam / HYCU / Commvault | Performance matters for wave planning |
 | Which tool had faster cutover window? | | < 30 min per VM preferred |
 | Did re-IP work reliably end-to-end? | | Veeam has advantage if complex |
 | Did HYCU backup target add complexity? | | If yes, favor Veeam |
-| Was standalone HV needed, or is AZL sufficient? | | If AZL sufficient, reduces hardware |
+| Did Commvault's release-specific workflow stay supportable through pilot? | | If not, remove from shortlist |
+| Was standalone HV needed, or is Azure Local-hosted Hyper-V sufficient? | | If Azure Local is sufficient, reduces hardware |
 | Team preference after hands-on use? | | Operator comfort matters at 300-VM scale |
 
 ### Weighted scorecard model
 
 Use weighted scoring to prevent subjective decisions:
 
-| Category | Weight | A1 | A2 | A3 | A4 |
-|----------|:------:|:--:|:--:|:--:|:--:|
+| Category | Weight | A1 | A2 | A3 | B1 | B2 | B3 |
+|----------|:------:|:--:|:--:|:--:|:--:|:--:|:--:|
 | Migration fidelity / reliability | 30% | | | | |
 | Speed (full + incremental + cutover) | 20% | | | | |
 | Operational complexity | 15% | | | | |
@@ -146,15 +157,15 @@ Scoring method:
 
 - Rate each category 1-5 per cell
 - Weighted score = `rating * weight`
-- Sum weighted scores to rank A1-A4
+- Sum weighted scores to rank A1-A3 and B1-B3
 - Any auto-fail gate overrides score and disqualifies that cell
 
 ### Outcome Scenarios
 
 | Outcome | Production Recommendation |
 |---------|--------------------------|
-| Both tools pass, HYCU faster or simpler for AHV | Use HYCU + AZL (Cell A4) |
-| Both tools pass, Veeam faster or re-IP more complex | Use Veeam + StandaloneHV (Cell A1) |
-| HYCU fails or has errors on AHV | Use Veeam exclusively |
-| Standalone HV adds no benefit over AZL | Use AZL direct (Cells A3/A4) — reduces hardware |
-| AZL staging causes capacity issues | Use Standalone HV staging (A1/A2) |
+| HYCU is fastest and simplest for AHV workloads | Use HYCU with the best passing A/B cell |
+| Veeam has best cutover and re-IP behavior | Use Veeam with the best passing A/B cell |
+| Commvault performs adequately and governance fit is highest | Use Commvault with the best passing A/B cell |
+| Azure Local-hosted Hyper-V adds no instability | Use the best passing **B-cell** — reduces hardware |
+| Azure Local staging causes capacity issues | Use the best passing **A-cell** |

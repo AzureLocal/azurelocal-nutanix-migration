@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="680" viewBox="0 0 1600 680">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .zoneTitle { font: 700 24px Arial, sans-serif; fill: #0f172a; }
+      .line { font: 400 17px Arial, sans-serif; fill: #1f2937; }
+      .note { font: 400 15px Arial, sans-serif; fill: #475569; }
+      .hop { font: 700 20px Arial, sans-serif; fill: #0f766e; }
+      .hopSub { font: 400 15px Arial, sans-serif; fill: #115e59; }
+      .small { font: 400 14px Arial, sans-serif; fill: #4b5563; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#0f766e" />
+    </marker>
+  </defs>
+
+  <rect width="1600" height="680" fill="#ffffff" />
+  <text x="800" y="52" text-anchor="middle" class="title">Commvault Two-Hop Architecture</text>
+  <text x="800" y="82" text-anchor="middle" class="subtitle">Protect or copy Nutanix workloads with Commvault, restore to Hyper-V staging, then complete the move with Azure Migrate</text>
+
+  <rect x="60" y="170" rx="18" ry="18" width="340" height="320" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="230" y="218" text-anchor="middle" class="zoneTitle">Nutanix Source</text>
+  <text x="230" y="252" text-anchor="middle" class="line">AHV or ESXi workloads</text>
+  <text x="230" y="286" text-anchor="middle" class="line">Pilot or production VM waves</text>
+  <text x="230" y="334" text-anchor="middle" class="line">Source disk format:</text>
+  <text x="230" y="364" text-anchor="middle" class="line">QCOW2 or VMDK</text>
+  <text x="230" y="430" text-anchor="middle" class="small">Inventory, policy scope, and permissions validated first</text>
+
+  <rect x="470" y="170" rx="18" ry="18" width="340" height="320" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="640" y="218" text-anchor="middle" class="zoneTitle">Commvault Platform</text>
+  <text x="640" y="252" text-anchor="middle" class="line">Command Center / control plane</text>
+  <text x="640" y="286" text-anchor="middle" class="line">Media or worker components</text>
+  <text x="640" y="320" text-anchor="middle" class="line">Protected copy or secondary storage</text>
+  <text x="640" y="388" text-anchor="middle" class="small">Policy-driven protection, reporting, and restore orchestration</text>
+
+  <rect x="880" y="170" rx="18" ry="18" width="300" height="320" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="1030" y="218" text-anchor="middle" class="zoneTitle">Hyper-V Staging</text>
+  <text x="1030" y="252" text-anchor="middle" class="line">Standalone HV or</text>
+  <text x="1030" y="282" text-anchor="middle" class="line">Azure Local-hosted HV</text>
+  <text x="1030" y="330" text-anchor="middle" class="line">Restored as VHDX-backed VMs</text>
+  <text x="1030" y="396" text-anchor="middle" class="small">Primary validation checkpoint before Azure Migrate</text>
+
+  <rect x="1250" y="170" rx="18" ry="18" width="290" height="320" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="1395" y="218" text-anchor="middle" class="zoneTitle">Azure Local</text>
+  <text x="1395" y="252" text-anchor="middle" class="line">Azure Migrate creates</text>
+  <text x="1395" y="282" text-anchor="middle" class="line">final Azure Local VMs</text>
+  <text x="1395" y="330" text-anchor="middle" class="line">Governance and monitoring enabled</text>
+  <text x="1395" y="396" text-anchor="middle" class="small">Production target after test migration and cutover</text>
+
+  <line x1="400" y1="330" x2="470" y2="330" stroke="#0f766e" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="435" y="286" text-anchor="middle" class="hop">Hop 1a</text>
+  <text x="435" y="308" text-anchor="middle" class="hopSub">Protect / Copy</text>
+
+  <line x1="810" y1="330" x2="880" y2="330" stroke="#0f766e" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="845" y="286" text-anchor="middle" class="hop">Hop 1b</text>
+  <text x="845" y="308" text-anchor="middle" class="hopSub">Restore to HV</text>
+
+  <line x1="1180" y1="330" x2="1250" y2="330" stroke="#0f766e" stroke-width="6" marker-end="url(#arrow)"/>
+  <text x="1215" y="286" text-anchor="middle" class="hop">Hop 2</text>
+  <text x="1215" y="308" text-anchor="middle" class="hopSub">Azure Migrate</text>
+
+  <rect x="120" y="560" rx="12" ry="12" width="1360" height="62" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="800" y="597" text-anchor="middle" class="note">Use this path when Commvault is already part of the operating model and a restore-based Hyper-V staging workflow is acceptable.</text>
+</svg>

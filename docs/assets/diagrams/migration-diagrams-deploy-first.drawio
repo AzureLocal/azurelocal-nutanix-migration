@@ -335,7 +335,7 @@
         </mxCell>
 
         <!-- When NOT to use box -->
-        <mxCell id="when-not" value="&lt;b&gt;When NOT to use Carbonite (use Veeam or HYCU instead):&lt;/b&gt;&lt;br&gt;• You need hypervisor-level image capture (exact VM state clone)&lt;br&gt;• VMs with complex application state that requires hypervisor-consistent snapshots&lt;br&gt;• Large-scale batch automation is already built around Veeam replication jobs&lt;br&gt;• You have existing Veeam B&amp;R licensing — use what you already have" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+        <mxCell id="when-not" value="&lt;b&gt;When NOT to use Carbonite (use a two-hop path instead):&lt;/b&gt;&lt;br&gt;• You need hypervisor-level image capture (exact VM state clone)&lt;br&gt;• VMs with complex application state that requires hypervisor-consistent snapshots&lt;br&gt;• Large-scale batch automation is already built around Veeam-style replication jobs&lt;br&gt;• You already have a validated two-hop toolset and want to reuse it" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
           <mxGeometry x="770" y="420" width="710" height="130" as="geometry"/>
         </mxCell>
 

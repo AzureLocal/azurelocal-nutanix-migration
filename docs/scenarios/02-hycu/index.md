@@ -59,6 +59,7 @@ Nutanix AHV  ──[HYCU backup]──►  HYCU Backup Target  ──[HYCU resto
 
 ## Alternative approaches
 
-- Compare all three paths in the [Tool Comparison](../../overview/tool-comparison.md)
+- Compare all four paths in the [Tool Comparison](../../overview/tool-comparison.md)
 - If you want live replication and built-in re-IP, see [Veeam](../01-veeam/index.md)
-- If you prefer clean-build target VMs and data/application migration, see [Deploy-First](../03-deploy-first/index.md)
+- If you already standardize on Commvault, see [Commvault](../03-commvault/index.md)
+- If you prefer clean-build target VMs and data/application migration, see [Deploy-First](../04-deploy-first/index.md)

@@ -42,7 +42,7 @@ Deploy-First is a **build-first migration strategy**, not a two-hop replication 
 
 ## Not Suitable For
 
-- VMs where the exact OS state must be preserved (use Veeam or HYCU instead)
+- VMs where the exact OS state must be preserved (use one of the two-hop paths instead)
 - VMs with complex application state that cannot be easily migrated via data transfer
 
 ## Common execution pattern
@@ -64,3 +64,4 @@ Deploy-First is a **build-first migration strategy**, not a two-hop replication 
 
 - If you need a two-hop replication path with built-in re-IP, see [Veeam](../01-veeam/index.md)
 - If you want a simpler Nutanix-native backup/restore workflow, see [HYCU](../02-hycu/index.md)
+- If you want to stay inside an existing Commvault operating model, see [Commvault](../03-commvault/index.md)

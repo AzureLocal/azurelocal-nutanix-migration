@@ -14,6 +14,7 @@ This documentation covers migrations from two Nutanix source configurations:
 
     - Veeam connects via the Prism API and deploys a temporary AHV Backup Proxy VM on the cluster
     - HYCU connects natively via the AHV snapshot API — no proxy VM needed
+    - Commvault can be positioned as a policy-driven Hop 1 option when your release and licensed modules support Nutanix protection and restore workflows
     - Disk format: AHV (converted to VHDX during migration)
 
 === "Nutanix ESXi"
@@ -22,6 +23,7 @@ This documentation covers migrations from two Nutanix source configurations:
 
     - Veeam connects via the vCenter/ESXi API — no special Nutanix integration needed
     - HYCU supports ESXi as a source through the VMware vSphere API
+    - Commvault can use VMware-side integration for ESXi-based sources in the same two-hop model
     - Disk format: VMDK (converted to VHDX during migration)
 
 ---
@@ -34,9 +36,9 @@ All scenarios that use an intermediate staging host follow this pattern:
 
 Draw.io source: [migration-diagrams-common-two-hop-detailed.drawio](../assets/diagrams/migration-diagrams-common-two-hop-detailed.drawio)
 
-**Hop 1** — Veeam replication or HYCU backup/restore converts the source disk format to VHDX and lands VMs on the Hyper-V staging host. This serves as both a format conversion step and a validation checkpoint.
+**Hop 1** — Veeam replication, HYCU backup/restore, or Commvault-led protection and restore converts the source disk format to VHDX and lands VMs on the Hyper-V staging host. This serves as both a format conversion step and a validation checkpoint.
 
-**Hop 2** — Azure Migrate discovers the VMs on Hyper-V, replicates their VHDX disks to Azure Local CSV storage, and promotes them to Arc-managed VMs integrated with the Azure portal.
+**Hop 2** — Azure Migrate discovers the VMs on Hyper-V, replicates their VHDX disks to Azure Local CSV storage, and promotes them to Azure Local VMs integrated with the Azure portal.
 
 ---
 
@@ -45,7 +47,7 @@ Draw.io source: [migration-diagrams-common-two-hop-detailed.drawio](../assets/di
 | Option | Description | Best For |
 |--------|-------------|----------|
 | **Option A — Standalone Hyper-V** | A dedicated physical or virtual server running Windows Server with the Hyper-V role. Completely separate from Azure Local. | Environments where Azure Local already has production workloads; highest isolation |
-| **Option B — Azure Local as Hyper-V** | Target the Azure Local cluster nodes directly as Hyper-V hosts. VMs land on CSV storage as plain Hyper-V VMs, then Azure Migrate promotes them to Arc-managed. | New or empty Azure Local clusters; fewest data copies; fastest overall path |
+| **Option B — Azure Local as Hyper-V** | Target the Azure Local cluster nodes directly as Hyper-V hosts. VMs land on CSV storage as plain Hyper-V VMs, then Azure Migrate promotes them to Azure Local VMs. | New or empty Azure Local clusters; fewest data copies; fastest overall path |
 
 ---
 
@@ -61,4 +63,4 @@ After all scenarios, VMs on Azure Local are:
 ## Next Steps
 
 - [Migration Phases](migration-phases.md) — common phases that apply to all scenarios
-- [Tool Comparison](tool-comparison.md) — choose between Veeam, HYCU, and other tools
+- [Tool Comparison](tool-comparison.md) — choose between Veeam, HYCU, Commvault, and Deploy-First options

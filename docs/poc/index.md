@@ -6,20 +6,25 @@
 
 ## Purpose
 
-The PoC tests **two tools × two staging options** against a small set of representative production VMs. The goal is to choose the best tool+path combination for your environment *before* migrating 300 VMs.
+The PoC tests **three tools × two staging options** against a representative workload set. The goal is to choose the best tool and staging pattern for your environment *before* migrating production waves.
 
-![PoC execution and decision flow](../assets/images/07-poc-execution-decision-flow.svg)
+![PoC six-cell matrix](../assets/images/10-poc-six-cell-matrix.svg)
 
-Draw.io source: [poc-execution-decision-flow.drawio](../assets/diagrams/poc-execution-decision-flow.drawio)
+Draw.io source: [poc-six-cell-matrix.drawio](../assets/diagrams/poc-six-cell-matrix.drawio)
 
-## PoC Matrix (2 × 2)
+![PoC execution and decision flow](../assets/images/12-poc-execution-decision-flow-six-cell.svg)
 
-|  | **Option A — Standalone Hyper-V Staging** | **Option B — Azure Local Direct** |
-|--|------------------------------------------|----------------------------------|
-| **Veeam** | Wave 1 testing: Test cells A1+A2 | Wave 2: A3 |
-| **HYCU** | Wave 1 testing: Test cells A1+A2 | Wave 2: A4 |
+Draw.io source: [poc-execution-decision-flow-six-cell.drawio](../assets/diagrams/poc-execution-decision-flow-six-cell.drawio)
 
-Each cell = 5 VMs (2 Windows workloads, 2 Linux workloads, 1 SQL Server workload).
+## PoC Matrix (3 × 2)
+
+|  | **Option A — Standalone Hyper-V Staging** | **Option B — Azure Local-hosted Hyper-V** |
+|--|------------------------------------------|-------------------------------------------|
+| **Veeam** | Cell **A1** — Veeam → Standalone HV → Azure Migrate → Azure Local | Cell **B1** — Veeam → Azure Local-hosted HV → Azure Migrate |
+| **HYCU** | Cell **A2** — HYCU → Standalone HV → Azure Migrate → Azure Local | Cell **B2** — HYCU → Azure Local-hosted HV → Azure Migrate |
+| **Commvault** | Cell **A3** — Commvault → Standalone HV → Azure Migrate → Azure Local | Cell **B3** — Commvault → Azure Local-hosted HV → Azure Migrate |
+
+Each cell = **5 VMs**. The same 5-VM workload set per tool is reused across Option A and Option B so staging differences can be compared cleanly.
 
 See the [Test Matrix](test-matrix.md) for the full breakdown of what is tested in each cell.
 
@@ -27,19 +32,19 @@ See the [Test Matrix](test-matrix.md) for the full breakdown of what is tested i
 
 | Item | Value |
 |------|-------|
-| Total VMs | 10 representative VMs (5 per tool, some shared) |
-| Environments | Nutanix AHV cluster in IIC datacenter |
-| Tools tested | Veeam Backup & Replication + HYCU Backup & Recovery |
-| Staging options | Standalone Hyper-V (Option A) + Azure Local direct (Option B) |
-| Duration | 4 weeks (see [Timeline](timeline.md)) |
-| Success threshold | All 10 VMs validated on Azure Local, RTO/RPO metrics documented |
+| Total VMs | 15 representative VMs (5 per tool, reused across both staging options) |
+| Environments | Nutanix AHV or ESXi source estate in the IIC datacenter |
+| Tools tested | Veeam Backup & Replication, HYCU Backup & Recovery, and Commvault |
+| Staging options | Standalone Hyper-V (Option A) and Azure Local-hosted Hyper-V (Option B) |
+| Duration | 5 weeks (see [Timeline](timeline.md)) |
+| Success threshold | All 6 cells executed with evidence, decision scorecard completed, and one production path selected |
 
 ## Entry and Exit Criteria
 
 | Gate | Criteria |
 |------|----------|
-| **Entry criteria (start PoC)** | 1) Veeam + HYCU environments deployed and licensed, 2) Azure Local target capacity confirmed, 3) Azure Migrate project/appliance healthy, 4) 10 PoC VMs selected and approved, 5) rollback owners assigned |
-| **Exit criteria (complete PoC)** | 1) All 4 cells (A1-A4) executed with evidence, 2) weighted scorecard completed, 3) risks and mitigations updated, 4) Go/No-Go decision signed by infra + app owners |
+| **Entry criteria (start PoC)** | 1) Veeam, HYCU, and Commvault pilot environments deployed and licensed, 2) Azure Local target capacity confirmed, 3) Azure Migrate project/appliance healthy, 4) 15 PoC VMs selected and approved, 5) rollback owners assigned |
+| **Exit criteria (complete PoC)** | 1) All 6 cells (A1-A3 and B1-B3) executed with evidence, 2) weighted scorecard completed, 3) risks and mitigations updated, 4) Go/No-Go decision signed by infra + app owners |
 
 ## What the PoC Measures
 
@@ -66,12 +71,13 @@ See the [Test Matrix](test-matrix.md) for the full breakdown of what is tested i
 | Staging storage fills during full sync | Medium | High | Pre-calculate required space + 30% headroom; stop-wave threshold | Infra lead |
 | Re-IP/DNS errors at cutover | Medium | High | Pre-stage IP mapping + low TTL + validation script | Network lead |
 | Azure Migrate replication lag | Medium | Medium | Start replication earlier; monitor protection state before cutover | Migration lead |
+| Commvault module or workflow mismatch | Medium | High | Validate release-specific restore workflow in pilot before expanding cells | Platform lead |
 | App-level validation misses hidden dependency | Low | High | Dependency checklist + app-owner test scripts per VM | App owner |
 | Tool instability in one cell | Low | Medium | Auto-fail gate + rerun rule + vendor support escalation | PoC manager |
 
 ## Required PoC Deliverables
 
-- Completed per-cell gate checklists (A1-A4)
+- Completed per-cell gate checklists (A1-A3 and B1-B3)
 - Metrics workbook with timestamped measurements and operator names
 - Evidence pack: screenshots/log extracts for replication, cutover, and validation
 - Risk register with final status and accepted residual risk

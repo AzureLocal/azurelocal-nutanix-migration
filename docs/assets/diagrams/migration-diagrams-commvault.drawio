@@ -1,0 +1,41 @@
+<mxfile host="app.diagrams.net" modified="2026-04-03T00:00:00.000Z" agent="GitHub Copilot" version="24.0.0" type="device">
+  <diagram id="commvault-arch" name="High-Level Architecture">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t1" value="&lt;b&gt;Commvault Two-Hop Architecture&lt;/b&gt;" style="text;html=1;fontSize=22;fontFamily=Arial;align=center;verticalAlign=middle;" parent="1" vertex="1"><mxGeometry x="470" y="20" width="660" height="40" as="geometry"/></mxCell>
+        <mxCell id="src" value="&lt;b&gt;Nutanix Source&lt;/b&gt;&lt;br&gt;AHV or ESXi workloads&lt;br&gt;QCOW2 or VMDK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="70" y="150" width="280" height="180" as="geometry"/></mxCell>
+        <mxCell id="cv" value="&lt;b&gt;Commvault Platform&lt;/b&gt;&lt;br&gt;Control plane + media components&lt;br&gt;Protected copy storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="450" y="150" width="300" height="180" as="geometry"/></mxCell>
+        <mxCell id="hv" value="&lt;b&gt;Hyper-V Staging&lt;/b&gt;&lt;br&gt;Standalone or Azure Local-hosted HV&lt;br&gt;Restored as VHDX-backed VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="860" y="150" width="280" height="180" as="geometry"/></mxCell>
+        <mxCell id="azl" value="&lt;b&gt;Azure Local&lt;/b&gt;&lt;br&gt;Azure Migrate creates final Azure Local VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1250" y="150" width="260" height="180" as="geometry"/></mxCell>
+        <mxCell id="a1" value="Protect / Copy" style="edgeLabel;html=1;fontSize=10;" parent="e1" vertex="1" connectable="0"><mxGeometry x="0.5" relative="1" as="geometry"><mxPoint y="-14" as="offset"/></mxGeometry></mxCell>
+        <mxCell id="e1" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#0f766e;" edge="1" parent="1" source="src" target="cv"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a2" value="Restore to HV" style="edgeLabel;html=1;fontSize=10;" parent="e2" vertex="1" connectable="0"><mxGeometry x="0.5" relative="1" as="geometry"><mxPoint y="-14" as="offset"/></mxGeometry></mxCell>
+        <mxCell id="e2" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#0f766e;" edge="1" parent="1" source="cv" target="hv"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="a3" value="Hop 2: Azure Migrate" style="edgeLabel;html=1;fontSize=10;" parent="e3" vertex="1" connectable="0"><mxGeometry x="0.5" relative="1" as="geometry"><mxPoint y="-14" as="offset"/></mxGeometry></mxCell>
+        <mxCell id="e3" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#0f766e;" edge="1" parent="1" source="hv" target="azl"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="commvault-setup" name="Setup Detail">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="tt" value="&lt;b&gt;Commvault Setup Detail&lt;/b&gt;" style="text;html=1;fontSize=22;fontFamily=Arial;align=center;verticalAlign=middle;" parent="1" vertex="1"><mxGeometry x="520" y="20" width="560" height="40" as="geometry"/></mxCell>
+        <mxCell id="s1" value="&lt;b&gt;Source Estate&lt;/b&gt;&lt;br&gt;Prism / vCenter&lt;br&gt;Inventory + permissions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="70" y="180" width="240" height="150" as="geometry"/></mxCell>
+        <mxCell id="cc" value="&lt;b&gt;Command Center&lt;/b&gt;&lt;br&gt;Policies, jobs, reporting" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#8b5cf6;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="430" y="110" width="240" height="120" as="geometry"/></mxCell>
+        <mxCell id="core" value="&lt;b&gt;Commvault Core&lt;/b&gt;&lt;br&gt;CommServe + media or worker components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="430" y="280" width="240" height="160" as="geometry"/></mxCell>
+        <mxCell id="store" value="&lt;b&gt;Protected Storage&lt;/b&gt;&lt;br&gt;Secondary copy or dedupe target" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="790" y="180" width="240" height="120" as="geometry"/></mxCell>
+        <mxCell id="stage" value="&lt;b&gt;Hyper-V Staging&lt;/b&gt;&lt;br&gt;Restore target + Azure Migrate appliance" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#d97706;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1150" y="170" width="280" height="150" as="geometry"/></mxCell>
+        <mxCell id="final" value="&lt;b&gt;Azure Local&lt;/b&gt;&lt;br&gt;Azure Local VMs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#16a34a;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="1190" y="420" width="220" height="120" as="geometry"/></mxCell>
+        <mxCell id="f1" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="s1" target="cc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f2" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="s1" target="core"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f3" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="core" target="store"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f4" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="core" target="stage"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="f5" style="endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="stage" target="final"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

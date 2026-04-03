@@ -6,19 +6,19 @@
 
 ## Primary Tool Comparison
 
-| Aspect | **Veeam B&R** | **HYCU** | **Carbonite Migrate** |
-|--------|:---:|:---:|:---:|
-| Source: Nutanix AHV | ✅ | ✅ | ✅ |
-| Source: Nutanix ESXi | ✅ | ✅ | ✅ |
-| Deployment | Windows Server | Linux appliance on cluster | Agent on each VM |
-| Agent on source VMs | ❌ (agentless) | ❌ (agentless) | ✅ Required |
-| Separate backup storage | ❌ Not needed | ✅ Required | ❌ Not needed |
-| Live/continuous replication | ✅ Yes | ❌ Backup-based | ✅ Yes |
-| Built-in re-IP | ✅ Yes | ❌ Script required | ❌ DNS/LB update at cutover |
-| Platform overhead/complexity | Medium | Low | Low |
-| License cost | Paid | Paid | Paid |
-| Concurrency (est.) | 10–20 VMs | 5–10 VMs | 10–20 VMs |
-| Management UI | Desktop + Web | Web (HTTPS) | Carbonite console |
+| Aspect | **Veeam B&R** | **HYCU** | **Commvault** | **Carbonite Migrate** |
+|--------|:---:|:---:|:---:|:---:|
+| Source: Nutanix AHV | ✅ | ✅ | Assumed supported for planning; validate release | ✅ |
+| Source: Nutanix ESXi | ✅ | ✅ | Assumed supported for planning; validate release | ✅ |
+| Deployment | Windows Server | Linux appliance on cluster | Control plane plus media or worker components | Agent on each VM |
+| Agent on source VMs | ❌ (agentless) | ❌ (agentless) | Varies by workflow | ✅ Required |
+| Separate backup storage | ❌ Not needed | ✅ Required | ✅ Usually required | ❌ Not needed |
+| Live or continuous replication | ✅ Yes | ❌ Backup-based | ❌ Restore-based in this doc model | ✅ Yes |
+| Built-in re-IP | ✅ Yes | ❌ Script required | ❌ Script or manual post-restore | ❌ DNS/LB update at cutover |
+| Platform overhead or complexity | Medium | Low | Medium-high | Low |
+| License cost | Paid | Paid | Paid | Paid |
+| Concurrency (est.) | 10–20 VMs | 5–10 VMs | Depends on media and storage design | 10–20 VMs |
+| Management UI | Desktop + Web | Web (HTTPS) | Command Center + admin consoles | Carbonite console |
 
 ## When to Choose Each Tool
 
@@ -26,6 +26,7 @@
 |------|------------|
 | **Veeam B&R** | Large VM counts (> 100), existing Veeam license, ESXi source, need built-in re-IP |
 | **HYCU** | AHV source, no existing tool license, team prefers simple web UI, backup compliance also needed |
+| **Commvault** | Existing Commvault estate, centralized governance and policy control matter, restore-based Hop 1 is acceptable |
 | **Carbonite** | Hypervisor-independent requirement, very old AHV versions, OS-level replication preferred, deploy-first pattern |
 | **Deploy-First** | OS refresh needed, stateless workloads, file server data migration only |
 

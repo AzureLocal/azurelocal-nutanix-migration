@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" modified="2026-04-03T00:00:00.000Z" agent="GitHub Copilot" version="24.0.0" type="device">
+  <diagram id="poc-six-cell-matrix" name="PoC Six-Cell Matrix">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="&lt;b&gt;PoC 3x2 Matrix&lt;/b&gt;" style="text;html=1;fontSize=24;fontFamily=Arial;align=center;verticalAlign=middle;" parent="1" vertex="1"><mxGeometry x="550" y="20" width="500" height="40" as="geometry"/></mxCell>
+        <mxCell id="oh1" value="&lt;b&gt;Option A — Standalone Hyper-V&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=2;fontSize=13;" parent="1" vertex="1"><mxGeometry x="280" y="120" width="500" height="70" as="geometry"/></mxCell>
+        <mxCell id="oh2" value="&lt;b&gt;Option B — Azure Local-hosted Hyper-V&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#94a3b8;strokeWidth=2;fontSize=13;" parent="1" vertex="1"><mxGeometry x="820" y="120" width="500" height="70" as="geometry"/></mxCell>
+        <mxCell id="veeam" value="&lt;b&gt;Veeam&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#2563eb;strokeWidth=2;fontSize=13;" parent="1" vertex="1"><mxGeometry x="70" y="240" width="160" height="140" as="geometry"/></mxCell>
+        <mxCell id="hycu" value="&lt;b&gt;HYCU&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f3e8ff;strokeColor=#8b5cf6;strokeWidth=2;fontSize=13;" parent="1" vertex="1"><mxGeometry x="70" y="430" width="160" height="140" as="geometry"/></mxCell>
+        <mxCell id="commvault" value="&lt;b&gt;Commvault&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ede9fe;strokeColor=#7c3aed;strokeWidth=2;fontSize=13;" parent="1" vertex="1"><mxGeometry x="70" y="620" width="160" height="140" as="geometry"/></mxCell>
+        <mxCell id="a1" value="&lt;b&gt;A1&lt;/b&gt;&lt;br&gt;Veeam -&amp;gt; Standalone HV -&amp;gt; Azure Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#60a5fa;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="280" y="240" width="500" height="140" as="geometry"/></mxCell>
+        <mxCell id="b1" value="&lt;b&gt;B1&lt;/b&gt;&lt;br&gt;Veeam -&amp;gt; Azure Local-hosted HV -&amp;gt; Azure Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#60a5fa;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="820" y="240" width="500" height="140" as="geometry"/></mxCell>
+        <mxCell id="a2" value="&lt;b&gt;A2&lt;/b&gt;&lt;br&gt;HYCU -&amp;gt; Standalone HV -&amp;gt; Azure Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#a78bfa;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="280" y="430" width="500" height="140" as="geometry"/></mxCell>
+        <mxCell id="b2" value="&lt;b&gt;B2&lt;/b&gt;&lt;br&gt;HYCU -&amp;gt; Azure Local-hosted HV -&amp;gt; Azure Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#faf5ff;strokeColor=#a78bfa;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="820" y="430" width="500" height="140" as="geometry"/></mxCell>
+        <mxCell id="a3" value="&lt;b&gt;A3&lt;/b&gt;&lt;br&gt;Commvault -&amp;gt; Standalone HV -&amp;gt; Azure Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#7c3aed;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="280" y="620" width="500" height="140" as="geometry"/></mxCell>
+        <mxCell id="b3" value="&lt;b&gt;B3&lt;/b&gt;&lt;br&gt;Commvault -&amp;gt; Azure Local-hosted HV -&amp;gt; Azure Migrate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f3ff;strokeColor=#7c3aed;strokeWidth=2;fontSize=12;" parent="1" vertex="1"><mxGeometry x="820" y="620" width="500" height="140" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

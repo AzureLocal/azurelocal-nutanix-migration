@@ -51,6 +51,7 @@ This scenario is documented with a **~300 VM / 30-batch** reference scale (IIC e
 
 ## Alternative approaches
 
-- Compare all three paths in the [Tool Comparison](../../overview/tool-comparison.md)
+- Compare all four paths in the [Tool Comparison](../../overview/tool-comparison.md)
 - If you want a simpler Nutanix-native backup/restore model, see [HYCU](../02-hycu/index.md)
-- If you prefer clean-build target VMs and data/application migration, see [Deploy-First](../03-deploy-first/index.md)
+- If you already standardize on Commvault, see [Commvault](../03-commvault/index.md)
+- If you prefer clean-build target VMs and data/application migration, see [Deploy-First](../04-deploy-first/index.md)

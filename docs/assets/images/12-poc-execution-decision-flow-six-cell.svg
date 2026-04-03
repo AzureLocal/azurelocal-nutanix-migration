@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1160" viewBox="0 0 1800 1160">
+  <defs>
+    <style>
+      .title { font: 700 38px Arial, sans-serif; fill: #111827; }
+      .b { font: 700 20px Arial, sans-serif; fill: #111827; }
+      .t { font: 400 17px Arial, sans-serif; fill: #1f2937; }
+      .s { font: 400 14px Arial, sans-serif; fill: #475569; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect width="1800" height="1160" fill="#ffffff"/>
+  <text x="900" y="54" text-anchor="middle" class="title">PoC Execution and Decision Flow</text>
+
+  <polygon points="900,110 1065,172 900,234 735,172" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="168" text-anchor="middle" class="b">Entry Criteria Met?</text>
+  <text x="900" y="194" text-anchor="middle" class="s">People, tooling, network, VMs, rollback owners</text>
+
+  <rect x="120" y="300" width="260" height="88" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="250" y="332" text-anchor="middle" class="b">Week 1</text>
+  <text x="250" y="360" text-anchor="middle" class="t">Environment Setup</text>
+
+  <rect x="430" y="300" width="290" height="88" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="575" y="332" text-anchor="middle" class="b">Week 2</text>
+  <text x="575" y="360" text-anchor="middle" class="t">Cells A1 + A2</text>
+
+  <rect x="770" y="300" width="290" height="88" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="915" y="332" text-anchor="middle" class="b">Week 3</text>
+  <text x="915" y="360" text-anchor="middle" class="t">Cell A3 + Option A completion</text>
+
+  <rect x="1110" y="300" width="290" height="88" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="1255" y="332" text-anchor="middle" class="b">Week 4</text>
+  <text x="1255" y="360" text-anchor="middle" class="t">Cells B1 + B2</text>
+
+  <rect x="1450" y="300" width="230" height="88" rx="14" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="1565" y="332" text-anchor="middle" class="b">Week 5</text>
+  <text x="1565" y="360" text-anchor="middle" class="t">Cell B3 + Decision</text>
+
+  <rect x="470" y="460" width="280" height="84" rx="12" fill="#f3e8ff" stroke="#8e7cc3" stroke-width="3"/>
+  <text x="610" y="494" text-anchor="middle" class="b">Per-cell gates</text>
+  <text x="610" y="520" text-anchor="middle" class="s">Pass/fail and auto-fail criteria</text>
+
+  <rect x="860" y="460" width="280" height="84" rx="12" fill="#e6f4ea" stroke="#34a853" stroke-width="3"/>
+  <text x="1000" y="494" text-anchor="middle" class="b">Metrics + evidence</text>
+  <text x="1000" y="520" text-anchor="middle" class="s">Timing, screenshots, operator notes</text>
+
+  <rect x="1250" y="460" width="300" height="84" rx="12" fill="#fdebd0" stroke="#d79b00" stroke-width="3"/>
+  <text x="1400" y="494" text-anchor="middle" class="b">Risk + capacity checks</text>
+  <text x="1400" y="520" text-anchor="middle" class="s">Supportability and Azure Local pressure</text>
+
+  <polygon points="900,620 1060,680 900,740 740,680" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="674" text-anchor="middle" class="b">Weighted score complete?</text>
+
+  <rect x="1140" y="636" width="280" height="88" rx="12" fill="#d9f2e6" stroke="#34a853" stroke-width="3"/>
+  <text x="1280" y="670" text-anchor="middle" class="b">GO</text>
+  <text x="1280" y="698" text-anchor="middle" class="t">Select tool + staging model</text>
+
+  <rect x="390" y="636" width="300" height="88" rx="12" fill="#f8cecc" stroke="#b85450" stroke-width="3"/>
+  <text x="540" y="670" text-anchor="middle" class="b">NO-GO / EXTEND</text>
+  <text x="540" y="698" text-anchor="middle" class="t">Fix blockers and rerun failed cells</text>
+
+  <rect x="650" y="840" width="500" height="100" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+  <text x="900" y="878" text-anchor="middle" class="b">PoC Deliverables</text>
+  <text x="900" y="908" text-anchor="middle" class="t">Evidence pack, recommendation, and sign-off</text>
+
+  <line x1="900" y1="234" x2="250" y2="300" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="380" y1="344" x2="430" y2="344" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="720" y1="344" x2="770" y2="344" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1060" y1="344" x2="1110" y2="344" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1400" y1="344" x2="1450" y2="344" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="575" y1="388" x2="610" y2="460" stroke="#8e7cc3" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="915" y1="388" x2="1000" y2="460" stroke="#34a853" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1565" y1="388" x2="1400" y2="460" stroke="#d79b00" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="610" y1="544" x2="840" y2="642" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1000" y1="544" x2="940" y2="620" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1400" y1="544" x2="980" y2="650" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="1060" y1="680" x2="1140" y2="680" stroke="#34a853" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="740" y1="680" x2="690" y2="680" stroke="#b85450" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <line x1="1280" y1="724" x2="1010" y2="840" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="540" y1="724" x2="575" y2="388" stroke="#475569" stroke-width="3" marker-end="url(#arrow)"/>
+</svg>

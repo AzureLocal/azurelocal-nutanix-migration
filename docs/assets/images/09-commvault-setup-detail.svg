@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .section { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .body { font: 400 16px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect width="1600" height="760" fill="#ffffff"/>
+  <text x="800" y="54" text-anchor="middle" class="title">Commvault Setup Detail</text>
+  <text x="800" y="84" text-anchor="middle" class="subtitle">Reference component layout for a Commvault-led Nutanix to Azure Local pilot</text>
+
+  <rect x="70" y="150" rx="18" ry="18" width="300" height="240" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="220" y="196" text-anchor="middle" class="section">Source Estate</text>
+  <text x="220" y="232" text-anchor="middle" class="body">Prism Element or vCenter</text>
+  <text x="220" y="264" text-anchor="middle" class="body">Nutanix VM inventory</text>
+  <text x="220" y="296" text-anchor="middle" class="body">Snapshot and API permissions</text>
+  <text x="220" y="344" text-anchor="middle" class="small">AHV or ESXi-on-Nutanix</text>
+
+  <rect x="470" y="110" rx="18" ry="18" width="300" height="160" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="620" y="154" text-anchor="middle" class="section">Command Center</text>
+  <text x="620" y="188" text-anchor="middle" class="body">Policies, jobs, and reporting</text>
+  <text x="620" y="220" text-anchor="middle" class="small">Administrative entry point</text>
+
+  <rect x="470" y="310" rx="18" ry="18" width="300" height="220" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="620" y="354" text-anchor="middle" class="section">Commvault Core</text>
+  <text x="620" y="388" text-anchor="middle" class="body">CommServe / control services</text>
+  <text x="620" y="420" text-anchor="middle" class="body">Media or worker components</text>
+  <text x="620" y="452" text-anchor="middle" class="body">Restore workflow orchestration</text>
+  <text x="620" y="500" text-anchor="middle" class="small">Validate module support before production</text>
+
+  <rect x="880" y="150" rx="18" ry="18" width="270" height="180" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="1015" y="196" text-anchor="middle" class="section">Protected Storage</text>
+  <text x="1015" y="232" text-anchor="middle" class="body">Secondary copy or dedupe target</text>
+  <text x="1015" y="264" text-anchor="middle" class="body">Sized for active migration batches</text>
+
+  <rect x="1250" y="120" rx="18" ry="18" width="270" height="220" fill="#fef3c7" stroke="#d97706" stroke-width="3"/>
+  <text x="1385" y="166" text-anchor="middle" class="section">Hyper-V Staging</text>
+  <text x="1385" y="200" text-anchor="middle" class="body">Standalone HV or Azure Local HV</text>
+  <text x="1385" y="232" text-anchor="middle" class="body">VHDX restore landing zone</text>
+  <text x="1385" y="264" text-anchor="middle" class="body">Azure Migrate appliance</text>
+
+  <rect x="1250" y="410" rx="18" ry="18" width="270" height="180" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="1385" y="456" text-anchor="middle" class="section">Azure Local</text>
+  <text x="1385" y="490" text-anchor="middle" class="body">Azure Local VMs</text>
+  <text x="1385" y="522" text-anchor="middle" class="body">Azure-integrated operations</text>
+
+  <line x1="370" y1="250" x2="470" y2="190" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="370" y1="270" x2="470" y2="420" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="770" y1="420" x2="880" y2="240" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="770" y1="420" x2="1250" y2="230" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1150" y1="240" x2="1250" y2="240" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1385" y1="340" x2="1385" y2="410" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <rect x="120" y="650" rx="12" ry="12" width="1360" height="56" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="800" y="684" text-anchor="middle" class="small">Critical pilot checks: source discovery, supported restore path to Hyper-V, network changes after restore, and Azure Migrate handoff.</text>
+</svg>

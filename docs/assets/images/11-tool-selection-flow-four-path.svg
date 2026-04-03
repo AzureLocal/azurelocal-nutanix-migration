@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1320" viewBox="0 0 1800 1320">
+  <defs>
+    <style>
+      .title { font: 700 40px Arial, sans-serif; fill: #111827; }
+      .bold { font: 700 20px Arial, sans-serif; fill: #111827; }
+      .text { font: 400 18px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 15px Arial, sans-serif; fill: #475569; }
+      .yesno { font: 700 15px Arial, sans-serif; fill: #0f172a; }
+    </style>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L12,6 L0,12 z" fill="#475569" />
+    </marker>
+  </defs>
+
+  <rect width="1800" height="1320" fill="#ffffff"/>
+  <text x="900" y="56" text-anchor="middle" class="title">Migration Path Selection Flow</text>
+
+  <ellipse cx="900" cy="140" rx="250" ry="52" fill="#e8f0fe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="900" y="136" text-anchor="middle" class="bold">Start</text>
+  <text x="900" y="162" text-anchor="middle" class="small">Need to move Nutanix workloads to Azure Local</text>
+
+  <polygon points="900,245 1090,320 900,395 710,320" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="306" text-anchor="middle" class="bold">Need clean-build targets or selective data/app migration?</text>
+  <text x="900" y="332" text-anchor="middle" class="small">Not a like-for-like VM image move</text>
+
+  <rect x="1210" y="248" rx="14" ry="14" width="500" height="144" fill="#e6f4ea" stroke="#34a853" stroke-width="3"/>
+  <text x="1460" y="292" text-anchor="middle" class="bold">Choose Deploy-First</text>
+  <text x="1460" y="324" text-anchor="middle" class="text">Use SMS, app-native migration, or</text>
+  <text x="1460" y="352" text-anchor="middle" class="text">Carbonite when OS-level replication is needed</text>
+
+  <polygon points="900,470 1090,545 900,620 710,545" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="532" text-anchor="middle" class="bold">Existing Commvault estate or governance requirement?</text>
+  <text x="900" y="558" text-anchor="middle" class="small">Prefer policy-driven restore workflow for Hop 1</text>
+
+  <rect x="1210" y="473" rx="14" ry="14" width="500" height="132" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="1460" y="518" text-anchor="middle" class="bold">Choose Commvault</text>
+  <text x="1460" y="550" text-anchor="middle" class="text">Best when Commvault is already the</text>
+  <text x="1460" y="578" text-anchor="middle" class="text">approved protection and recovery platform</text>
+
+  <polygon points="900,695 1090,770 900,845 710,770" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="756" text-anchor="middle" class="bold">Need lowest downtime, built-in re-IP, or granular control?</text>
+  <text x="900" y="782" text-anchor="middle" class="small">Replication-first with stronger cutover tooling</text>
+
+  <rect x="1210" y="700" rx="14" ry="14" width="500" height="132" fill="#dbeafe" stroke="#4a86e8" stroke-width="3"/>
+  <text x="1460" y="744" text-anchor="middle" class="bold">Choose Veeam</text>
+  <text x="1460" y="776" text-anchor="middle" class="text">Use when cutover control and re-IP</text>
+  <text x="1460" y="804" text-anchor="middle" class="text">matter more than deployment simplicity</text>
+
+  <polygon points="900,920 1090,995 900,1070 710,995" fill="#fff4e5" stroke="#d79b00" stroke-width="3"/>
+  <text x="900" y="982" text-anchor="middle" class="bold">Prefer the simplest AHV-native backup/restore operating model?</text>
+  <text x="900" y="1008" text-anchor="middle" class="small">Single appliance and less infrastructure overhead</text>
+
+  <rect x="1210" y="923" rx="14" ry="14" width="500" height="132" fill="#f3e8ff" stroke="#8e7cc3" stroke-width="3"/>
+  <text x="1460" y="968" text-anchor="middle" class="bold">Choose HYCU</text>
+  <text x="1460" y="1000" text-anchor="middle" class="text">Best when AHV-native simplicity and</text>
+  <text x="1460" y="1028" text-anchor="middle" class="text">web-based operations are the priority</text>
+
+  <rect x="660" y="1160" rx="14" ry="14" width="480" height="110" fill="#eff6ff" stroke="#60a5fa" stroke-width="3"/>
+  <text x="900" y="1200" text-anchor="middle" class="bold">Default recommendation: Veeam</text>
+  <text x="900" y="1230" text-anchor="middle" class="text">If no strong requirement points to Deploy-First, Commvault, or HYCU</text>
+
+  <line x1="900" y1="192" x2="900" y2="245" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <line x1="1090" y1="320" x2="1210" y2="320" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1145" y="298" class="yesno">Yes</text>
+  <line x1="900" y1="395" x2="900" y2="470" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="434" class="yesno">No</text>
+
+  <line x1="1090" y1="545" x2="1210" y2="545" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1145" y="522" class="yesno">Yes</text>
+  <line x1="900" y1="620" x2="900" y2="695" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="658" class="yesno">No</text>
+
+  <line x1="1090" y1="770" x2="1210" y2="770" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1145" y="748" class="yesno">Yes</text>
+  <line x1="900" y1="845" x2="900" y2="920" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="884" class="yesno">No</text>
+
+  <line x1="1090" y1="995" x2="1210" y2="995" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="1145" y="972" class="yesno">Yes</text>
+  <line x1="900" y1="1070" x2="900" y2="1160" stroke="#475569" stroke-width="4" marker-end="url(#arrow)"/>
+  <text x="918" y="1114" class="yesno">No</text>
+</svg>

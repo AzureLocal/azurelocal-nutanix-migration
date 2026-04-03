@@ -28,8 +28,19 @@ A group of 8–10 VMs migrated together in a single migration cycle. Batches lim
 **CBT** (Changed Block Tracking)  
 A mechanism used by hypervisors (AHV, vSphere) to track which disk blocks have changed since the last backup or replication cycle, enabling efficient incremental operations.
 
+**Carbonite Migrate**  
+An agent-based migration product used in this repo as a Deploy-First OS-level replication option. It is hypervisor-agnostic and replicates guest OS state into a pre-provisioned target VM.
+
+**Commvault**  
+An enterprise data protection and recovery platform. In this repo, it is modeled as a two-hop migration option that stages Nutanix workloads onto Hyper-V before Azure Migrate completes Hop 2.
+
 **CSV** (Cluster Shared Volume)  
 A shared disk volume accessible by all nodes in an Azure Local or Windows Server Failover Cluster. Migration target storage on Azure Local is stored on CSVs.
+
+## D
+
+**Deploy-First**  
+A build-first migration pattern where the destination Azure Local VM is provisioned before migration starts. Data, application state, or OS state is then moved into that target using methods such as SMS, Robocopy, app-native workflows, or Carbonite.
 
 ---
 
@@ -39,7 +50,7 @@ A shared disk volume accessible by all nodes in an Azure Local or Windows Server
 A purpose-built backup and recovery solution for Nutanix, VMware, and other platforms. Uses native AHV snapshot APIs — no proxy VM required on Nutanix clusters.
 
 **Hop 1**  
-The first migration hop: migrating VMs from the Nutanix source to a Hyper-V staging environment using Veeam or HYCU.
+The first migration hop: migrating VMs from the Nutanix source to a Hyper-V staging environment using Veeam, HYCU, or Commvault.
 
 **Hop 2**  
 The second migration hop: migrating VMs from Hyper-V staging to Azure Local using Azure Migrate.

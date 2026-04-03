@@ -32,9 +32,9 @@ Nutanix AHV/ESXi (Source) → Hyper-V Staging (Intermediate) → Azure Local (Ta
 
 ### Tool Selection Flow
 
-![Tool selection flow](../assets/images/06-tool-selection-flow.svg)
+![Tool selection flow](../assets/images/11-tool-selection-flow-four-path.svg)
 
-[`diagrams/overview/migration-diagrams-tool-selection-flow.drawio`](../assets/diagrams/migration-diagrams-tool-selection-flow.drawio)
+[`diagrams/overview/migration-diagrams-tool-selection-flow-four-path.drawio`](../assets/diagrams/migration-diagrams-tool-selection-flow-four-path.drawio)
 
 ---
 
@@ -85,6 +85,26 @@ The editable DrawIO source for all Veeam diagrams:
 
 ---
 
+## Commvault Migration Path {#commvault}
+
+### High-Level Architecture
+
+![Commvault high-level architecture](../assets/images/08-commvault-high-level-architecture.svg)
+
+*Two-hop architecture: Nutanix AHV/ESXi → Commvault protected copy → Hyper-V staging → Azure Migrate → Azure Local.*
+
+### Commvault Setup Detail
+
+![Commvault setup detail](../assets/images/09-commvault-setup-detail.svg)
+
+*Control plane, media or worker components, protected storage, Hyper-V staging target, and Azure Migrate handoff.*
+
+### Commvault DrawIO Source
+
+[`diagrams/commvault/migration-diagrams-commvault.drawio`](../assets/diagrams/migration-diagrams-commvault.drawio)
+
+---
+
 ## Deploy-First Migration Path {#deploy-first}
 
 ### Architecture Overview
@@ -92,7 +112,7 @@ The editable DrawIO source for all Veeam diagrams:
 The editable draw.io source (open in [app.diagrams.net](https://app.diagrams.net)):  
 [`assets/diagrams/migration-diagrams-deploy-first.drawio`](../assets/diagrams/migration-diagrams-deploy-first.drawio)
 
-**Page 1 — Architecture:** Source Nutanix AHV cluster with Carbonite agents → continuous replication → pre-provisioned target VMs on Azure Local. Shows initial mirror, delta sync, and cutover flows. Contrasts with the Veeam/HYCU two-hop (no Hyper-V staging host required).
+**Page 1 — Architecture:** Carbonite-based OS-level replication variant inside the broader Deploy-First path. Shows source Nutanix VM → Carbonite → pre-provisioned Azure Local target VM. Contrasts with the Veeam/HYCU/Commvault two-hop pattern (no Hyper-V staging host required).
 
 **Page 2 — Migration Steps:** Eight-step swimlane — Provision target VM, install agents, create job, initial mirror, continuous replication, test failover, cutover, validate and cleanup. Includes timeline bar and when-to-use / when-not-to-use callouts.
 
@@ -100,11 +120,13 @@ The editable draw.io source (open in [app.diagrams.net](https://app.diagrams.net
 
 ## Proof of Concept (PoC) Diagrams {#poc}
 
-### PoC Overview — Both Options
+### PoC Matrix Overview
 
-![PoC overview both options](../assets/images/01-poc-overview-both-options.png)
+![PoC six-cell matrix](../assets/images/10-poc-six-cell-matrix.svg)
 
-*2×2 matrix: Veeam/HYCU × Option A (standalone HV) / Option B (Azure Local direct).*
+*3×2 matrix: Veeam, HYCU, and Commvault across Option A (standalone Hyper-V) and Option B (Azure Local-hosted Hyper-V).* 
+
+[`diagrams/poc/poc-six-cell-matrix.drawio`](../assets/diagrams/poc-six-cell-matrix.drawio)
 
 ### Option A — Standalone Hyper-V
 
@@ -118,17 +140,11 @@ The editable draw.io source (open in [app.diagrams.net](https://app.diagrams.net
 
 *Azure Local cluster node used as Hyper-V staging target — no separate hardware.*
 
-### PoC Timeline and Decision
-
-![PoC timeline and decision](../assets/images/04-poc-timeline-and-decision.png)
-
-*Four-week PoC timeline with decision gates at the end of each cell.*
-
 ### PoC Execution and Decision Flow
 
-![PoC execution and decision flow](../assets/images/07-poc-execution-decision-flow.svg)
+![PoC execution and decision flow](../assets/images/12-poc-execution-decision-flow-six-cell.svg)
 
-[`diagrams/poc/poc-execution-decision-flow.drawio`](../assets/diagrams/poc-execution-decision-flow.drawio)
+[`diagrams/poc/poc-execution-decision-flow-six-cell.drawio`](../assets/diagrams/poc-execution-decision-flow-six-cell.drawio)
 
 ### PoC DrawIO Source
 

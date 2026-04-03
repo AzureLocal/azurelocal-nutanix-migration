@@ -13,7 +13,7 @@ Thank you for your interest in contributing to the Nutanix to Azure Local Migrat
 ### Reporting Issues
 
 Use the GitHub Issues tab. Include:
-- Which migration scenario (Veeam, HYCU, Nutanix Move, etc.)
+- Which migration scenario or path (Veeam, HYCU, Commvault, Deploy-First, etc.)
 - Which step in the runbook failed or is unclear
 - Full error messages and environment details (Nutanix version, Azure Local version, tool version)
 
@@ -26,8 +26,8 @@ Open an issue describing the use case or migration scenario you want to add. Des
 All automation lives in `src/`. Structure:
 - `src/01-veeam/` — Veeam scenario scripts
 - `src/02-hycu/` — HYCU scenario scripts
-- `src/03-deploy-first/` — Deploy-first scenario scripts
-- `src/04-nutanix-move/` — Nutanix Move scripts
+- `src/03-commvault/` — Commvault scenario scripts
+- `src/04-deploy-first/` — Deploy-first scenario scripts
 - `src/common/` — Shared helpers used by multiple scenarios
 
 Each subfolder contains `powershell/`, `bicep/`, `ansible/`, or `terraform/` subdirectories as appropriate.

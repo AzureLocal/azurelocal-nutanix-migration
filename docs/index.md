@@ -27,15 +27,21 @@ This site provides end-to-end runbooks, architecture diagrams, and automation sc
 
     [:octicons-arrow-right-24: HYCU Runbook](scenarios/02-hycu/index.md)
 
+- **Commvault Migration Path**
+
+    Use an existing Commvault estate to protect Nutanix workloads, restore them to Hyper-V staging, and complete Hop 2 to Azure Local with Azure Migrate.
+
+    [:octicons-arrow-right-24: Commvault Runbook](scenarios/03-commvault/index.md)
+
 - **Deploy-First Migration**
 
-    Provision new VMs on Azure Local first, then selectively migrate data from the source Nutanix VMs using Storage Migration Service, Robocopy, or database-specific tools.
+    Provision new VMs on Azure Local first, then selectively migrate data or OS state from the source Nutanix VMs using Storage Migration Service, Robocopy, application-native methods, or Carbonite.
 
-    [:octicons-arrow-right-24: Deploy-First Guide](scenarios/03-deploy-first/index.md)
+    [:octicons-arrow-right-24: Deploy-First Guide](scenarios/04-deploy-first/index.md)
 
 - **Proof of Concept**
 
-    Structured PoC plan for evaluating Veeam vs. HYCU and standalone Hyper-V staging vs. Azure Local direct — 2×2 test matrix, timeline, and decision framework.
+    Structured PoC plan for evaluating Veeam, HYCU, and Commvault across standalone Hyper-V and Azure Local staging models with a 3×2 decision matrix.
 
     [:octicons-arrow-right-24: PoC Plan](poc/index.md)
 
@@ -51,7 +57,7 @@ All two-hop scenarios follow the same pattern:
 
 Draw.io source: [migration-diagrams-common-two-hop.drawio](assets/diagrams/migration-diagrams-common-two-hop.drawio)
 
-The staging hop converts Nutanix disk formats (VMDK/AHV) to VHDX and provides a validation checkpoint before the VMs land on Azure Local as Arc-managed workloads.
+The staging hop converts Nutanix disk formats to VHDX and provides a validation checkpoint before the workloads land on Azure Local as Azure Local VMs.
 
 ## Getting Started
 

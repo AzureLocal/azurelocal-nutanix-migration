@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #4b5563; }
+      .hdr { font: 700 22px Arial, sans-serif; fill: #0f172a; }
+      .cellTitle { font: 700 22px Arial, sans-serif; fill: #111827; }
+      .body { font: 400 16px Arial, sans-serif; fill: #1f2937; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#ffffff"/>
+  <text x="800" y="56" text-anchor="middle" class="title">PoC 3×2 Matrix</text>
+  <text x="800" y="86" text-anchor="middle" class="subtitle">Compare three two-hop tools across two staging models before selecting the production path</text>
+
+  <rect x="280" y="140" width="500" height="76" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+  <rect x="820" y="140" width="500" height="76" rx="12" fill="#f8fafc" stroke="#94a3b8" stroke-width="3"/>
+  <text x="530" y="186" text-anchor="middle" class="hdr">Option A — Standalone Hyper-V</text>
+  <text x="1070" y="186" text-anchor="middle" class="hdr">Option B — Azure Local-hosted Hyper-V</text>
+
+  <rect x="60" y="250" width="180" height="160" rx="16" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+  <text x="150" y="334" text-anchor="middle" class="hdr">Veeam</text>
+
+  <rect x="60" y="450" width="180" height="160" rx="16" fill="#f3e8ff" stroke="#8b5cf6" stroke-width="3"/>
+  <text x="150" y="534" text-anchor="middle" class="hdr">HYCU</text>
+
+  <rect x="60" y="650" width="180" height="160" rx="16" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+  <text x="150" y="734" text-anchor="middle" class="hdr">Commvault</text>
+
+  <rect x="280" y="250" width="500" height="160" rx="16" fill="#eff6ff" stroke="#60a5fa" stroke-width="3"/>
+  <text x="530" y="300" text-anchor="middle" class="cellTitle">A1</text>
+  <text x="530" y="334" text-anchor="middle" class="body">Veeam → Standalone Hyper-V</text>
+  <text x="530" y="364" text-anchor="middle" class="body">Azure Migrate → Azure Local</text>
+  <text x="530" y="392" text-anchor="middle" class="small">Lowest-downtime replication-first baseline</text>
+
+  <rect x="820" y="250" width="500" height="160" rx="16" fill="#eff6ff" stroke="#60a5fa" stroke-width="3"/>
+  <text x="1070" y="300" text-anchor="middle" class="cellTitle">B1</text>
+  <text x="1070" y="334" text-anchor="middle" class="body">Veeam → Azure Local-hosted Hyper-V</text>
+  <text x="1070" y="364" text-anchor="middle" class="body">Azure Migrate → Azure Local</text>
+  <text x="1070" y="392" text-anchor="middle" class="small">Tests whether separate staging hardware can be removed</text>
+
+  <rect x="280" y="450" width="500" height="160" rx="16" fill="#faf5ff" stroke="#a78bfa" stroke-width="3"/>
+  <text x="530" y="500" text-anchor="middle" class="cellTitle">A2</text>
+  <text x="530" y="534" text-anchor="middle" class="body">HYCU → Standalone Hyper-V</text>
+  <text x="530" y="564" text-anchor="middle" class="body">Azure Migrate → Azure Local</text>
+  <text x="530" y="592" text-anchor="middle" class="small">AHV-native restore workflow with isolated staging</text>
+
+  <rect x="820" y="450" width="500" height="160" rx="16" fill="#faf5ff" stroke="#a78bfa" stroke-width="3"/>
+  <text x="1070" y="500" text-anchor="middle" class="cellTitle">B2</text>
+  <text x="1070" y="534" text-anchor="middle" class="body">HYCU → Azure Local-hosted Hyper-V</text>
+  <text x="1070" y="564" text-anchor="middle" class="body">Azure Migrate → Azure Local</text>
+  <text x="1070" y="592" text-anchor="middle" class="small">Measures restore simplicity versus cluster resource pressure</text>
+
+  <rect x="280" y="650" width="500" height="160" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="3"/>
+  <text x="530" y="700" text-anchor="middle" class="cellTitle">A3</text>
+  <text x="530" y="734" text-anchor="middle" class="body">Commvault → Standalone Hyper-V</text>
+  <text x="530" y="764" text-anchor="middle" class="body">Azure Migrate → Azure Local</text>
+  <text x="530" y="792" text-anchor="middle" class="small">Validates release-specific restore workflow in isolated staging</text>
+
+  <rect x="820" y="650" width="500" height="160" rx="16" fill="#f5f3ff" stroke="#7c3aed" stroke-width="3"/>
+  <text x="1070" y="700" text-anchor="middle" class="cellTitle">B3</text>
+  <text x="1070" y="734" text-anchor="middle" class="body">Commvault → Azure Local-hosted Hyper-V</text>
+  <text x="1070" y="764" text-anchor="middle" class="body">Azure Migrate → Azure Local</text>
+  <text x="1070" y="792" text-anchor="middle" class="small">Compares Commvault fit when staging runs on Azure Local itself</text>
+</svg>

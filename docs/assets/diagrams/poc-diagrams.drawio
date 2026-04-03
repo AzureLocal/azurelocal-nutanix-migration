@@ -319,7 +319,7 @@
         <mxCell id="w4t1" value="&lt;b&gt;Compare Results&lt;/b&gt;&lt;br&gt;• Migration time per VM&lt;br&gt;• Total downtime window&lt;br&gt;• Storage consumption&lt;br&gt;• Operational complexity&lt;br&gt;• Licensing cost&lt;br&gt;• App validation pass/fail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
           <mxGeometry x="1120" y="115" width="300" height="130" as="geometry"/>
         </mxCell>
-        <mxCell id="w4t2" value="&lt;b&gt;Decision &amp; Recommendation&lt;/b&gt;&lt;br&gt;• Select tool: Veeam or HYCU&lt;br&gt;• Select option: A or B&lt;br&gt;• Document findings&lt;br&gt;• Build production migration plan&lt;br&gt;• Procure licenses&lt;br&gt;• Schedule Batch 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+        <mxCell id="w4t2" value="&lt;b&gt;Decision &amp; Recommendation&lt;/b&gt;&lt;br&gt;• Select best-fit tool: Veeam, HYCU, or Commvault&lt;br&gt;• Select best-fit staging option: A or B&lt;br&gt;• Document findings&lt;br&gt;• Build production migration plan&lt;br&gt;• Confirm licensing and support path&lt;br&gt;• Schedule Batch 1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;align=left;spacingLeft=8;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
           <mxGeometry x="1120" y="260" width="300" height="130" as="geometry"/>
         </mxCell>
 

@@ -11,12 +11,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Initial MkDocs documentation site structure
 - Veeam migration path — full runbook, architecture, prerequisites, validation
 - HYCU migration path — full runbook, architecture, prerequisites, validation
-- Deploy-First migration scenario documentation
-- Nutanix Move scenario documentation
-- Additional scenarios stub (Azure Migrate direct, Zerto, Carbonite)
-- Proof of Concept plan — 2×2 test matrix, timeline, decision framework
+- Commvault migration path — full runbook, architecture, prerequisites, validation
+- Deploy-First migration scenario documentation with Carbonite retained as a deploy-first variant
+- Migration scenario landing page with product-scoped sidebar navigation
+- Proof of Concept plan — 3×2 test matrix, five-week timeline, decision framework
 - Reference documentation — tool comparison matrix, network requirements, IP mapping template, glossary
-- Architecture diagrams organized by scenario
+- Architecture and decision diagrams organized by scenario
 
 ### Infrastructure
 

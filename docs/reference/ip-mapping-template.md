@@ -9,7 +9,7 @@
 1. Copy this template to a spreadsheet before starting the PoC or production migration
 2. One row per VM
 3. Complete columns A–G for all VMs before starting any batch
-4. Use this as input to Veeam re-IP rules, HYCU post-restore scripting, or Carbonite/deploy-first cutover planning
+4. Use this as input to Veeam re-IP rules, HYCU post-restore scripting, Commvault post-restore network changes, or Carbonite/deploy-first cutover planning
 5. After cutover, confirm columns H–I and record actual values
 
 ---
