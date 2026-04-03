@@ -1,67 +1,66 @@
-# Deploy-First Migration
+# Deploy-First Migration (Carbonite Migrate)
 
-> Deploy new VMs directly on Azure Local, then migrate data from Nutanix source VMs.
+> Build the destination VM on Azure Local first, then use Carbonite Migrate to replicate the source workload directly into it.
 
 ---
 
 !!! note "Scenario Overview"
-    This scenario is the right choice when you want **clean, right-sized, modern VMs** on Azure Local rather than a like-for-like copy of your Nutanix VMs. Instead of replicating an existing VM image, you build new VMs from scratch and migrate only the **data and application state**.
+    Deploy-First with Carbonite Migrate is the right choice when you need **low-downtime, agent-based OS-level replication** into a pre-provisioned Azure Local VM. Instead of relying on hypervisor-native replication or a two-hop staging path, you build the target VM first, install Carbonite agents on both endpoints, and let Carbonite drive continuous block-level replication until cutover.
 
 ## Overview
 
-Deploy-First is a **build-first migration strategy**, not a two-hop replication pipeline. You provision the destination VM on Azure Local first, then choose the most appropriate migration method for the workload:
+Deploy-First is a **build-first migration strategy**. The destination VM exists on Azure Local before any migration activity starts. Carbonite Migrate then handles OS-level replication from the Nutanix source directly to the pre-built target — no intermediate staging server, no hypervisor API dependency.
 
-- **File/data migration** for file servers and content-heavy workloads
-- **Application-native migration** for SQL, IIS, and Linux/database workloads
-- **Carbonite Migrate** when you want agent-based OS-level replication into a pre-built target VM
+This makes it a strong fit for:
+
+- Mixed or legacy estates where hypervisor-native migration is unavailable or impractical
+- Workloads that need live cutover with minimal production downtime
+- Environments where VM re-IP or OS-level state preservation is required, but the overhead of a full two-hop pipeline is not justified
 
 ## Scenario Pages
 
-- [Prerequisites](prerequisites.md) — Common readiness requirements, network needs, and tool-specific prerequisites
-- [Architecture](architecture.md) — Build-first variants and decision model
-- [Runbook](runbook.md) — Step-by-step workflows for SMS/Robocopy, application-native migration, and Carbonite
-- [Validation & Checklist](validation.md) — Validation, rollback, and sign-off guidance
+- [Prerequisites](prerequisites.md) — Carbonite licensing, management server, agent requirements, and network ports
+- [Architecture](architecture.md) — Deploy-First with Carbonite component model and data flow
+- [Runbook](runbook.md) — Step-by-step Carbonite Migrate execution
+- [Validation & Checklist](validation.md) — Cutover validation, rollback guidance, and sign-off checklist
 
-## Path variants
+## Migration process at a glance
 
-| Variant | Best for | Migration layer | Typical tools |
-|---------|----------|-----------------|---------------|
-| **File/data migration** | File servers, content repositories, stateless content hosts | Data layer | SMS, Robocopy, rsync |
-| **Application-native migration** | SQL Server, IIS, Linux app/database stacks | Application layer | SQL backup/restore, app export/import, native DB tools |
-| **Carbonite Migrate** | Mixed or legacy estates requiring low-downtime OS-level move | OS layer | Carbonite Migrate |
+| Phase | What happens |
+|-------|-------------|
+| **Provision** | Target VM built and baselined on Azure Local before migration starts |
+| **Agent install** | Carbonite Migrate agent installed on source Nutanix VM and target Azure Local VM |
+| **Initial mirror** | Carbonite performs full block-level synchronization from source to target |
+| **Continuous replication** | Changed-block replication keeps source and target in sync until cutover |
+| **Cutover** | Source writes stopped, final sync completes, execution switches to target VM |
+| **Validation** | Application owner validates target; source VM held for rollback window |
 
 ## When to Use This Approach
 
-| Use Case | Why Deploy-First |
-|----------|-----------------|
-| VMs running outdated OS (Server 2012/2016) | Good opportunity to refresh OS while migrating |
-| VM was over-provisioned on Nutanix | Right-size CPU/RAM at migration time |
-| Stateless or easily rebuilt workloads | Fastest path — just redeploy and repoint |
-| Large file servers | Use Storage Migration Service (SMS) for clean data migration |
-| SQL or app workloads | Use in-app migration tools (SQL backup/restore, DFS, etc.) |
+| Use Case | Why Deploy-First + Carbonite |
+|----------|------------------------------|
+| Low-downtime OS-level migration required | Continuous replication minimizes the cutover window |
+| Hypervisor APIs unavailable or not preferred | Agent-based — no Nutanix or VMware dependency |
+| Mixed OS estate across Windows and Linux | Carbonite supports both |
+| VM right-sizing needed alongside migration | Target VM is provisioned with correct sizing before migration starts |
+| No two-hop staging infrastructure available | Direct source-to-target path, no intermediate Hyper-V host required |
 
 ## Not Suitable For
 
-- VMs where the exact OS state must be preserved (use one of the two-hop paths instead)
-- VMs with complex application state that cannot be easily migrated via data transfer
-
-## Common execution pattern
-
-1. Provision and baseline the new Azure Local VM
-2. Install the required OS and supporting software on the target
-3. Select the correct migration method for the workload type
-4. Migrate data, application state, or OS state
-5. Perform cutover and validation
-6. Decommission or archive the Nutanix source after the hold period
+- Workloads requiring a full hypervisor-backed snapshot or point-in-time restore model during migration
+- Environments where agent installation on source VMs is not permitted (use [Veeam](../01-veeam/index.md) or [HYCU](../02-hycu/index.md) instead)
+- Pure file-server or application-layer workloads where a simpler approach is preferred (see [Alternative Migration Methods](../05-alternative-migration-methods/index.md))
 
 ## Resources
 
-- [Storage Migration Service overview](https://learn.microsoft.com/en-us/windows-server/storage/storage-migration-service/overview)
+- [Carbonite Migrate product documentation](https://www.carbonite.com/business/products/migrate/)
 - [Tool Comparison](../../overview/tool-comparison.md)
 - [Diagrams Gallery](../../diagrams/index.md#deploy-first)
+- [Alternative Migration Methods](../05-alternative-migration-methods/index.md) — SMS, Robocopy, and application-native paths
 
 ## Alternative approaches
 
 - If you need a two-hop replication path with built-in re-IP, see [Veeam](../01-veeam/index.md)
 - If you want a simpler Nutanix-native backup/restore workflow, see [HYCU](../02-hycu/index.md)
 - If you want to stay inside an existing Commvault operating model, see [Commvault](../03-commvault/index.md)
+- For file-server or app-native migration without Carbonite, see [Alternative Migration Methods](../05-alternative-migration-methods/index.md)

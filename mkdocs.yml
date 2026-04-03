@@ -57,12 +57,17 @@ nav:
           - Architecture: scenarios/03-commvault/architecture.md
           - Runbook: scenarios/03-commvault/runbook.md
           - Validation & Checklist: scenarios/03-commvault/validation.md
-      - Deploy-First Migration:
+      - Deploy-First Migration (Carbonite):
           - Overview: scenarios/04-deploy-first/index.md
           - Prerequisites: scenarios/04-deploy-first/prerequisites.md
           - Architecture: scenarios/04-deploy-first/architecture.md
           - Runbook: scenarios/04-deploy-first/runbook.md
           - Validation & Checklist: scenarios/04-deploy-first/validation.md
+      - Alternative Migration Methods:
+          - Overview: scenarios/05-alternative-migration-methods/index.md
+          - Prerequisites: scenarios/05-alternative-migration-methods/prerequisites.md
+          - Runbook: scenarios/05-alternative-migration-methods/runbook.md
+          - Validation & Checklist: scenarios/05-alternative-migration-methods/validation.md
   - Proof of Concept:
       - Overview: poc/index.md
       - Test Matrix: poc/test-matrix.md

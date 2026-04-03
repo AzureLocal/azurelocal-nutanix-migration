@@ -1,70 +1,76 @@
-# Deploy-First Validation & Checklist
+# Deploy-First Validation & Checklist (Carbonite Migrate)
 
-> Validation and rollback guidance for build-first migrations to Azure Local.
+> Validation, rollback, and sign-off guidance for Carbonite Migrate deployments.
 
 ---
 
-## Common validation checks
+## Pre-cutover validation
 
-For every Deploy-First migration, validate the target Azure Local VM before sign-off:
+Before initiating production cutover, confirm:
+
+- [ ] Carbonite initial mirror completed without errors
+- [ ] Continuous replication is active and lag is consistently low
+- [ ] Management console shows both agents healthy
+- [ ] Test cutover performed and reverted (strongly recommended before production)
+- [ ] Application owner has reviewed test cutover results and approved the production window
+
+## Post-cutover validation
+
+### Target VM validation
 
 - [ ] VM boots and remains stable on Azure Local
-- [ ] Correct CPU, memory, disk, and NIC layout applied
+- [ ] Correct CPU, memory, disk, and NIC layout confirmed
 - [ ] DNS resolution and gateway connectivity succeed
-- [ ] Monitoring and management baselines are active
-- [ ] Application owner confirms core smoke tests
+- [ ] Monitoring and management baseline active
+- [ ] Security tooling and policy baselines applied
 
-## Variant-specific validation
+### Carbonite-specific items
 
-=== "SMS / Robocopy"
+- [ ] Final Carbonite sync confirmed complete in management console
+- [ ] Carbonite cutover reported successful in job log
+- [ ] Source agent disconnected cleanly after cutover
+- [ ] Re-IP rules applied correctly (if configured)
+- [ ] No replication errors logged in the 24 hours before cutover
 
-    - [ ] File counts match agreed tolerance
-    - [ ] Share permissions and NTFS permissions are correct
-    - [ ] User access tests succeed from representative clients
-    - [ ] Final sync completed after source writes stopped
+### Application validation
 
-=== "Application-native"
-
-    - [ ] Database/application restore completed without corruption
-    - [ ] Service accounts, bindings, and certificates are correct
-    - [ ] Logs and scheduled tasks/jobs function on target
-    - [ ] Application owner signs off on functional tests
-
-=== "Carbonite Migrate"
-
-    - [ ] Source and target agents report healthy
-    - [ ] Initial mirror completed successfully
-    - [ ] Continuous replication remained healthy before cutover
-    - [ ] Final cutover completed inside the approved downtime window
+- [ ] Application owner confirms core smoke tests pass
+- [ ] Service accounts and certificates are correct
+- [ ] Scheduled tasks and background services running as expected
+- [ ] Application logs show no unexpected errors post-cutover
+- [ ] Dependent systems can reach the migrated workload
 
 ## Azure Local validation
 
-- [ ] Target workload is visible and healthy in the Azure portal
-- [ ] Update and monitoring integrations are active as required
-- [ ] Security tooling and policy baselines are applied
-- [ ] Backup/protection model for the new VM is confirmed
+- [ ] Target workload visible and healthy in the Azure portal
+- [ ] Update compliance and monitoring integrations active
+- [ ] Backup/protection policy applied to the new VM
+- [ ] VM tagged and governed per organizational standards
 
 ## Rollback decision points
 
-Rollback should be considered if any of the following occurs:
+Initiate rollback if any of the following occurs:
 
-- Target application fails smoke testing and cannot be remediated quickly
-- Data integrity or permissions validation fails
-- Performance or dependency failures block business use
+- Target application fails smoke testing and cannot be quickly remediated
+- Carbonite cutover reports errors or the final sync does not complete cleanly
+- DNS or IP transition causes broader connectivity failures
+- Performance issues prevent the application from serving users
 
 ## Rollback pattern
 
-1. Stop traffic to the Azure Local target
-2. Restore traffic to the Nutanix source VM
-3. Revert DNS/load balancer changes
+1. Stop traffic to the Azure Local target VM
+2. Re-enable access to the Nutanix source VM
+3. Revert DNS and any load balancer changes to point back to source
 4. Confirm source workload health with the application owner
-5. Document root cause before reattempting cutover
+5. Notify change management and document root cause
+6. Confirm whether Carbonite replication should resume toward a second cutover attempt or whether the migration job should be reset
 
 ## Pre-cutover checklist
 
 - [ ] IP / DNS plan approved
-- [ ] Source hold period defined
-- [ ] App owner validation steps documented
-- [ ] Tool-specific migration logs reviewed
-- [ ] Final delta or final backup completed
-- [ ] Rollback owner on call during cutover
+- [ ] Source VM hold period defined (minimum 5 business days recommended)
+- [ ] Application validation steps documented and assigned to app owner
+- [ ] Carbonite replication lag confirmed low and stable
+- [ ] Carbonite agents healthy on source and target
+- [ ] Change management window confirmed
+- [ ] Rollback owner identified and available during cutover

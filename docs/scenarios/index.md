@@ -6,7 +6,7 @@
 
 ## Choose your path
 
-This repository currently supports **four primary migration paths**:
+This repository currently supports **five migration paths**:
 
 <div class="grid cards" markdown>
 
@@ -28,11 +28,17 @@ This repository currently supports **four primary migration paths**:
 
     [:octicons-arrow-right-24: Open Commvault Path](03-commvault/index.md)
 
-- **Deploy-First Migration**
+- **Deploy-First (Carbonite Migrate)**
 
-    Best when you want to build fresh Azure Local VMs and migrate data, application state, or OS-level state into them.
+    Best when you want to provision fresh Azure Local VMs and use Carbonite Migrate for low-downtime agent-based OS-level replication directly into them.
 
     [:octicons-arrow-right-24: Open Deploy-First Path](04-deploy-first/index.md)
+
+- **Alternative Migration Methods**
+
+    File-server and application-native migration for deploy-first workloads where OS-level replication is not required (SMS, Robocopy, SQL backup/restore, IIS, Linux rsync).
+
+    [:octicons-arrow-right-24: Open Alternative Methods](05-alternative-migration-methods/index.md)
 
 </div>
 
@@ -43,7 +49,8 @@ Opening one of the paths above takes you into that product's own documentation s
 | Path family | Included paths | Core idea | Best for |
 |-------------|----------------|-----------|----------|
 | **Replication-first / two-hop** | Veeam, HYCU, Commvault | Move source VMs to Hyper-V staging first, then use Azure Migrate for Hop 2 | Like-for-like VM moves where you want a defined staging checkpoint |
-| **Build-first / deploy-first** | Deploy-First | Provision new Azure Local VMs first, then migrate data, app state, or use Carbonite for OS-level replication | Modernization, right-sizing, OS refresh, file/data-centric workloads |
+| **Deploy-first / Carbonite** | Deploy-First | Provision new Azure Local VMs first, then use Carbonite Migrate for agent-based OS-level replication | Workloads requiring low-downtime migration without hypervisor-native tooling |
+| **Deploy-first / lightweight** | Alternative Migration Methods | Provision new Azure Local VMs first, then migrate only data or application state | File servers, SQL, IIS, and Linux workloads with clean export/import paths |
 
 ## Quick decision guide
 
@@ -52,7 +59,8 @@ Opening one of the paths above takes you into that product's own documentation s
 | Lowest downtime and strong re-IP control | [Veeam](01-veeam/index.md) |
 | Simplest Nutanix-native operations | [HYCU](02-hycu/index.md) |
 | Existing Commvault investment and centralized policy-driven operations | [Commvault](03-commvault/index.md) |
-| Clean rebuilds, data-only migration, or deploy-first Carbonite use | [Deploy-First](04-deploy-first/index.md) |
+| Low-downtime OS-level migration without hypervisor APIs (agent-based) | [Deploy-First with Carbonite](04-deploy-first/index.md) |
+| File-server, SQL, IIS, or Linux workloads with simple export/import paths | [Alternative Migration Methods](05-alternative-migration-methods/index.md) |
 
 ## Recommended reading order
 

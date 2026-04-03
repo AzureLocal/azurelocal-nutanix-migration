@@ -1,92 +1,86 @@
-# Deploy-First Runbook
+# Deploy-First Runbook (Carbonite Migrate)
 
-> Step-by-step execution patterns for build-first migrations to Azure Local.
+> Step-by-step execution for agent-based OS-level replication from Nutanix to Azure Local using Carbonite Migrate.
 
 ---
 
-## Common preparation
+## Phase 1 — Provision and baseline the target VM
 
-1. Create the target Azure Local VM with approved sizing
-2. Join the target VM to the correct domain or identity boundary if required
-3. Apply baseline configuration: patching, security tooling, monitoring, and backup policy
-4. Confirm IP, DNS, firewall, and service account requirements
-5. Choose the migration variant that matches the workload
+1. Create the target Azure Local VM with approved CPU, memory, and storage sizing
+2. Install the guest OS and apply baseline patching
+3. Join the target VM to the correct domain or identity boundary
+4. Apply baseline configuration: security tooling, monitoring agents, and backup policy
+5. Pre-create data volumes and mount points to match the application design
+6. Confirm IP, DNS, firewall, and service account requirements with the application owner
+7. Do **not** install the application yet — Carbonite will replicate it from the source
 
-## Option A — File and content migration
+## Phase 2 — Install Carbonite Migrate agents
 
-### Storage Migration Service (SMS)
+1. Log on to the Carbonite management server
+2. Download the Carbonite Migrate agent installer for the source VM OS family (Windows or Linux)
+3. Install the Carbonite Migrate agent on the **source Nutanix VM** per Carbonite's agent installation guide
+4. Install the Carbonite Migrate agent on the **target Azure Local VM**
+5. Verify both agents appear as online in the Carbonite management console
+6. Confirm TCP ports `6325` and `6326` are reachable between source and target agent endpoints
 
-1. Prepare the source and target Windows file servers
-2. Inventory shares, NTFS permissions, local groups, and scheduled tasks
-3. Create the SMS transfer job from source to target
-4. Run the initial transfer and review job health
-5. Schedule the cutover window for the final delta
-6. Cut over the identity/share presentation and validate access from client systems
+## Phase 3 — Create the migration job
 
-### Robocopy
+1. In the Carbonite management console, create a new migration job
+2. Set the **source** to the source Nutanix VM agent endpoint
+3. Set the **target** to the target Azure Local VM agent endpoint
+4. Configure the replication scope — include all required volumes; exclude temp/cache paths where appropriate
+5. Configure cutover settings: re-IP rules, DNS update behavior, and pre/post cutover scripts if required
+6. Review job settings with the application owner before starting replication
 
-Use Robocopy for simpler file-server or content-host workloads where a full SMS workflow is unnecessary.
+## Phase 4 — Initial mirror
 
-```powershell
-robocopy \\source\share \\target\share /MIR /ZB /R:3 /W:5 /COPY:DATSO /DCOPY:DAT /MT:16 /LOG:robocopy.log
-```
+1. Start the migration job in the Carbonite console
+2. Monitor the initial mirror progress — this is a full block-level copy and may take several hours depending on data volume
+3. Confirm mirror completion is reported healthy in the console
+4. Do not schedule cutover until the initial mirror has completed and continuous replication is active
 
-Recommended sequence:
+## Phase 5 — Continuous replication and pre-cutover validation
 
-1. Run an initial sync during business hours
-2. Review file counts, skipped files, and permissions results
-3. Repeat one or more delta syncs before cutover
-4. Stop application/file writes during the final sync
-5. Repoint users or dependent services to the Azure Local target
+1. Confirm continuous replication is running and the delta queue is staying current
+2. Monitor replication lag — lag should be consistently low before scheduling cutover
+3. Perform a **test cutover** (non-production) if permitted:
+    - Initiate a test failover in the Carbonite console
+    - Validate application functionality on the target VM
+    - Revert the test failover and confirm replication resumes
+4. Schedule the production cutover window with the application owner and change management
 
-## Option B — Application-native migration
+## Phase 6 — Production cutover
 
-### SQL Server
+1. Notify all stakeholders that the cutover window is active
+2. Quiesce or redirect source application traffic to maintenance mode
+3. In the Carbonite console, initiate the production cutover:
+    - Carbonite stops source writes
+    - Final changed-block sync completes
+    - Workload execution transfers to the target Azure Local VM
+4. Confirm the target VM is serving the workload correctly
 
-1. Provision the target Azure Local SQL VM and install the required SQL version
-2. Back up user databases on the source system to the approved backup location
-3. Restore databases on the target SQL instance
-4. Recreate or validate logins, SQL Agent jobs, linked servers, and maintenance plans
-5. Update application connection strings or listeners
-6. Run application and database smoke tests with the application owner
+## Phase 7 — Post-cutover validation
 
-### IIS / Windows application workloads
-
-1. Provision and harden the target VM
-2. Install required roles/features and application dependencies
-3. Export or document IIS bindings, application pools, certificates, and service identities
-4. Copy application content and import configuration to the target
-5. Validate site bindings, certificates, and service startup
-6. Cut over DNS / load balancer entries
-
-### Linux / database-native workloads
-
-1. Provision the target Linux VM on Azure Local
-2. Install runtime packages, agents, and monitoring tools
-3. Use `rsync`, database-native dump/restore, or app-native replication to move state
-4. Validate service unit files, mount points, SELinux/AppArmor policy, and firewall rules
-5. Cut over application traffic and monitor for post-cutover errors
-
-## Option C — Carbonite Migrate
-
-1. Install the Carbonite Migrate agent on the source VM
-2. Install the Carbonite Migrate agent on the pre-built target Azure Local VM
-3. Create the source-to-target migration job in Carbonite
-4. Allow the initial mirror to complete
-5. Let continuous replication run until the cutover window
-6. Initiate cutover, perform final validation, then hold the source for rollback coverage
+1. Application owner runs smoke tests on the target VM
+2. Validate DNS resolution, IP addressing, and gateway connectivity
+3. Confirm monitoring and alerting baselines are active on the target VM
+4. Verify scheduled tasks, services, and any application-specific startup items
 
 ## Cutover checklist
 
-- [ ] Final delta sync complete
-- [ ] Application owner present for validation
-- [ ] DNS/load balancer change window active
-- [ ] Source writes stopped or controlled
-- [ ] Target application healthy before user traffic is restored
+- [ ] Continuous replication confirmed healthy and lag is low
+- [ ] Test cutover completed and reverted (if applicable)
+- [ ] Application owner present for production cutover
+- [ ] Change management window active
+- [ ] Source writes quiesced before final sync
+- [ ] Final Carbonite sync confirmed complete before declaring cutover done
+- [ ] DNS / load balancer entries updated
+- [ ] Target application healthy before user traffic restored
 
 ## Cleanup
 
-1. Keep the source VM powered off or isolated during the hold period
-2. Document final target IP, DNS, and service changes
-3. Remove temporary migration tooling and accounts if no longer needed
-4. Decommission the Nutanix source only after sign-off and rollback window closure
+1. Keep the Nutanix source VM powered off or isolated during the hold period (minimum 5 business days recommended)
+2. Document final target IP, DNS, and service configuration
+3. Remove Carbonite agent from source and target once the rollback window is closed
+4. Remove the migration job from the Carbonite console
+5. Decommission the Nutanix source only after written sign-off from the application owner and rollback window closure
