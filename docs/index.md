@@ -45,7 +45,7 @@ This site provides end-to-end runbooks, architecture diagrams, and automation sc
 
 All two-hop scenarios follow the same pattern:
 
-![Two-hop migration architecture](assets/images/01-high-level-architecture.png)
+![Two-hop migration architecture](assets/images/01-common-two-hop-architecture.svg)
 
 *Two-hop architecture: Nutanix AHV/ESXi source → Hyper-V staging → Azure Local target via Azure Migrate.*
 
