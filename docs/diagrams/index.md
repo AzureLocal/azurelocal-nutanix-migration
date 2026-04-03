@@ -51,6 +51,19 @@ The editable DrawIO source for all Veeam diagrams:
 
 ---
 
+## Deploy-First Migration Path {#deploy-first}
+
+### Architecture Overview
+
+The editable draw.io source (open in [app.diagrams.net](https://app.diagrams.net)):  
+[`assets/diagrams/migration-diagrams-deploy-first.drawio`](../assets/diagrams/migration-diagrams-deploy-first.drawio)
+
+**Page 1 — Architecture:** Source Nutanix AHV cluster with Carbonite agents → continuous replication → pre-provisioned target VMs on Azure Local. Shows initial mirror, delta sync, and cutover flows. Contrasts with the Veeam/HYCU two-hop (no Hyper-V staging host required).
+
+**Page 2 — Migration Steps:** Eight-step swimlane — Provision target VM, install agents, create job, initial mirror, continuous replication, test failover, cutover, validate and cleanup. Includes timeline bar and when-to-use / when-not-to-use callouts.
+
+---
+
 ## Proof of Concept (PoC) Diagrams {#poc}
 
 ### PoC Overview — Both Options

@@ -33,12 +33,6 @@ This site provides end-to-end runbooks, architecture diagrams, and automation sc
 
     [:octicons-arrow-right-24: Deploy-First Guide](scenarios/03-deploy-first/index.md)
 
-- **Additional Scenarios**
-
-    Alternative paths including Azure Migrate direct from AHV, Zerto continuous replication, and Carbonite Migrate agent-based migration.
-
-    [:octicons-arrow-right-24: Additional Scenarios](scenarios/05-additional/index.md)
-
 - **Proof of Concept**
 
     Structured PoC plan for evaluating Veeam vs. HYCU and standalone Hyper-V staging vs. Azure Local direct — 2×2 test matrix, timeline, and decision framework.

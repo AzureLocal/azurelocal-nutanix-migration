@@ -1,0 +1,345 @@
+<mxfile host="app.diagrams.net" modified="2026-04-03T00:00:00.000Z" agent="Claude" version="24.0.0" type="device">
+  <diagram id="df-arch-overview" name="1 - Deploy-First Architecture">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- Title -->
+        <mxCell id="title" value="&lt;b&gt;Deploy-First Migration: Carbonite Migrate — Nutanix AHV → Azure Local&lt;/b&gt;" style="text;html=1;fontSize=20;fontFamily=Arial;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="200" y="20" width="1200" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Subtitle -->
+        <mxCell id="subtitle" value="OS-level agent replication — no hypervisor API dependency — direct, single-hop migration" style="text;html=1;fontSize=13;fontFamily=Arial;align=center;fontStyle=2;fontColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="300" y="58" width="1000" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- SOURCE ZONE -->
+        <!-- ═══════════════════════════════════════════════════ -->
+        <mxCell id="zone-src" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#b85450;dashed=1;strokeWidth=2;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="380" height="530" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-src-label" value="&lt;b&gt;SOURCE — NUTANIX AHV&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#b85450;align=center;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="110" width="260" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- Nutanix cluster box -->
+        <mxCell id="ahv-cluster" value="&lt;b&gt;Nutanix AHV Cluster&lt;/b&gt;&lt;br&gt;Prism Element / Prism Central&lt;br&gt;Any AOS version" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="80" y="155" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Source VM 1 -->
+        <mxCell id="src-vm1" value="&lt;b&gt;Source VM&lt;/b&gt;&lt;br&gt;Windows Server / Linux&lt;br&gt;Running on AHV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="260" width="170" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Carbonite agent on source -->
+        <mxCell id="src-agent" value="&lt;b&gt;Carbonite Agent&lt;/b&gt;&lt;br&gt;Installed on source VM&lt;br&gt;Tracks block changes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="80" y="345" width="150" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Source VM 2 -->
+        <mxCell id="src-vm2" value="&lt;b&gt;Source VM&lt;/b&gt;&lt;br&gt;Windows Server / Linux&lt;br&gt;Running on AHV" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="270" y="260" width="120" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="src-agent2" value="&lt;b&gt;Carbonite Agent&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="280" y="345" width="100" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- Note: hypervisor independent -->
+        <mxCell id="src-note" value="&lt;b&gt;Key:&lt;/b&gt; Carbonite agent operates entirely&lt;br&gt;at the OS level. AHV version, vSwitch&lt;br&gt;config, and Prism APIs are irrelevant." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="65" y="435" width="290" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Source storage callout -->
+        <mxCell id="src-storage" value="Source disks remain &lt;b&gt;live and online&lt;/b&gt;&lt;br&gt;throughout replication.&lt;br&gt;No snapshot export required." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="65" y="525" width="290" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- CARBONITE MIDDLE ZONE -->
+        <!-- ═══════════════════════════════════════════════════ -->
+        <mxCell id="zone-carbonite" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e6ffe6;strokeColor=#338833;dashed=1;strokeWidth=2;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="490" y="100" width="300" height="530" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-carbonite-label" value="&lt;b&gt;CARBONITE MIGRATE&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#338833;align=center;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="110" width="200" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- Carbonite console/server -->
+        <mxCell id="cb-console" value="&lt;b&gt;Carbonite Migrate Console&lt;/b&gt;&lt;br&gt;Central management UI&lt;br&gt;Create and monitor migration jobs&lt;br&gt;Control cutover" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#338833;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="525" y="155" width="230" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Migration job box -->
+        <mxCell id="cb-job" value="&lt;b&gt;Migration Job&lt;/b&gt;&lt;br&gt;Source VM → Target VM pair&lt;br&gt;One job per VM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#338833;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="540" y="275" width="200" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Replication phases -->
+        <mxCell id="cb-phase1" value="&lt;b&gt;Phase 1: Initial Mirror&lt;/b&gt;&lt;br&gt;Full block-level sync&lt;br&gt;Runs in background&lt;br&gt;Source VM stays online" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="510" y="365" width="180" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="cb-phase2" value="&lt;b&gt;Phase 2: Delta Sync&lt;/b&gt;&lt;br&gt;Continuous changed-block&lt;br&gt;replication in real time" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="510" y="460" width="180" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="cb-phase3" value="&lt;b&gt;Phase 3: Cutover&lt;/b&gt;&lt;br&gt;Final sync → target VM boots&lt;br&gt;Minutes of downtime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="510" y="545" width="180" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Network requirement callout -->
+        <mxCell id="cb-net" value="Ports: TCP 6325, TCP 6326&lt;br&gt;Source VMs → Target VMs&lt;br&gt;(firewall rule required)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=9;fontStyle=2;" vertex="1" parent="1">
+          <mxGeometry x="530" y="625" width="200" height="55" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- TARGET ZONE -->
+        <!-- ═══════════════════════════════════════════════════ -->
+        <mxCell id="zone-target" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;dashed=1;strokeWidth=2;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="870" y="100" width="380" height="530" as="geometry"/>
+        </mxCell>
+        <mxCell id="zone-target-label" value="&lt;b&gt;TARGET — AZURE LOCAL&lt;/b&gt;" style="text;html=1;fontSize=13;fontFamily=Arial;fontColor=#1a73e8;align=center;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="930" y="110" width="260" height="28" as="geometry"/>
+        </mxCell>
+
+        <!-- Azure Local cluster -->
+        <mxCell id="azl-cluster" value="&lt;b&gt;Azure Local Cluster&lt;/b&gt;&lt;br&gt;23H2 / 2411+&lt;br&gt;Azure Arc-Enabled — S2D Storage" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="920" y="155" width="270" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- Pre-provisioned target VM -->
+        <mxCell id="tgt-vm1" value="&lt;b&gt;Target VM (pre-provisioned)&lt;/b&gt;&lt;br&gt;New VM — clean OS install&lt;br&gt;Matching CPU / RAM / disk config" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="258" width="200" height="75" as="geometry"/>
+        </mxCell>
+
+        <!-- This is the deploy-first callout -->
+        <mxCell id="deploy-first-note" value="&lt;b&gt;Deploy-First:&lt;/b&gt; Target VM is provisioned&lt;br&gt;on Azure Local &lt;i&gt;before&lt;/i&gt; migration starts.&lt;br&gt;Clean OS — right-sized — modern image.&lt;br&gt;Carbonite replicates data into it." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="900" y="355" width="290" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Carbonite agent on target -->
+        <mxCell id="tgt-agent" value="&lt;b&gt;Carbonite Agent&lt;/b&gt;&lt;br&gt;Installed on target VM&lt;br&gt;Receives replicated data" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="920" y="258" width="155" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- Arc management -->
+        <mxCell id="arc-mgmt" value="&lt;b&gt;Azure Arc Management&lt;/b&gt;&lt;br&gt;After cutover: VM visible in&lt;br&gt;Azure Portal as Arc VM&lt;br&gt;Policy / Defender / Monitor" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="905" y="455" width="250" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Post-cutover cleanup -->
+        <mxCell id="tgt-cleanup" value="&lt;b&gt;Post-Cutover:&lt;/b&gt; Validate app on Azure Local,&lt;br&gt;then decommission source VM on&lt;br&gt;Nutanix AHV." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="905" y="550" width="265" height="65" as="geometry"/>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- ARROWS -->
+        <!-- ═══════════════════════════════════════════════════ -->
+
+        <!-- Source agent → Carbonite console (control plane) -->
+        <mxCell id="arr-ctl" value="" style="endArrow=block;endFill=1;strokeWidth=1;strokeColor=#338833;dashed=1;" edge="1" parent="1">
+          <mxGeometry x="240" y="378" width="1" height="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="240" y="378"/>
+              <mxPoint x="525" y="378"/>
+            </Array>
+            <mxPoint x="240" y="378" as="sourcePoint"/>
+            <mxPoint x="525" y="378" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-ctl-label" value="Register / controlled by" style="edgeLabel;html=1;fontSize=9;fontColor=#338833;align=center;" vertex="1" connectable="0" parent="arr-ctl">
+          <mxGeometry relative="1" as="geometry"><mxPoint y="-10" as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Initial mirror arrow — big, prominent -->
+        <mxCell id="arr-mirror" value="" style="endArrow=block;endFill=1;strokeWidth=4;strokeColor=#d6b656;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="420" as="sourcePoint"/>
+            <mxPoint x="870" y="300" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="700" y="420"/>
+              <mxPoint x="700" y="300"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-mirror-label" value="&lt;b&gt;Initial Mirror&lt;/b&gt;&lt;br&gt;Full block-level copy&lt;br&gt;TCP 6325/6326&lt;br&gt;(background, source online)" style="edgeLabel;html=1;fontSize=10;fontColor=#c88400;align=center;fontStyle=1;" vertex="1" connectable="0" parent="arr-mirror">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="30" y="-40" as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Continuous delta replication arrow -->
+        <mxCell id="arr-delta" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#338833;curved=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="490" as="sourcePoint"/>
+            <mxPoint x="870" y="360" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="700" y="490"/>
+              <mxPoint x="700" y="360"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-delta-label" value="&lt;b&gt;Continuous Delta Sync&lt;/b&gt;&lt;br&gt;Changed blocks only&lt;br&gt;Real-time replication" style="edgeLabel;html=1;fontSize=10;fontColor=#338833;align=center;fontStyle=1;" vertex="1" connectable="0" parent="arr-delta">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="30" y="30" as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Cutover arrow -->
+        <mxCell id="arr-cutover" value="" style="endArrow=block;endFill=1;strokeWidth=3;strokeColor=#b85450;dashed=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="260" y="565" as="sourcePoint"/>
+            <mxPoint x="870" y="480" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="700" y="565"/>
+              <mxPoint x="700" y="480"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="arr-cutover-label" value="&lt;b&gt;Cutover (final sync)&lt;/b&gt;&lt;br&gt;Minutes of downtime" style="edgeLabel;html=1;fontSize=10;fontColor=#b85450;align=center;fontStyle=1;" vertex="1" connectable="0" parent="arr-cutover">
+          <mxGeometry relative="1" as="geometry"><mxPoint x="30" y="30" as="offset"/></mxGeometry>
+        </mxCell>
+
+        <!-- Carbonite console → Job control arrow -->
+        <mxCell id="arr-console-job" value="" style="endArrow=block;endFill=1;strokeWidth=1;strokeColor=#338833;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="245" as="sourcePoint"/>
+            <mxPoint x="640" y="275" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ═══════════════════════════════════════════════════ -->
+        <!-- LEGEND -->
+        <!-- ═══════════════════════════════════════════════════ -->
+        <mxCell id="legend-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#cccccc;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="660" width="700" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend-title" value="&lt;b&gt;Legend&lt;/b&gt;" style="text;html=1;fontSize=11;fontFamily=Arial;" vertex="1" parent="1">
+          <mxGeometry x="55" y="665" width="80" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="Source (Nutanix AHV)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="55" y="688" width="140" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="Carbonite Components" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="205" y="688" width="140" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="Azure Local (Target)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="355" y="688" width="140" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg4" value="Note / Action Required" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9;" vertex="1" parent="1">
+          <mxGeometry x="505" y="688" width="140" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- VS two-hop comparison callout -->
+        <mxCell id="vs-note" value="&lt;b&gt;vs. Veeam / HYCU two-hop:&lt;/b&gt; No intermediate&lt;br&gt;Hyper-V staging host required. Single hop,&lt;br&gt;source → Azure Local directly." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="780" y="660" width="470" height="75" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+
+  <diagram id="df-steps" name="2 - Migration Steps">
+    <mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="s-title" value="&lt;b&gt;Carbonite Migrate — Step-by-Step Process&lt;/b&gt;" style="text;html=1;fontSize=20;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="1000" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 1 -->
+        <mxCell id="s1" value="&lt;b&gt;1. PROVISION&lt;br&gt;TARGET VM&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Create new VM on Azure Local&lt;br&gt;via Arc / Azure portal&lt;br&gt;Clean OS install&lt;br&gt;Right-sized CPU/RAM&lt;br&gt;&lt;br&gt;&lt;i&gt;Azure Local task&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="30" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 2 -->
+        <mxCell id="s2" value="&lt;b&gt;2. INSTALL&lt;br&gt;AGENTS&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Install Carbonite agent&lt;br&gt;on source VM (AHV)&lt;br&gt;&lt;b&gt;and&lt;/b&gt; on target VM&lt;br&gt;(Azure Local)&lt;br&gt;&lt;br&gt;&lt;i&gt;Admin rights required&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="215" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 3 -->
+        <mxCell id="s3" value="&lt;b&gt;3. CREATE&lt;br&gt;MIGRATION JOB&lt;/b&gt;&lt;br&gt;&lt;hr&gt;In Carbonite console:&lt;br&gt;Pair source VM →&lt;br&gt;target VM&lt;br&gt;Configure options&lt;br&gt;&lt;br&gt;&lt;i&gt;One job per VM&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="400" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 4 -->
+        <mxCell id="s4" value="&lt;b&gt;4. INITIAL&lt;br&gt;MIRROR&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Carbonite copies full&lt;br&gt;disk contents to target&lt;br&gt;Runs in background&lt;br&gt;Source VM stays live&lt;br&gt;&lt;br&gt;&lt;i&gt;4–24 hours (size-dependent)&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="585" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 5 -->
+        <mxCell id="s5" value="&lt;b&gt;5. CONTINUOUS&lt;br&gt;REPLICATION&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Changed blocks sent&lt;br&gt;to target in real time&lt;br&gt;Target stays in sync&lt;br&gt;Source VM stays live&lt;br&gt;&lt;br&gt;&lt;i&gt;Ongoing until cutover&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="770" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 6 -->
+        <mxCell id="s6" value="&lt;b&gt;6. TEST&lt;br&gt;FAILOVER&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Optional: boot target VM&lt;br&gt;in isolated network&lt;br&gt;Verify app functionality&lt;br&gt;before committing&lt;br&gt;&lt;br&gt;&lt;i&gt;Recommended&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="955" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 7 -->
+        <mxCell id="s7" value="&lt;b&gt;7. CUTOVER&lt;/b&gt;&lt;br&gt;&lt;hr&gt;From Carbonite console:&lt;br&gt;Initiate cutover&lt;br&gt;Final delta sync sent&lt;br&gt;Target VM boots live&lt;br&gt;Source powered off&lt;br&gt;&lt;br&gt;&lt;i&gt;Minutes of downtime&lt;/i&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Step 8 -->
+        <mxCell id="s8" value="&lt;b&gt;8. VALIDATE&lt;br&gt;&amp; CLEANUP&lt;/b&gt;&lt;br&gt;&lt;hr&gt;Verify app on Azure Local&lt;br&gt;Update DNS / LB entries&lt;br&gt;Remove Carbonite agents&lt;br&gt;Decommission source&lt;br&gt;Nutanix AHV VM&lt;b&gt;&lt;br&gt;&lt;br&gt;&lt;i&gt;Done&lt;/i&gt;&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#1a73e8;fontSize=10;verticalAlign=top;spacingTop=5;" vertex="1" parent="1">
+          <mxGeometry x="1325" y="100" width="155" height="185" as="geometry"/>
+        </mxCell>
+
+        <!-- Arrows between steps -->
+        <mxCell id="a1" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s1" target="s2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a2" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s2" target="s3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a3" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s3" target="s4">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a4" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s4" target="s5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a5" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s5" target="s6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a6" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s6" target="s7">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="a7" value="" style="endArrow=block;endFill=1;strokeWidth=2;strokeColor=#555555;" edge="1" parent="1" source="s7" target="s8">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- Phase labels below steps -->
+        <mxCell id="phase-deploy" value="&lt;b&gt;DEPLOY-FIRST PHASE&lt;/b&gt;" style="text;html=1;fontSize=11;fontColor=#1a73e8;align=center;" vertex="1" parent="1">
+          <mxGeometry x="30" y="300" width="155" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="phase-replicate" value="&lt;b&gt;REPLICATION PHASE&lt;/b&gt;" style="text;html=1;fontSize=11;fontColor=#c88400;align=center;" vertex="1" parent="1">
+          <mxGeometry x="585" y="300" width="340" height="25" as="geometry"/>
+        </mxCell>
+        <mxCell id="phase-cutover" value="&lt;b&gt;CUTOVER PHASE&lt;/b&gt;" style="text;html=1;fontSize=11;fontColor=#b85450;align=center;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="300" width="340" height="25" as="geometry"/>
+        </mxCell>
+
+        <!-- Timeline bar -->
+        <mxCell id="timeline" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#cccccc;" vertex="1" parent="1">
+          <mxGeometry x="30" y="345" width="1450" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="tl-label" value="&lt;b&gt;Timeline:&lt;/b&gt;  Day 0–1: Provision + Install Agents    |    Day 1–2: Initial Mirror    |    Day 2–N: Continuous Replication (schedule cutover window)    |    Cutover: minutes of downtime" style="text;html=1;fontSize=11;fontFamily=Arial;align=center;" vertex="1" parent="1">
+          <mxGeometry x="30" y="345" width="1450" height="40" as="geometry"/>
+        </mxCell>
+
+        <!-- Key advantages box -->
+        <mxCell id="advantages" value="&lt;b&gt;Why Deploy-First + Carbonite?&lt;/b&gt;&lt;br&gt;• No intermediate Hyper-V staging host — single hop directly to Azure Local&lt;br&gt;• Hypervisor-independent — works regardless of AHV version, ESXi, or bare metal&lt;br&gt;• Source VMs remain live throughout — no scheduled downtime during replication&lt;br&gt;• Right-size and modernise OS at migration time — start clean on Azure Local&lt;br&gt;• Near-zero cutover downtime — minutes, not hours" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e8f0fe;strokeColor=#1a73e8;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="30" y="420" width="700" height="130" as="geometry"/>
+        </mxCell>
+
+        <!-- When NOT to use box -->
+        <mxCell id="when-not" value="&lt;b&gt;When NOT to use Carbonite (use Veeam or HYCU instead):&lt;/b&gt;&lt;br&gt;• You need hypervisor-level image capture (exact VM state clone)&lt;br&gt;• VMs with complex application state that requires hypervisor-consistent snapshots&lt;br&gt;• Large-scale batch automation is already built around Veeam replication jobs&lt;br&gt;• You have existing Veeam B&amp;R licensing — use what you already have" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;align=left;spacingLeft=10;" vertex="1" parent="1">
+          <mxGeometry x="770" y="420" width="710" height="130" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

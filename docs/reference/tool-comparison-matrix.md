@@ -6,19 +6,19 @@
 
 ## Primary Tool Comparison
 
-| Aspect | **Veeam B&R** | **HYCU** | **Azure Migrate (Direct)** |
+| Aspect | **Veeam B&R** | **HYCU** | **Carbonite Migrate** |
 |--------|:---:|:---:|:---:|
 | Source: Nutanix AHV | ✅ | ✅ | ✅ |
-| Source: Nutanix ESXi | ✅ | ✅ | ❌ |
-| Deployment | Windows Server | Linux appliance on cluster | Azure-hosted |
-| Agent on source VMs | ❌ (agentless) | ❌ (agentless) | ❌ (agentless) |
+| Source: Nutanix ESXi | ✅ | ✅ | ✅ |
+| Deployment | Windows Server | Linux appliance on cluster | Agent on each VM |
+| Agent on source VMs | ❌ (agentless) | ❌ (agentless) | ✅ Required |
 | Separate backup storage | ❌ Not needed | ✅ Required | ❌ Not needed |
 | Live/continuous replication | ✅ Yes | ❌ Backup-based | ✅ Yes |
-| Built-in re-IP | ✅ Yes | ❌ Script required | ❌ No |
-| Platform overhead/complexity | Medium | Low | Very Low |
-| License cost | Paid | Paid | **Free** |
+| Built-in re-IP | ✅ Yes | ❌ Script required | ❌ DNS/LB update at cutover |
+| Platform overhead/complexity | Medium | Low | Low |
+| License cost | Paid | Paid | Paid |
 | Concurrency (est.) | 10–20 VMs | 5–10 VMs | 10–20 VMs |
-| Management UI | Desktop + Web | Web (HTTPS) | Azure portal |
+| Management UI | Desktop + Web | Web (HTTPS) | Carbonite console |
 
 ## When to Choose Each Tool
 
@@ -26,9 +26,7 @@
 |------|------------|
 | **Veeam B&R** | Large VM counts (> 100), existing Veeam license, ESXi source, need built-in re-IP |
 | **HYCU** | AHV source, no existing tool license, team prefers simple web UI, backup compliance also needed |
-| **Azure Migrate (direct)** | Have Prism Central, want zero separate tools, cloud-native approach |
-| **Zerto** | Already have Zerto for DR, near-zero RPO required, want single-tool DR+migration |
-| **Carbonite** | Hypervisor-independent requirement, very old AHV versions, OS-level replication preferred |
+| **Carbonite** | Hypervisor-independent requirement, very old AHV versions, OS-level replication preferred, deploy-first pattern |
 | **Deploy-First** | OS refresh needed, stateless workloads, file server data migration only |
 
 ## Staging Option Comparison

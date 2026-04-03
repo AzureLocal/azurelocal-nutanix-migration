@@ -35,6 +35,56 @@
 4. **Cutover**: Point DNS/load balancers to the new Azure Local VM
 5. **Decommission** source Nutanix VM after validation
 
+## Carbonite Migrate
+
+[Carbonite Migrate](https://www.carbonite.com/business/products/carbonite-migrate/) (formerly DoubleTake) is an OS-level agent-based migration tool. An agent is installed on each source VM and continuously replicates changed data to the target VM on Azure Local. Because it operates entirely at the OS level, it has no dependency on the source hypervisor — Nutanix AHV, VMware, Hyper-V, bare metal, it does not matter.
+
+| Aspect | Detail |
+|--------|--------|
+| Source | Any OS (Windows, Linux) on any hypervisor |
+| Target | Hyper-V, Azure Local |
+| Agent required | Yes — installed on source VMs |
+| Replication | Continuous, live block-level replication |
+| Cutover | Near-zero downtime — final sync + cutover |
+| Advantage | Hypervisor-independent; works on any OS version |
+
+### When to Use Carbonite
+
+- Source VMs are on Nutanix AHV and you cannot use Veeam or HYCU agentless replication
+- Source hypervisor is unsupported or end-of-life
+- You need continuous replication with minimal cutover downtime
+- Mixed-OS environments (Windows and Linux in the same migration wave)
+
+### How It Works
+
+1. **Install the Carbonite Migrate agent** on each source VM (Windows or Linux)
+2. **Install the Carbonite Migrate agent** on each target VM that has already been provisioned on Azure Local (deploy-first — new VM, clean OS)
+3. **Create a migration job** in the Carbonite Migrate console pairing source → target
+4. **Initial mirror**: Carbonite performs a full block-level sync from source to target — this runs in the background without interrupting the source VM
+5. **Continuous replication**: After the initial mirror, Carbonite tracks and ships changed blocks in real time, keeping target in sync
+6. **Cutover**: When ready, initiate cutover from the Carbonite console. Carbonite sends a final delta sync, then cuts over the target VM. Downtime is limited to the final sync window — typically minutes
+7. **Validate** the target VM on Azure Local, then decommission the source on Nutanix
+
+### Prerequisites
+
+- Carbonite Migrate license (contact [Carbonite/OpenText sales](https://www.carbonite.com/business/products/carbonite-migrate/))
+- Network connectivity from source Nutanix AHV VMs to target Azure Local VMs (ports 6325 TCP, 6326 TCP)
+- Target VMs pre-provisioned on Azure Local with matching OS version — this is the deploy-first step
+- Agent installation rights on source VMs (local admin on Windows, root/sudo on Linux)
+
+### Supported OS
+
+| OS | Versions |
+|----|----------|
+| Windows Server | 2012 R2, 2016, 2019, 2022 |
+| Windows (client) | Not supported for server migrations |
+| Linux | RHEL/CentOS 7+, SLES 12+, Ubuntu 18.04+ |
+
+### Resources
+
+- [Carbonite Migrate product page](https://www.carbonite.com/business/products/carbonite-migrate/)
+- [Carbonite Migrate documentation](https://www.carbonite.com/support/)
+
 ## Resources
 
 - [Storage Migration Service overview](https://learn.microsoft.com/en-us/windows-server/storage/storage-migration-service/overview)

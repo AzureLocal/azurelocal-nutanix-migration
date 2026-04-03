@@ -52,8 +52,6 @@ nav:
           - Validation & Checklist: scenarios/02-hycu/validation.md
       - Deploy-First Migration:
           - Overview: scenarios/03-deploy-first/index.md
-      - Additional Scenarios:
-          - Overview: scenarios/05-additional/index.md
   - Proof of Concept:
       - Overview: poc/index.md
       - Test Matrix: poc/test-matrix.md
