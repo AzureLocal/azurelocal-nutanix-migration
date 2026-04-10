@@ -65,10 +65,14 @@ Initial full backup time varies with VM disk size and backup target bandwidth (t
 
 ---
 
-## Section 3 — Cutover Procedure (Per Batch)
+## Section 3 — Hop 1 Cutover Procedure (Per Batch)
 
 !!! warning "Do not delete source VMs"
-    Source Nutanix VMs are your rollback point. Do NOT decommission them until the batch is fully validated on Azure Local.
+    Source Nutanix VMs are your rollback point. Do **NOT** decommission them until the batch is fully validated on Azure Local.
+
+!!! info "Hop 1 downtime starts at VM power-off and ends when the restored VM is running and validated on Hyper-V"
+    Typical Hop 1 downtime: **30 minutes to 4+ hours per VM** depending on disk size and storage throughput.
+    Plan approximately **1 hour per 200 GB of VM used disk** at 10 GbE speeds. Establish your baseline in the PoC.
 
 ### 3.1 Pre-Cutover
 
@@ -91,15 +95,22 @@ Initial full backup time varies with VM disk size and backup target bandwidth (t
 ### 3.3 Re-IP After Restore (If Subnets Differ)
 
 !!! info "HYCU does not have built-in re-IP rules"
-    Unlike Veeam, HYCU does not inject new IP addresses during restore. If your Hyper-V staging network uses different subnets, use the PowerShell helper in `src/02-hycu/powershell/Set-VMIPAddress.ps1` to update IPs post-restore.
+    Unlike Veeam, HYCU does not inject new IP addresses during restore. If your Hyper-V staging network uses different subnets, apply IP changes immediately after the VM boots on Hyper-V — before running the validation checks or proceeding to Hop 2.
 
 ```powershell
-# Example: Update IP post-restore
+# Example: Update IP post-restore (Windows)
 Set-NetIPAddress -InterfaceAlias "Ethernet" -IPAddress "10.0.2.50" -PrefixLength 24
 Set-DnsClientServerAddress -InterfaceAlias "Ethernet" -ServerAddresses "10.0.0.10"
 ```
 
-### 3.4 Rollback (If Needed)
+For Linux VMs, update `/etc/netplan/*.yaml` or the appropriate network config file for the distro.
+
+### 3.4 Hop 1 Completion Gate
+
+!!! danger "Stop here — do not proceed to Hop 2 until all Hop 1 validation checks pass"
+    See [Hop 1 Go / No-Go Sign-off](validation.md#hop-1-go--no-go-sign-off) for the full checklist. Each VM must be independently validated.
+
+### 3.5 Rollback (If Needed)
 
 If Hyper-V validation fails:
 
@@ -110,47 +121,75 @@ If Hyper-V validation fails:
 
 ---
 
-## Section 4 — Azure Migrate Setup
+## Section 4 — Azure Migrate Setup (Hop 2)
 
-Same as the Veeam path — Azure Migrate is independent of the Hop 1 tool:
+!!! note "Azure Migrate for Azure Local is in Preview"
+    The native Hyper-V → Azure Local migration path via Azure Migrate uses a **dual appliance** architecture and is currently **in Preview** (requires Azure Local 2503+). Both a **source appliance** (on the Hyper-V host) and a **target appliance** (on the Azure Local cluster) are required. Data does not leave your datacenter.
 
-### 4.1 Create Azure Migrate Project
+### 4.1 Prepare Azure Local Prerequisites
+
+Before deploying appliances, confirm on the Azure Local cluster:
+
+1. Azure Local instance deployed, Arc-registered, and healthy
+2. A **custom storage path** created for the Arc resource bridge (VM configuration and OS disks)
+3. A **logical network** created for the Arc resource bridge for migrated VMs
+4. Contributor + User Access Administrator roles granted on the subscription for the Azure Migrate project
+
+### 4.2 Create Azure Migrate Project
 
 1. Azure portal → **Azure Migrate** → **Create Project**
 2. Project name: use IIC naming (e.g., `nutanix-to-azl-migration`)
 3. Subscription: tied to Azure Local cluster registration
 4. Resource Group: `rg-iic-migration-01`
 
-### 4.2 Deploy Azure Migrate Appliance
+### 4.3 Deploy the Source Appliance (Hyper-V Host)
 
-1. Azure Migrate → **Discover** → select **Hyper-V**
-2. Download and deploy the appliance VHD on the Hyper-V staging host (**8 GB RAM, 4 vCPU**)
-3. Configure via browser wizard — register with project key
-4. Add Hyper-V host credentials; start discovery
+1. Azure Migrate → **Discover** → select **Hyper-V** and **Azure Local** as the target
+2. Download the Azure Migrate **source appliance** VHD (**16 GB RAM, 8 vCPU, 80 GB disk**)
+3. Create a VM on the Hyper-V staging host using this VHD
+4. Boot and configure via browser wizard on port 44368
+5. Register with the Azure Migrate project key
+6. Add Hyper-V host credentials; start discovery
+
+### 4.4 Deploy the Target Appliance (Azure Local Cluster)
+
+1. In Azure Migrate project → **Deploy target appliance**
+2. Download and deploy the Azure Migrate **target appliance** on the Azure Local cluster
+3. Register the target appliance with the same project key
+4. Associate with the Azure Local custom location, storage path, and logical network
+5. Verify both appliances show as **Connected** in the Azure Migrate portal
 
 ---
 
-## Section 5 — Azure Migrate Replication and Cutover
+## Section 5 — Azure Migrate Replication and Cutover (Hop 2)
+
+!!! info "Hop 2 downtime starts when VMs are shut down for final delta sync and ends when Azure Local VMs pass validation"
+    Typical cutover downtime: **30–60 minutes per batch** of 10 VMs.
 
 ### 5.1 Start Replication
 
 1. Azure Migrate → **Replicate** → Source: Hyper-V | Target: Azure Local
-2. Select Azure Local cluster + target CSV volume
-3. Select the 10 restored VMs; set target VM names (original names); set virtual switch
-4. Click **Replicate** — wait for **Protected** state
+2. Select Azure Local cluster, custom storage path, and logical network
+3. Select the 10 restored Hyper-V VMs; set target VM names (original names); set virtual switch
+4. Click **Replicate** — wait for **Protected** state (initial replication runs in background; VMs stay running on Hyper-V)
 
 ### 5.2 Test Migration
 
 1. Select all 10 VMs → **Test Migration** → select isolated test network
-2. Validate all VMs (see [Validation section](validation.md))
+2. Validate all VMs (see [Hop 2 Validation](validation.md#hop-2-validation--azure-local))
 3. **Clean up test migration** after validation
 
 ### 5.3 Production Cutover
 
+!!! info "Downtime begins here for Hop 2"
+    Azure Migrate shuts down the Hyper-V VMs, performs a final delta sync, then creates Azure Local VMs. Expected time: **30–60 minutes per batch of 10 VMs**.
+
 1. Select all 10 VMs → **Migrate**
-2. Azure Migrate performs a final delta sync and creates Azure Local VMs on Azure Local
-3. Confirm VMs visible in Azure portal as Azure Local VMs
-4. Click **Complete Migration**
+2. Toggle **Shutdown VMs before migration** = **Yes**
+3. Azure Migrate performs final delta sync and creates Azure Local VMs
+4. Confirm VMs are visible in Azure portal as Azure Local VMs
+5. Validate (see [Hop 2 Validation](validation.md#hop-2-validation--azure-local))
+6. Click **Complete Migration**
 
 ---
 

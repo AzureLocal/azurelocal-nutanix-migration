@@ -8,12 +8,25 @@
 
 | Component | Requirement |
 |-----------|-------------|
-| **HYCU License** | Per-VM or per-socket subscription required. Contact your HYCU account representative for trial or production licenses. |
+| **HYCU License** | Per-VM subscription license required. HYCU licenses each protected VM. Contact your HYCU account representative or visit [hycu.com](https://www.hycu.com) for pricing. A **trial license** is available for PoC use. Licenses are applied in the HYCU web console (port 8443) after deployment. |
+| **HYCU version** | The current product is **HYCU Protege** (also marketed as R-Cloud for on-premises deployments). Verify compatibility between your HYCU version and Nutanix AOS version before deployment. |
 | **Azure Local** | Valid Azure Local subscription with Azure integration enabled |
-| **Azure Migrate** | No additional license — included with Azure subscription |
+| **Azure Migrate (for Azure Local)** | No additional license — included with Azure subscription. The Hyper-V → Azure Local migration feature is currently **in Preview** (requires Azure Local 2503+). |
 
 !!! warning "Confirm licensing before starting"
-    HYCU backup jobs will fail without a valid license. Obtain a trial license from [hycu.com](https://www.hycu.com) before deploying.
+    HYCU backup jobs will fail without a valid license applied. Obtain a trial license or production license from [hycu.com](https://www.hycu.com) before deploying the controller VM.
+
+---
+
+## Estimated Downtime Per VM
+
+| Hop | Scenario | Typical VM Downtime |
+|-----|----------|--------------------|
+| Hop 1 | HYCU backup + restore to Hyper-V | **30 minutes to 4+ hours** per VM (restore time dominates; depends on VM disk size and storage throughput at ~500 MB/s typical) |
+| Hop 2 | Azure Migrate cutover to Azure Local | **30–60 minutes** per batch of 10 VMs (final delta + Azure Local VM creation + first boot) |
+
+!!! info "Estimating Hop 1 restore time"
+    Plan approximately **1 hour per 200 GB of used VM disk** at typical 10 GbE network speeds. Test with representative VMs in the PoC to establish your baseline. HYCU does not offer Instant Recovery equivalent for Hyper-V targets, so restore time is not avoidable.
 
 ---
 
@@ -92,9 +105,10 @@ HYCU requires a dedicated backup target to store VM backups before restoring to 
 
 === "Nutanix AHV"
 
-    - Prism Element accessible over HTTPS (TCP 9440) from the HYCU controller VM
+    - Prism Element accessible over **HTTPS (TCP 9440)** from the HYCU controller VM
     - A Nutanix account with **Cluster Admin** privileges on Prism
     - HYCU controller VM must have IP connectivity to the Nutanix cluster management network
+    - No additional proxy VM is deployed — HYCU communicates directly with AHV cluster APIs
 
 === "Nutanix ESXi"
 
@@ -108,15 +122,18 @@ HYCU requires a dedicated backup target to store VM backups before restoring to 
 
 | Item | Owner |
 |------|-------|
-| HYCU controller VM deployed on Nutanix cluster | Infrastructure |
-| HYCU licensed and activated | Infrastructure |
-| Nutanix AHV cluster added as HYCU source | Infrastructure |
-| HYCU backup target configured and tested | Infrastructure |
-| Hyper-V host registered as HYCU restore target | Infrastructure |
+| HYCU controller VM deployed on AHV cluster (4 vCPU / 8 GB RAM / static IP) | Infrastructure |
+| HYCU licensed and activated (license key applied in web console port 8443) | Infrastructure |
+| Nutanix AHV/ESXi cluster added as HYCU source; all VMs discovered | Infrastructure |
+| HYCU backup target configured and tested (SMB/NFS/S3 with sufficient capacity) | Infrastructure |
+| Hyper-V staging host registered as HYCU restore target | Infrastructure |
+| Re-IP script prepared and tested (only if staging subnet differs from source) | Infrastructure |
 | Azure Migrate project created | Cloud |
-| Azure Migrate appliance deployed and registered | Cloud |
-| Azure Local cluster healthy, Arc-registered, CSV capacity verified | Infrastructure |
+| Azure Migrate **source appliance** deployed on Hyper-V host and registered (Preview) | Cloud |
+| Azure Migrate **target appliance** deployed on Azure Local and registered (Preview) | Cloud |
+| Azure Local custom storage path and logical network created for Arc resource bridge | Infrastructure |
+| Azure Local cluster healthy, Arc-registered, capacity verified | Infrastructure |
+| BitLocker disabled on all source Windows VMs | Infrastructure |
 | All network ports open between components | Networking |
-| VM inventory complete — sorted into batches | Migration Lead |
+| VM inventory sorted into batches of ≤10 | Migration Lead |
 | IP/VLAN mapping spreadsheet complete | Networking |
-| Re-IP script prepared if subnets differ | Infrastructure |

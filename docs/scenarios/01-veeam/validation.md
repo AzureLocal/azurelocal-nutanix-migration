@@ -4,7 +4,42 @@
 
 ---
 
-## Hop 1 Validation — Hyper-V Staging
+## Hop 1 Go / No-Go Sign-off
+
+!!! danger "Do not proceed to Hop 2 until every VM in this batch passes every check below"
+    The Hyper-V staging host is your last rollback point before Azure Migrate consumes the VMs. Once Hop 2 replication starts and succeeds, rolling back to Nutanix requires restoring from backup.
+
+After Veeam failover or restore, sign off on **each VM individually** before committing the batch to Hop 2:
+
+| Check | Command / Method | Expected Result | Signed off |
+|-------|-----------------|-----------------|------------|
+| VM boots and stays running | Hyper-V Manager — check VM state | Running (not Paused or Off) | ☐ |
+| Network connectivity to gateway | `ping <gateway-ip>` from inside VM | Successful | ☐ |
+| Correct IP address assigned | `ipconfig /all` (Windows) / `ip addr` (Linux) | Matches planned IP | ☐ |
+| DNS resolution (forward) | `nslookup <hostname>` | Resolves to correct IP | ☐ |
+| DNS resolution (reverse) | `nslookup <vm-ip>` | Resolves to correct hostname | ☐ |
+| AD domain membership | `Test-ComputerSecureChannel` (Windows) | True | ☐ |
+| Can reach domain controllers | `nltest /sc_query:<domain>` | Success | ☐ |
+| All critical services running | `Get-Service` / `systemctl status` | Expected services active | ☐ |
+| Application smoke test | Browser / curl / DB query / ping app port | Expected response | ☐ |
+| Can communicate back to source network | Ping dependent servers / databases by hostname | Successful | ☐ |
+| Disk integrity | Check Event Viewer (Windows) or `dmesg` (Linux) | No disk errors | ☐ |
+| Re-IP applied correctly (if applicable) | `ipconfig /all` / DNS check | New IP active, DNS updated | ☐ |
+
+**Batch Hop 1 Sign-off:**
+
+| Field | Value |
+|-------|-------|
+| Batch | |
+| VMs in batch | |
+| Date / Time completed | |
+| All checks passed? | ☐ Yes — proceed to Hop 2  ☐ No — rollback |
+| Sign-off by | |
+| Application owner confirmation | |
+
+---
+
+## Hop 1 Validation — Hyper-V Staging (Detail)
 
 After Veeam failover, validate each VM before committing:
 

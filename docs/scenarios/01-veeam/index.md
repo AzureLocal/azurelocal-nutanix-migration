@@ -8,22 +8,32 @@
 
 The Veeam migration path uses a two-hop architecture:
 
-1. **Hop 1 — Veeam B&R**: Replicates VMs from Nutanix (AHV or ESXi) to an on-premises Hyper-V staging host. Veeam performs live replication, keeping replicas continuously in sync with the source until cutover. Disk format is automatically converted to VHDX.
-2. **Hop 2 — Azure Migrate**: Discovers the staged Hyper-V VMs and migrates them to Azure Local as Azure Local VMs.
+1. **Hop 1 — Veeam B&R**:
+    - **AHV source**: Backs up VMs from Nutanix AHV to a Veeam backup repository, then uses Instant Recovery or full restore to Hyper-V. Disk format is automatically converted to VHDX. Frequent incrementals keep backups current; Instant Recovery to Hyper-V can bring a VM up within 15–30 minutes of source shutdown.
+    - **ESXi source**: Replicates VMs directly to the Hyper-V staging host using VMware CBT. The Hyper-V replica stays continuously in sync until cutover — true live replication with the lowest possible RPO.
+2. **Hop 2 — Azure Migrate**: Discovers the Hyper-V VMs on staging and replicates them to Azure Local using the Azure Migrate for Azure Local appliance pair. Currently in Preview for Azure Local 2503+.
 
 ```
-Nutanix AHV/ESXi  ──[Veeam replication]──►  Hyper-V Staging  ──[Azure Migrate]──►  Azure Local
+Nutanix AHV   ──[Veeam backup + Instant Recovery]──►  Hyper-V Staging  ──[Azure Migrate]──►  Azure Local
+Nutanix ESXi  ──[Veeam live replication]           ──►  Hyper-V Staging  ──[Azure Migrate]──►  Azure Local
 ```
+
+!!! info "Expected downtime per VM"
+    **Hop 1 AHV (Instant Recovery path):** 15–30 minutes per VM (source shutdown → VM live on Hyper-V).
+    **Hop 1 AHV (Full Restore path):** 1–4 hours per VM depending on size and storage throughput.
+    **Hop 1 ESXi (Replication):** 15–30 minutes per batch (final delta sync + failover).
+    **Hop 2 (Azure Migrate cutover):** 30–60 minutes per batch of 10 VMs (final delta + Azure Local VM creation).
 
 ## Why Veeam?
 
 | Advantage | Details |
 |-----------|---------|
-| Live replication | Replicas stay continuously in sync — lowest possible RPO at cutover |
-| Built-in re-IP | Re-IP rules fire automatically when VMs fail over to Hyper-V |
-| Batch control | Fine-grained control over which VMs replicate simultaneously |
-| Mature AHV support | Native Prism API integration with automatic AHV proxy deployment |
-| Existing investment | Reuses existing Veeam Universal Licenses if you already own them |
+| Instant Recovery to Hyper-V (AHV) | AHV VMs can be running on Hyper-V within 15–30 min of source shutdown using Instant Recovery |
+| Live replication (ESXi) | ESXi replicas stay continuously in sync — lowest possible RPO at cutover |
+| Built-in re-IP | Re-IP rules fire automatically when VMs fail over to Hyper-V (ESXi) or post-restore (AHV) |
+| Batch control | Fine-grained control over which VMs are processed simultaneously |
+| Integrated AHV plugin | Native Prism API integration built into Veeam B&R v12.2+ — no separate installer |
+| Existing investment | Reuses Veeam Data Platform VUL instances if you already own them |
 
 ## Scenario Pages
 
@@ -36,7 +46,9 @@ Nutanix AHV/ESXi  ──[Veeam replication]──►  Hyper-V Staging  ──[Az
 
 === "Nutanix AHV"
 
-    Veeam connects to **Prism Element** via HTTPS (TCP 443). It automatically deploys a temporary **AHV Backup Proxy VM** on the Nutanix cluster to handle snapshot reads and data transfer. The proxy requires 4 vCPU and 8 GB RAM on the cluster.
+    Veeam connects to **Prism Element or Prism Central** via HTTPS (TCP **9440**). Starting with Veeam B&R 12.2, the AHV plug-in is integrated — no separate installer needed. Veeam deploys a **Worker VM** on the Nutanix cluster (default: 6 vCPU, 6 GB RAM, 100 GB disk) to process backup workloads. Requires Nutanix AOS **6.8.1.6 or later**.
+
+    The Hop 1 migration mechanism for AHV is **backup-based**: Veeam creates application-consistent backups with frequent incrementals. At cutover, you use **Instant Recovery to Hyper-V** (VM up in ~15 min, data migrated in background) or **Full VM Restore to Hyper-V** (slower but immediately on local HV storage).
 
 === "Nutanix ESXi"
 

@@ -4,6 +4,41 @@
 
 ---
 
+## Hop 1 Go / No-Go Sign-off
+
+!!! danger "Do not proceed to Hop 2 until every VM in the batch achieves a Go status"
+    Each VM must be individually reviewed. If **any** item is a No-Go, the VM must be remediated or rolled back before the batch is considered complete.
+
+| Check | Validation Method | Pass Criteria (Go) | Fail Action (No-Go) |
+|-------|-------------------|--------------------|---------------------|
+| VM boots and stays running | Hyper-V Manager | Running stable for 5+ min | Rollback to Nutanix |
+| Correct IP address assigned | `ipconfig /all` / `ip addr` | Expected IP (or correct re-IPed address) | Re-apply IP via netplan/netsh |
+| Default gateway reachable | `ping <gateway>` | Replies received | Check vSwitch, VLAN, NIC binding |
+| DNS resolution (forward) | `nslookup <hostname>` | Correct A record returned | Flush DNS cache, check DNS server setting |
+| DNS resolution (reverse) | `nslookup <ip>` | Correct PTR record returned | Update DNS PTR or notify DNS admin |
+| AD domain membership | `Test-ComputerSecureChannel` (Windows) | True | Re-join domain if needed |
+| Domain controller reachable | `nltest /sc_verify:<domain>` | Success | Check firewall, DNS, network routing |
+| Core services running | `Get-Service` / `systemctl status` | Expected services Active | Review event logs; start or fix services |
+| Application smoke test | Browser / curl / DB connection | Expected response | Engage app team; don't proceed |
+| Can communicate to source network | Ping source cluster gateway or a Nutanix VM IP | Replies received | Verify routing between staging and source VLANs |
+| No disk errors in logs | Event Viewer / `dmesg` | Clean | Investigate; may indicate incomplete restore |
+| Disk capacity matches source | `Get-Volume` / `df -h` | Within 5% of source VM | Compare against HYCU restore summary |
+
+### Batch Sign-off
+
+After all VMs in the batch pass the checks above:
+
+```
+Batch: ________________________________
+Date/Time: ____________________________
+Validated by (Engineer): ______________
+Application owner sign-off: ___________
+Approved to proceed to Hop 2: Yes / No
+Notes: ________________________________
+```
+
+---
+
 ## Hop 1 Validation — Hyper-V Staging
 
 After HYCU restore, validate each VM before proceeding to Azure Migrate:

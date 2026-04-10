@@ -1,6 +1,6 @@
 # Deploy-First Runbook (Carbonite Migrate)
 
-> Step-by-step execution for agent-based OS-level replication from Nutanix to Azure Local using Carbonite Migrate.
+> Step-by-step execution for agent-based OS-level replication from Nutanix to Azure Local using **Carbonite Migrate** (an **OpenText** product). See [Prerequisites](prerequisites.md) for system requirements, licensing, and expected downtime.
 
 ---
 
@@ -34,6 +34,9 @@
 
 ## Phase 4 — Initial mirror
 
+!!! info "Phase 4 has zero downtime — source VM stays online"
+    The initial mirror is a full block-level copy that runs in the background. The source Nutanix VM continues serving workloads during this phase. Do not schedule a maintenance window for the initial mirror.
+
 1. Start the migration job in the Carbonite console
 2. Monitor the initial mirror progress — this is a full block-level copy and may take several hours depending on data volume
 3. Confirm mirror completion is reported healthy in the console
@@ -50,6 +53,9 @@
 4. Schedule the production cutover window with the application owner and change management
 
 ## Phase 6 — Production cutover
+
+!!! warning "Downtime begins here"
+    Typical service disruption: **5–30 minutes** (time from quiescing source writes to target serving traffic). In optimal conditions (low replication lag, fast storage) expect **5–15 minutes**. Confirm replication lag is low before initiating cutover.
 
 1. Notify all stakeholders that the cutover window is active
 2. Quiesce or redirect source application traffic to maintenance mode
