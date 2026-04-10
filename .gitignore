@@ -44,6 +44,9 @@ venv/
 .DS_Store
 Thumbs.db
 
+# TierPoint temp/working files
+tp-temp/
+
 # Logs
 logs/
 *.log
