@@ -1,5 +1,6 @@
 site_name: Nutanix to Azure Local Migration
 site_description: Documentation and automation for migrating workloads from Nutanix AHV and Nutanix ESXi to Azure Local using Veeam, HYCU, Commvault, and deploy-first migration patterns.
+site_author: Azure Local Cloud
 site_url: https://azurelocal.github.io/azurelocal-nutanix-migration/
 repo_url: https://github.com/AzureLocal/azurelocal-nutanix-migration
 repo_name: AzureLocal/azurelocal-nutanix-migration
@@ -124,5 +125,5 @@ extra:
   homepage: https://azurelocal.cloud
 
 copyright: >-
-  Copyright &copy; 2025 Azure Local. Designed and maintained by
+  Copyright &copy; 2026 Azure Local. Designed and maintained by
   <a href="https://www.hybridsolutions.cloud">Hybrid Cloud Solutions</a>.
