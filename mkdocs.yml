@@ -29,6 +29,8 @@ theme:
     - content.code.annotate
     - search.suggest
     - search.highlight
+  logo: assets/images/nutanix-migration-icon.svg
+  favicon: assets/images/nutanix-migration-icon.svg
   icon:
     repo: fontawesome/brands/github
 
