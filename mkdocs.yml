@@ -81,7 +81,6 @@ nav:
       - Network Requirements: reference/network-requirements.md
       - IP Mapping Template: reference/ip-mapping-template.md
       - Glossary: reference/glossary.md
-  - Standards: standards/index.md
   - Contributing: contributing.md
 
 markdown_extensions:
