@@ -44,9 +44,10 @@ After Azure Migrate cutover, repeat all Hop 1 checks plus:
 | After Azure Migrate test migration — issues found | Clean up test VMs; source VMs still safe on Nutanix |
 | After Azure Migrate cutover — issues found | Power source Nutanix VMs back on while target issues are remediated |
 
-!!! danger "Never delete source VMs until holding period expires"
-    Maintain source Nutanix VMs powered off for at least 2-4 weeks after Azure Local validation. Only decommission after the holding period.
-
+> [!CAUTION]
+> **Never delete source VMs until holding period expires**
+> Maintain source Nutanix VMs powered off for at least 2-4 weeks after Azure Local validation. Only decommission after the holding period.
+>
 ---
 
 ## Pre-Migration Checklist

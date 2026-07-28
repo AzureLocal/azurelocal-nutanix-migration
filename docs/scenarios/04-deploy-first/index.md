@@ -4,9 +4,10 @@
 
 ---
 
-!!! note "Scenario Overview"
-    Deploy-First with Carbonite Migrate is the right choice when you need **low-downtime, agent-based OS-level replication** into a pre-provisioned Azure Local VM. Instead of relying on hypervisor-native replication or a two-hop staging path, you build the target VM first, install Carbonite agents on both endpoints, and let Carbonite drive continuous block-level replication until cutover.
-
+> [!NOTE]
+> **Scenario Overview**
+> Deploy-First with Carbonite Migrate is the right choice when you need **low-downtime, agent-based OS-level replication** into a pre-provisioned Azure Local VM. Instead of relying on hypervisor-native replication or a two-hop staging path, you build the target VM first, install Carbonite agents on both endpoints, and let Carbonite drive continuous block-level replication until cutover.
+>
 ## Overview
 
 Deploy-First is a **build-first migration strategy**. The destination VM exists on Azure Local before any migration activity starts. Carbonite Migrate then handles OS-level replication from the Nutanix source directly to the pre-built target — no intermediate staging server, no hypervisor API dependency.

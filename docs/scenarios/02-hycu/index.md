@@ -54,9 +54,10 @@ Nutanix AHV  ──[HYCU backup]──►  HYCU Backup Target  ──[HYCU resto
 | Staging storage | Backup target + Hyper-V staging | Hyper-V staging only |
 | Deployment footprint | Single VM on Nutanix | Windows Server + components |
 
-!!! tip "Start with the PoC"
-    Before migrating production VMs, validate the HYCU path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.
-
+> [!TIP]
+> **Start with the PoC**
+> Before migrating production VMs, validate the HYCU path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.
+>
 ## Alternative approaches
 
 - Compare all four paths in the [Tool Comparison](../../overview/tool-comparison.md)

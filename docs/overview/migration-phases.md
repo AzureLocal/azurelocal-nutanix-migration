@@ -38,9 +38,10 @@ Before any migration work begins:
 - **Dependency Mapping**: Identify inter-VM dependencies. Co-migrate tightly coupled VMs in the same batch.
 - **Stakeholder Alignment**: Get maintenance windows approved. Define rollback criteria.
 
-!!! tip "Start with a PoC"
-    Before migrating production VMs, run the [Proof of Concept](../poc/index.md) plan to validate tool selection and staging option for your specific environment.
-
+> [!TIP]
+> **Start with a PoC**
+> Before migrating production VMs, run the [Proof of Concept](../poc/index.md) plan to validate tool selection and staging option for your specific environment.
+>
 ---
 
 ## Phase 1 — Environment Preparation
@@ -85,9 +86,10 @@ These preparation steps apply to two-hop scenarios with a Hyper-V staging layer.
 5. Fail over or restore the VMs to Hyper-V staging using the selected tool
 6. Proceed to Phase 5
 
-!!! warning "Do not delete source VMs"
-    Source VMs on Nutanix are your rollback point throughout the entire pipeline. Do NOT decommission them until VMs are fully validated on Azure Local.
-
+> [!WARNING]
+> **Do not delete source VMs**
+> Source VMs on Nutanix are your rollback point throughout the entire pipeline. Do NOT decommission them until VMs are fully validated on Azure Local.
+>
 ---
 
 ## Phase 5 — Staging Validation

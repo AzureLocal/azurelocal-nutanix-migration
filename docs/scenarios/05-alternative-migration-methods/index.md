@@ -4,9 +4,10 @@
 
 ---
 
-!!! note "Section Overview"
-    This section covers migration methods that follow the same **deploy-first model** (provision the target VM first), but use lighter-weight approaches suited to workloads where OS-level replication is not needed. These methods are best when the important asset is file data, application state, or a database export — not the source OS instance itself.
-
+> [!NOTE]
+> **Section Overview**
+> This section covers migration methods that follow the same **deploy-first model** (provision the target VM first), but use lighter-weight approaches suited to workloads where OS-level replication is not needed. These methods are best when the important asset is file data, application state, or a database export — not the source OS instance itself.
+>
 ## Methods covered
 
 <div class="grid cards" markdown>

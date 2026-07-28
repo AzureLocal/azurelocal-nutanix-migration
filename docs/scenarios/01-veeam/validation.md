@@ -6,9 +6,10 @@
 
 ## Hop 1 Go / No-Go Sign-off
 
-!!! danger "Do not proceed to Hop 2 until every VM in this batch passes every check below"
-    The Hyper-V staging host is your last rollback point before Azure Migrate consumes the VMs. Once Hop 2 replication starts and succeeds, rolling back to Nutanix requires restoring from backup.
-
+> [!CAUTION]
+> **Do not proceed to Hop 2 until every VM in this batch passes every check below**
+> The Hyper-V staging host is your last rollback point before Azure Migrate consumes the VMs. Once Hop 2 replication starts and succeeds, rolling back to Nutanix requires restoring from backup.
+>
 After Veeam failover or restore, sign off on **each VM individually** before committing the batch to Hop 2:
 
 | Check | Command / Method | Expected Result | Signed off |
@@ -53,9 +54,10 @@ After Veeam failover, validate each VM before committing:
 | Application smoke test | Browser/curl to app URL or DB query | Expected response |
 | Disk integrity | Check Event Viewer or `dmesg` for disk errors | No errors |
 
-!!! tip "Document your baseline"
-    Before starting any migration, record the expected state for each VM (IP, service list, app test URL/query). This becomes your validation checklist post-migration.
-
+> [!TIP]
+> **Document your baseline**
+> Before starting any migration, record the expected state for each VM (IP, service list, app test URL/query). This becomes your validation checklist post-migration.
+>
 ---
 
 ## Hop 2 Validation — Azure Local
@@ -102,9 +104,10 @@ After Azure Migrate cutover, repeat all Hop 1 checks plus:
 | After Commit Failover — Azure Migrate test fails | Power off Azure Local test VMs, restore source AHV VMs from Nutanix snapshots |
 | After Azure Migrate cutover — issues found | Open source AHV VMs (still powered off, not deleted) and power them back on |
 
-!!! danger "Never delete source VMs until holding period expires"
-    Maintain source Nutanix VMs in a powered-off state for a defined holding period (typically 2–4 weeks per batch) after Azure Local validation is complete. Only then decommission them permanently.
-
+> [!CAUTION]
+> **Never delete source VMs until holding period expires**
+> Maintain source Nutanix VMs in a powered-off state for a defined holding period (typically 2–4 weeks per batch) after Azure Local validation is complete. Only then decommission them permanently.
+>
 ---
 
 ## Pre-Migration Checklist

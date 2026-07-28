@@ -13,9 +13,10 @@
 | **Azure Local** | Valid Azure Local subscription with Azure integration enabled |
 | **Azure Migrate (for Azure Local)** | No additional license — included with Azure subscription. The Hyper-V → Azure Local migration feature is currently **in Preview** (requires Azure Local 2503+). |
 
-!!! warning "Confirm licensing before starting"
-    HYCU backup jobs will fail without a valid license applied. Obtain a trial license or production license from [hycu.com](https://www.hycu.com) before deploying the controller VM.
-
+> [!WARNING]
+> **Confirm licensing before starting**
+> HYCU backup jobs will fail without a valid license applied. Obtain a trial license or production license from [hycu.com](https://www.hycu.com) before deploying the controller VM.
+>
 ---
 
 ## Estimated Downtime Per VM
@@ -25,9 +26,10 @@
 | Hop 1 | HYCU backup + restore to Hyper-V | **30 minutes to 4+ hours** per VM (restore time dominates; depends on VM disk size and storage throughput at ~500 MB/s typical) |
 | Hop 2 | Azure Migrate cutover to Azure Local | **30–60 minutes** per batch of 10 VMs (final delta + Azure Local VM creation + first boot) |
 
-!!! info "Estimating Hop 1 restore time"
-    Plan approximately **1 hour per 200 GB of used VM disk** at typical 10 GbE network speeds. Test with representative VMs in the PoC to establish your baseline. HYCU does not offer Instant Recovery equivalent for Hyper-V targets, so restore time is not avoidable.
-
+> [!NOTE]
+> **Estimating Hop 1 restore time**
+> Plan approximately **1 hour per 200 GB of used VM disk** at typical 10 GbE network speeds. Test with representative VMs in the PoC to establish your baseline. HYCU does not offer Instant Recovery equivalent for Hyper-V targets, so restore time is not avoidable.
+>
 ---
 
 ## HYCU Controller VM Requirements

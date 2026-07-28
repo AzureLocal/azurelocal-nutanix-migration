@@ -4,9 +4,10 @@
 
 ---
 
-!!! note "Planning assumption for this path"
-    This documentation models Commvault as a **two-hop path**: protect or copy Nutanix workloads with Commvault, restore them to Hyper-V staging as VHDX-backed VMs, then use Azure Migrate to complete the move to Azure Local. Validate the exact workflow against your Commvault release, licensed modules, and Nutanix integration before production use.
-
+> [!NOTE]
+> **Planning assumption for this path**
+> This documentation models Commvault as a **two-hop path**: protect or copy Nutanix workloads with Commvault, restore them to Hyper-V staging as VHDX-backed VMs, then use Azure Migrate to complete the move to Azure Local. Validate the exact workflow against your Commvault release, licensed modules, and Nutanix integration before production use.
+>
 ## Overview
 
 The Commvault migration path uses a two-hop architecture:
@@ -49,9 +50,10 @@ Nutanix AHV/ESXi  ──[Commvault protect/copy]──►  Commvault Storage  �
 
 This path should be validated with the same batch-oriented discipline used for the other two-hop scenarios. Start with a small wave, confirm storage, restore time, and Azure Migrate behavior, then size batch concurrency for the full program.
 
-!!! tip "Start with the PoC"
-    Before migrating production VMs, validate the Commvault path with a representative pilot set and confirm your release-specific workflow.
-
+> [!TIP]
+> **Start with the PoC**
+> Before migrating production VMs, validate the Commvault path with a representative pilot set and confirm your release-specific workflow.
+>
 ## Alternative approaches
 
 - Compare all four paths in the [Tool Comparison](../../overview/tool-comparison.md)

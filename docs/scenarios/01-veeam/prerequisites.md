@@ -13,9 +13,10 @@
 | **Azure Local** | Valid Azure Local subscription with Azure integration enabled |
 | **Azure Migrate (for Azure Local)** | No additional license — included with Azure subscription. The Hyper-V → Azure Local migration feature is currently **in Preview** (Azure Local 2503+). |
 
-!!! warning "Confirm licensing before starting"
-    Engage your Veeam account team to confirm VUL count and entitlements. Backup jobs fail if license limits are exceeded mid-migration. VUL instances consumed by AHV VMs are released when they are no longer protected by an active backup job, so rolling batch migrations are efficient on license count.
-
+> [!WARNING]
+> **Confirm licensing before starting**
+> Engage your Veeam account team to confirm VUL count and entitlements. Backup jobs fail if license limits are exceeded mid-migration. VUL instances consumed by AHV VMs are released when they are no longer protected by an active backup job, so rolling batch migrations are efficient on license count.
+>
 ---
 
 ## Estimated Downtime Per VM
@@ -27,9 +28,10 @@
 | Hop 1 — ESXi | Replication Failover | **15–30 minutes** per batch (final delta sync + Veeam failover + VM boot) |
 | Hop 2 | Azure Migrate cutover to Azure Local | **30–60 minutes** per batch of 10 VMs (final delta + Azure Local VM creation + first boot) |
 
-!!! tip "Minimising Hop 1 downtime for AHV"
-    Use **Instant Recovery to Hyper-V**: the VM is available on Hyper-V within ~15 min of the final backup completing. Veeam migrates the VHDX data to Hyper-V local storage in the background with no additional disruption to the running workload.
-
+> [!TIP]
+> **Minimising Hop 1 downtime for AHV**
+> Use **Instant Recovery to Hyper-V**: the VM is available on Hyper-V within ~15 min of the final backup completing. Veeam migrates the VHDX data to Hyper-V local storage in the background with no additional disruption to the running workload.
+>
 ---
 
 ## Veeam Server Requirements

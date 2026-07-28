@@ -2,9 +2,10 @@
 
 > Readiness requirements for agent-based OS-level replication from Nutanix to Azure Local using Carbonite Migrate (an **OpenText** product).
 
-!!! info "Product naming"
-    Carbonite Migrate was acquired by **OpenText** (formerly Carbonite, formerly Double-Take Software). You may see it referred to as *OpenText Migrate*, *Carbonite Migrate*, or *Double-Take Move* in older documentation. Current product page: [opentext.com/products/carbonite-migrate](https://www.opentext.com/products/carbonite-migrate). For licensing and procurement, contact your OpenText reseller or Microsoft partner.
-
+> [!NOTE]
+> **Product naming**
+> Carbonite Migrate was acquired by **OpenText** (formerly Carbonite, formerly Double-Take Software). You may see it referred to as *OpenText Migrate*, *Carbonite Migrate*, or *Double-Take Move* in older documentation. Current product page: [opentext.com/products/carbonite-migrate](https://www.opentext.com/products/carbonite-migrate). For licensing and procurement, contact your OpenText reseller or Microsoft partner.
+>
 ---
 
 ## Licensing
@@ -17,9 +18,10 @@
 | Quantity | Count equals the number of **source Nutanix VMs** being migrated (not replicas) |
 | Consumption | Licenses attach to the migration job; once the job is removed after successful cutover, the license can typically be reassigned to the next batch (confirm with your agreement) |
 
-!!! tip "Right-size your license quantity"
-    Because Carbonite does **not** use a Hyper-V staging hop, there is **no Azure Migrate step** in this path. Carbonite replicates directly from the Nutanix source to the pre-provisioned Azure Local target VM. Licenses can be staggered across batches — you do not need to purchase all at once if migrating in waves.
-
+> [!TIP]
+> **Right-size your license quantity**
+> Because Carbonite does **not** use a Hyper-V staging hop, there is **no Azure Migrate step** in this path. Carbonite replicates directly from the Nutanix source to the pre-provisioned Azure Local target VM. Licenses can be staggered across batches — you do not need to purchase all at once if migrating in waves.
+>
 ---
 
 ## Estimated Downtime Per VM
@@ -31,9 +33,10 @@
 | Production cutover (Phase 6) | **5–30 minutes** | Carbonite quiesces source writes, completes final changed-block sync, then transfers workload to target |
 | Typical service disruption | **5–15 minutes** in optimal conditions | Depends on replication lag and application quiesce time |
 
-!!! info "Carbonite has the shortest expected downtime of the three migration paths"
-    Because the source VM stays online throughout the mirror and replication phases, and because Carbonite includes change-block tracking, the only downtime is the final cutover sync. A well-tuned job with low replication lag will cut over in under 10 minutes.
-
+> [!NOTE]
+> **Carbonite has the shortest expected downtime of the three migration paths**
+> Because the source VM stays online throughout the mirror and replication phases, and because Carbonite includes change-block tracking, the only downtime is the final cutover sync. A well-tuned job with low replication lag will cut over in under 10 minutes.
+>
 ---
 
 ## Common prerequisites

@@ -14,9 +14,10 @@ Not every organisation needs a 5-week, three-tool evaluation. Pick the scenario 
 | [**2 — Two-Tool Comparison PoC**](#scenario-2-two-tool-comparison-poc) | Deciding between two options (e.g., Veeam vs HYCU). Run the same workload set through both to compare results side-by-side. | 5–10 | 2–3 weeks | 2 tools |
 | [**3 — Full Three-Tool Evaluation**](#scenario-3-full-three-tool-evaluation) | Open tool selection with no incumbent. Full comparison across all three paths and both staging options. | 15 | 4–5 weeks | 3 tools |
 
-!!! tip "When in doubt, start with Scenario 1"
-    Running any single-tool PoC first gives you real timing baselines and surface-level confidence before expanding scope. If issues arise, it's far cheaper to discover them with 5 VMs than mid-production.
-
+> [!TIP]
+> **When in doubt, start with Scenario 1**
+> Running any single-tool PoC first gives you real timing baselines and surface-level confidence before expanding scope. If issues arise, it's far cheaper to discover them with 5 VMs than mid-production.
+>
 ---
 
 ## Scenario 1 — Single-Tool Quick PoC
@@ -69,9 +70,10 @@ Use this when you are deciding between two migration tools and want objective si
 | Staging option | Use the **same staging option for both tools** — do not mix Option A and Option B or results will not be comparable |
 | Duration | 2–3 weeks (see [3-Week Timeline](timeline.md#3-week-two-tool-comparison)) |
 
-!!! info "Carbonite comparison note"
-    Carbonite (Deploy-First) does **not** use a Hyper-V staging hop — it replicates directly from Nutanix to Azure Local. When comparing Carbonite against Veeam or HYCU, you are comparing different architectures, not just different tools. That is a valid comparison, but frame the evaluation accordingly: Carbonite trades the staging flexibility for potentially lower downtime and fewer moving parts.
-
+> [!NOTE]
+> **Carbonite comparison note**
+> Carbonite (Deploy-First) does **not** use a Hyper-V staging hop — it replicates directly from Nutanix to Azure Local. When comparing Carbonite against Veeam or HYCU, you are comparing different architectures, not just different tools. That is a valid comparison, but frame the evaluation accordingly: Carbonite trades the staging flexibility for potentially lower downtime and fewer moving parts.
+>
 ### Entry Criteria
 
 - [ ] Both tool environments deployed and licensed
@@ -128,9 +130,10 @@ Draw.io source: [poc-execution-decision-flow-six-cell.drawio](../assets/diagrams
 | **HYCU** | Cell **A2** — HYCU → Standalone HV → Azure Migrate → Azure Local | Cell **B2** — HYCU → Azure Local-hosted HV → Azure Migrate |
 | **Carbonite** | Cell **A3** — Carbonite → direct to Azure Local (no staging hop) | Cell **B3** — same as A3; Carbonite has no staging option variable |
 
-!!! note "Carbonite cells in the full matrix"
-    Because Carbonite (Deploy-First) replicates directly from source to Azure Local, Cells A3 and B3 are effectively the same test. Run it once and record it in both columns. Use the second Carbonite run to test a different workload archetype or re-test under different load conditions.
-
+> [!NOTE]
+> **Carbonite cells in the full matrix**
+> Because Carbonite (Deploy-First) replicates directly from source to Azure Local, Cells A3 and B3 are effectively the same test. Run it once and record it in both columns. Use the second Carbonite run to test a different workload archetype or re-test under different load conditions.
+>
 Each cell = **5 VMs**. The same 5-VM workload set per tool is reused across Option A and Option B so staging differences can be compared cleanly.
 
 See the [Test Matrix](test-matrix.md) for the full breakdown of what is tested in each cell.

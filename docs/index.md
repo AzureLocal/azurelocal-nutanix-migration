@@ -2,9 +2,10 @@
 
 ![Nutanix to Azure Local Migration](assets/images/azurelocal-nutanix-migration-banner.svg)
 
-!!! warning "Under Active Development"
-    This repository is a work in progress. Scripts, templates, and automation are not guaranteed to work at this time. Use at your own risk and expect breaking changes.
-
+> [!WARNING]
+> **Under Active Development**
+> This repository is a work in progress. Scripts, templates, and automation are not guaranteed to work at this time. Use at your own risk and expect breaking changes.
+>
 > Documentation and automation for migrating workloads from Nutanix AHV and Nutanix ESXi to Azure Local.
 
 ---

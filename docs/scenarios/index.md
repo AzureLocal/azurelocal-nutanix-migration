@@ -74,12 +74,13 @@ Opening one of the paths above takes you into that product's own documentation s
 - [Tool selection flow](../overview/tool-comparison.md) — decision flowchart for selecting Veeam, HYCU, Commvault, or Deploy-First/Carbonite
 - [Common architecture diagrams](../diagrams/index.md#common-architecture) — two-hop pattern, migration phases, and selection visuals
 
-!!! note "Current focus of this repo"
-    The current documented focus is:
-
-    - **Veeam** as a two-hop replication path
-    - **HYCU** as a two-hop backup/restore path
-    - **Commvault** as a two-hop policy-driven protection and restore path
-    - **Deploy-First** as a build-first path that includes data migration methods and Carbonite as an agent-based option
-
-    Unsupported or removed paths such as direct Azure Migrate from AHV and Zerto are intentionally excluded.
+> [!NOTE]
+> **Current focus of this repo**
+> The current documented focus is:
+>
+> - **Veeam** as a two-hop replication path
+> - **HYCU** as a two-hop backup/restore path
+> - **Commvault** as a two-hop policy-driven protection and restore path
+> - **Deploy-First** as a build-first path that includes data migration methods and Carbonite as an agent-based option
+>
+> Unsupported or removed paths such as direct Azure Migrate from AHV and Zerto are intentionally excluded.

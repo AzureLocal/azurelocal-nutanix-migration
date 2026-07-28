@@ -12,9 +12,10 @@
 | **Azure Local** | Valid Azure Local subscription with Azure integration enabled |
 | **Azure Migrate** | No additional license — included with Azure subscription |
 
-!!! warning "Validate Commvault feature entitlement early"
-    Exact Hop 1 behavior depends on the Commvault release and licensed modules in your estate. Confirm Nutanix or VMware source support, restore-to-Hyper-V workflow, and required worker components before starting the pilot.
-
+> [!WARNING]
+> **Validate Commvault feature entitlement early**
+> Exact Hop 1 behavior depends on the Commvault release and licensed modules in your estate. Confirm Nutanix or VMware source support, restore-to-Hyper-V workflow, and required worker components before starting the pilot.
+>
 ---
 
 ## Core Commvault Components
@@ -65,9 +66,10 @@ The exact Commvault topology varies. This documentation assumes the minimum oper
 | Hyper-V host -> Azure | HTTPS | 443 | Azure Migrate appliance |
 | Azure Migrate appliance -> Azure Local | SMB/HTTPS | 445, 443 | Replication |
 
-!!! note "Version-specific Commvault ports"
-    Additional Commvault inter-service ports vary by release and deployment model. Use the vendor networking guidance for your exact version in addition to the core ports above.
-
+> [!NOTE]
+> **Version-specific Commvault ports**
+> Additional Commvault inter-service ports vary by release and deployment model. Use the vendor networking guidance for your exact version in addition to the core ports above.
+>
 ---
 
 ## Source Requirements

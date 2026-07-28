@@ -62,9 +62,10 @@ Run the same 5-VM workload set through both tools using the same staging option.
 | Comparison-VM-04 | Windows, multi-disk (2–3 disks), AD-joined | ~60+100 GB | Disk mapping + re-IP validation |
 | Comparison-VM-05 | Windows or Linux, stateful, Tier 1 | ~100 GB | Production-representative workload for rollback drill |
 
-!!! tip "Why the same VMs?"
-    Using identical VMs means differences in outcomes are attributable to the tool, not the workload. If you use different VMs per tool, you cannot draw valid comparisons from the timing data.
-
+> [!TIP]
+> **Why the same VMs?**
+> Using identical VMs means differences in outcomes are attributable to the tool, not the workload. If you use different VMs per tool, you cannot draw valid comparisons from the timing data.
+>
 ### Per-Tool Test Record
 
 Run the [Single-Tool Test Checklist](#single-tool-test-checklist) above for each tool independently, recording all metrics separately.
@@ -188,9 +189,10 @@ Scoring guidance: For each metric, note which tool performed better. Count wins.
 **Staging**: None — Carbonite replicates directly from Nutanix source to pre-provisioned Azure Local target VMs
 **VMs**: PoC-VM-11 through PoC-VM-15
 
-!!! info "No Hyper-V hop for Carbonite"
-    The Carbonite path does not use Hyper-V staging or Azure Migrate. The target Azure Local VMs are provisioned first, then Carbonite agents replicate data directly. Azure Migrate is not part of this cell.
-
+> [!NOTE]
+> **No Hyper-V hop for Carbonite**
+> The Carbonite path does not use Hyper-V staging or Azure Migrate. The target Azure Local VMs are provisioned first, then Carbonite agents replicate data directly. Azure Migrate is not part of this cell.
+>
 | Step | Action | Pass/Fail |
 |------|--------|-----------|
 | Target Azure Local VMs provisioned | All 5 target VMs deployed with matching disk layout | |

@@ -93,9 +93,10 @@ Create one job per batch of up to 10 VMs. Follow the appropriate tab for your so
 
 ## Section 3 — Hop 1 Cutover Procedure (Per Batch)
 
-!!! warning "Do not delete source VMs"
-    Source Nutanix VMs are your rollback point. Do **NOT** decommission them until the batch is fully validated on Azure Local.
-
+> [!WARNING]
+> **Do not delete source VMs**
+> Source Nutanix VMs are your rollback point. Do **NOT** decommission them until the batch is fully validated on Azure Local.
+>
 !!! info "Hop 1 downtime starts at VM power-off and ends when the VM is running and validated on Hyper-V"
     AHV (Instant Recovery): typically **15–30 minutes**. AHV (Full Restore): **1–4 hours**. ESXi (Replication): **15–30 minutes**.
 
@@ -175,9 +176,10 @@ After successful Hyper-V validation (see [Hop 1 Go / No-Go Sign-off](validation.
 
 ## Section 4 — Azure Migrate Setup (Hop 2) {#section-4}
 
-!!! note "Azure Migrate for Azure Local is in Preview"
-    The native Hyper-V → Azure Local migration path via Azure Migrate uses a **dual appliance** architecture and is currently in **Preview** (requires Azure Local 2503+). Both a **source appliance** (on the Hyper-V host) and a **target appliance** (on the Azure Local cluster) are required. Data does not leave your datacenter.
-
+> [!NOTE]
+> **Azure Migrate for Azure Local is in Preview**
+> The native Hyper-V → Azure Local migration path via Azure Migrate uses a **dual appliance** architecture and is currently in **Preview** (requires Azure Local 2503+). Both a **source appliance** (on the Hyper-V host) and a **target appliance** (on the Azure Local cluster) are required. Data does not leave your datacenter.
+>
 ### 4.1 Prepare Azure Local Prerequisites
 
 Before deploying appliances, confirm on the Azure Local cluster:
@@ -218,9 +220,10 @@ Before deploying appliances, confirm on the Azure Local cluster:
 
 ## Section 5 — Azure Migrate Replication and Cutover (Hop 2)
 
-!!! info "Hop 2 downtime starts when VMs are shut down for final delta sync and ends when Azure Local VMs pass validation"
-    Typical cutover downtime: **30–60 minutes per batch** of 10 VMs.
-
+> [!NOTE]
+> **Hop 2 downtime starts when VMs are shut down for final delta sync and ends when Azure Local VMs pass validation**
+> Typical cutover downtime: **30–60 minutes per batch** of 10 VMs.
+>
 ### 5.1 Start Replication
 
 1. Azure Migrate → **Migration and Modernization** → **Replicate**
@@ -239,9 +242,10 @@ Before deploying appliances, confirm on the Azure Local cluster:
 
 ### 5.3 Production Cutover
 
-!!! info "Downtime begins here for Hop 2"
-    Azure Migrate shuts down the Hyper-V VM, performs a final delta sync, then creates the Azure Local VM. Expected total time per batch of 10 VMs: **30–60 minutes**.
-
+> [!NOTE]
+> **Downtime begins here for Hop 2**
+> Azure Migrate shuts down the Hyper-V VM, performs a final delta sync, then creates the Azure Local VM. Expected total time per batch of 10 VMs: **30–60 minutes**.
+>
 1. Select all 10 VMs → **Migrate**
 2. Toggle **Shutdown VMs before migration** = **Yes** to ensure no data loss
 3. Azure Migrate performs a final delta sync and creates Azure Local VMs on Azure Local

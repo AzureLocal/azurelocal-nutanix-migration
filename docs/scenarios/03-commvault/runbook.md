@@ -4,9 +4,10 @@
 
 ---
 
-!!! note "UI labels vary by Commvault release"
-    Exact screen names and workflow labels differ between Command Center, legacy consoles, and specific Commvault feature packs. Treat the steps below as the execution pattern to implement, then map them to your current UI.
-
+> [!NOTE]
+> **UI labels vary by Commvault release**
+> Exact screen names and workflow labels differ between Command Center, legacy consoles, and specific Commvault feature packs. Treat the steps below as the execution pattern to implement, then map them to your current UI.
+>
 ## Section 1 — Prepare the Commvault Environment
 
 1. Confirm Commvault licensing covers the required Nutanix or VMware source workflow
@@ -43,9 +44,10 @@
 
 ## Section 5 — Cut Over to Hyper-V Staging
 
-!!! warning "Do not delete source VMs"
-    Source Nutanix VMs remain the rollback point until Azure Local validation is complete.
-
+> [!WARNING]
+> **Do not delete source VMs**
+> Source Nutanix VMs remain the rollback point until Azure Local validation is complete.
+>
 1. Notify stakeholders and start the maintenance window
 2. Trigger the final incremental protection or copy job
 3. Power off the source VMs on Nutanix

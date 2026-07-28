@@ -18,12 +18,13 @@ Nutanix AHV   ──[Veeam backup + Instant Recovery]──►  Hyper-V Staging 
 Nutanix ESXi  ──[Veeam live replication]           ──►  Hyper-V Staging  ──[Azure Migrate]──►  Azure Local
 ```
 
-!!! info "Expected downtime per VM"
-    **Hop 1 AHV (Instant Recovery path):** 15–30 minutes per VM (source shutdown → VM live on Hyper-V).
-    **Hop 1 AHV (Full Restore path):** 1–4 hours per VM depending on size and storage throughput.
-    **Hop 1 ESXi (Replication):** 15–30 minutes per batch (final delta sync + failover).
-    **Hop 2 (Azure Migrate cutover):** 30–60 minutes per batch of 10 VMs (final delta + Azure Local VM creation).
-
+> [!NOTE]
+> **Expected downtime per VM**
+> **Hop 1 AHV (Instant Recovery path):** 15–30 minutes per VM (source shutdown → VM live on Hyper-V).
+> **Hop 1 AHV (Full Restore path):** 1–4 hours per VM depending on size and storage throughput.
+> **Hop 1 ESXi (Replication):** 15–30 minutes per batch (final delta sync + failover).
+> **Hop 2 (Azure Migrate cutover):** 30–60 minutes per batch of 10 VMs (final delta + Azure Local VM creation).
+>
 ## Why Veeam?
 
 | Advantage | Details |
@@ -58,9 +59,10 @@ Nutanix ESXi  ──[Veeam live replication]           ──►  Hyper-V Stagin
 
 This scenario is documented with a **~300 VM / 30-batch** reference scale (IIC environment). Adjust batch sizes and timeline estimates for your actual VM count.
 
-!!! tip "Start with the PoC"
-    Before migrating production VMs, validate the Veeam path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.
-
+> [!TIP]
+> **Start with the PoC**
+> Before migrating production VMs, validate the Veeam path in the [Proof of Concept plan](../../poc/index.md) using 5–10 representative VMs.
+>
 ## Alternative approaches
 
 - Compare all four paths in the [Tool Comparison](../../overview/tool-comparison.md)
