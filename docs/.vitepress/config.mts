@@ -1,10 +1,12 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  ignoreDeadLinks: true,
   base: '/azurelocal-nutanix-migration/',
-  title: "azurelocal-nutanix-migration Documentation",
+  title: "Nutanix to Azure Local Migration",
   description: "Governed centrally by HCS Platform Engineering standards",
   themeConfig: {
+    logo: '/assets/images/azurelocal-nutanix-migration-icon.svg',
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Architecture', link: '/architecture' },
@@ -27,5 +29,6 @@ export default defineConfig({
     }
   }
 })
+
 
 
